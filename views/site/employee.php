@@ -6,24 +6,30 @@
         <th>Отчество</th>
         <th>Сектор</th>
         <th>Категория по структуре отдела</th>
-<? foreach ($emp as $employee) {?>
-<tr>
-    <td align="center">
-    <?=$employee->last_name?>
-    </td>
-    <td align="center">
-    <?=$employee->first_name?>
-    </td>
-    <td align="center">
-        <?=$employee->middle_name?>
-    </td>
-    <td align="center">
-        <?=$employee->department_id?>
-    </td>
-    <td  align="center">
-        <?=$employee->sector_id?></td>
-    </td>
-</tr>
+        <? foreach ($yui as $value) { ?>
+    <tr>
+        <td align="center">
+            <?= $value->id ?>
+        </td>
+        <td align="center">
+            <?= $value->last_name ?>
+        </td>
+        <td align="center">
+            <?= $value->first_name ?>
+        </td>
+        <td align="center">
+            <?= $value->middle_name ?>
+        </td>
+        <td align="center">
+            <?= $value->sector ?></td>
+        </td>
+        <td align="center">
+            <?= $value->department ?>
+        </td>
+        <td align="center">
+            <?= $value->status ?>
+        </td>
+    </tr>
 
-        <?php  }?>
+    <?php } ?>
 </table>

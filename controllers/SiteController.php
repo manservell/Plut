@@ -62,13 +62,28 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        $emp=Employee::find()->all(); // записал в переменную emp таблицу из БД, переменная является объеутом, состоящим из объектов - строк таблицы, являющихся массивом столбцов.
-       // echo "<pre>";
-       // var_dump($emp);
-      //  echo "</pre>";
-      //  exit(0);
-        return $this->render('employee', [
-            'emp' => $emp]);
+        $emp=Employee::findBySql('
+                                  SELECT e.`id`,`first_name`,`middle_name`,`last_name`,`sector`, structure_category as department, `status`
+                                  FROM `employee` as e
+                                  JOIN
+                                    (SELECT * FROM department_structure) as d on d.id = `department_id`
+                                  JOIN
+                                    (SELECT id, sector FROM sector) as s on s.id = `sector_id`
+                                  order by e.id
+                                    ')->all();
+        // записал в переменную emp таблицу из БД, переменная является объеутом, состоящим из объектов - строк таблицы, являющихся массивом столбцов.
+        //$emp1=Employee::find()->all(); // записал в переменную emp таблицу из БД, переменная является объеутом, состоящим из объектов - строк таблицы, являющихся массивом столбцов.
+
+        echo "<pre>";
+        var_dump($emp);
+        echo "</pre>";
+        exit(0);
+
+        return $this->render('employee',
+            [
+            'yui' => $emp
+            ]
+        );
     }
 
     /**
