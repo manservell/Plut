@@ -9,6 +9,8 @@ use yii\web\Controller;
 use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\ContactForm;
+use app\models\DepartmentStructure;
+use app\models\Sector;
 
 
 class SiteController extends Controller
@@ -74,10 +76,10 @@ class SiteController extends Controller
         // записал в переменную emp таблицу из БД, переменная является объеутом, состоящим из объектов - строк таблицы, являющихся массивом столбцов.
         //$emp1=Employee::find()->all(); // записал в переменную emp таблицу из БД, переменная является объеутом, состоящим из объектов - строк таблицы, являющихся массивом столбцов.
 
-        echo "<pre>";
-        var_dump($emp);
-        echo "</pre>";
-        exit(0);
+      //  echo "<pre>";
+        //var_dump($emp);
+       // echo "</pre>";
+       // exit(0);
 
         return $this->render('employee',
             [
