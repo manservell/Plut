@@ -37,6 +37,16 @@ class Employee extends \yii\db\ActiveRecord
         ];
     }
 
+
+    public function getSectors(){
+        return $this->hasOne(Sector::className(), ['id'=>'sector_id']);
+    }
+
+    public function getDepartments(){
+        return $this->hasOne(DepartmentStructure::className(), ['id'=>'department_id']);
+    }
+
+
     /**
      * @inheritdoc
      */
