@@ -8,6 +8,7 @@
         <th>Сектор</th>
         <th>Категория по структуре отдела</th>
         <th>Статус</th>
+    </tr>
         <? foreach ($yui as $value) { ?>
     <tr>
         <td align="center">

@@ -2,7 +2,8 @@
 
 namespace app\controllers;
 
-
+use app\models\ProjectCategory;
+use app\models\Types;
 use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
@@ -12,6 +13,9 @@ use app\models\ContactForm;
 use app\models\Employee;
 use app\models\DepartmentStructure;
 use app\models\Sector;
+use app\models\KodesWork;
+use app\models\Orders;
+use app\models\Project;
 
 
 
@@ -104,6 +108,63 @@ class SiteController extends Controller
      *
      * @return string
      */
+
+    public function actionKode()
+    {
+        $kodes=KodesWork::find()->all();
+        /*
+        echo "<pre>";
+        var_dump($kodes);
+        echo "</pre>";
+        exit(0);
+        */
+        return $this->render('kode',
+            [
+                'kod' => $kodes
+            ]
+        );
+    }
+
+    public function actionOrder()
+    {
+        $orders=Orders::find()->all();
+        return $this->render('order',
+            [
+                'order' => $orders
+            ]
+        );
+    }
+
+    public function actionProject()
+    {
+        $projects=Project::find()->all();
+        return $this->render('project',
+            [
+                'project' => $projects
+            ]
+        );
+    }
+
+    public function actionCategory()
+    {
+        $categoryes=ProjectCategory::find()->all();
+        return $this->render('category',
+            [
+                'category' => $categoryes
+            ]
+        );
+    }
+
+    public function actionType()
+    {
+        $tps=Types::find()->all();
+        return $this->render('types',
+            [
+                'tp' => $tps
+            ]
+        );
+    }
+
     public function actionLogin()
     {
         if (!Yii::$app->user->isGuest) {
