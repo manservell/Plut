@@ -15,7 +15,7 @@
             <?= $value->name ?>
         </td>
         <td align="center">
-            <?= $value->type_id ?>
+            <?= $value->types->type ?></td>
         </td>
         <td align="center">
             <?= $value->note ?>

@@ -25,7 +25,7 @@
                 <?= $value->status ?>
             </td>
             <td align="center">
-                <?= $value->responsible_id ?>
+                <?= $value->employees->last_name?> <?=$value->employees-> first_name ?> <?=$value->employees-> middle_name ?>
             </td>
             <td align="center">
                 <?= $value->budget_hours ?>

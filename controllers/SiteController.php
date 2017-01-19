@@ -137,7 +137,12 @@ class SiteController extends Controller
 
     public function actionProject()
     {
-        $projects=Project::find()->all();
+        $projects=Project::find()
+        /*    ->select('`number`, `name`, `customer`, `project`.`status`, `project`.`responsible_id`, `budget_hours`, `planned_end_date`, `actual_end_date`')
+            ->leftJoin('employee', '`project`.`responsible_id` = `employee`.`id`')
+            ->with('employees')
+        */
+            ->all();
         return $this->render('project',
             [
                 'project' => $projects
@@ -164,6 +169,27 @@ class SiteController extends Controller
             ]
         );
     }
+
+    public function actionSector()
+    {
+        $sec=Sector::find()->all();
+        return $this->render('sector',
+            [
+                'sec' => $sec
+            ]
+        );
+    }
+
+    public function actionStructure()
+    {
+        $ds=DepartmentStructure::find()->all();
+        return $this->render('department_structure',
+            [
+                'ds' => $ds
+            ]
+        );
+    }
+
 
     public function actionLogin()
     {

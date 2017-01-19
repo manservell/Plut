@@ -22,7 +22,9 @@ class KodesWork extends \yii\db\ActiveRecord
     {
         return 'kodes_work';
     }
-
+    public function getTypes(){
+        return $this->hasOne(Types::className(), ['id'=>'type_id']);
+    }
     /**
      * @inheritdoc
      */
