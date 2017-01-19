@@ -35,8 +35,6 @@ class TypesController extends Controller
      */
     public function actionIndex()
     {
-        var_dump('fff');
-        exit(0);
         $dataProvider = new ActiveDataProvider([
             'query' => Types::find(),
         ]);
