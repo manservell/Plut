@@ -3,7 +3,7 @@
 namespace app\controllers;
 
 use app\models\ProjectCategory;
-use app\models\Types;
+use app\models\WorkTypes;
 use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
@@ -75,7 +75,7 @@ class SiteController extends Controller
                                   SELECT e.`id`,`first_name`,`middle_name`,`last_name`,`sector`, structure_category as department, `status`
                                   FROM `employee` as e
                                   JOIN
-                                    (SELECT * FROM department_structure) as d on d.id = `department_id`
+                                    (SELECT * FROM departmentStructure) as d on d.id = `department_id`
                                   JOIN
                                     (SELECT id, sector FROM sector) as s on s.id = `sector_id`
        where 1
@@ -83,9 +83,9 @@ class SiteController extends Controller
                                     ')->all();
 */
         $emp=Employee::find()
-            ->select('`employee`.`id`, `employee`.`sector_id`, `employee`.`department_id`, `first_name`,`middle_name`,`last_name`,`sector`.`sector`, `department_structure`.`structure_category`, `status`')
+            ->select('`employee`.`id`, `employee`.`sector_id`, `employee`.`department_id`, `first_name`,`middle_name`,`last_name`,`sector`.`sector`, `departmentStructure`.`structure_category`, `status`')
             ->leftJoin('sector', '`employee`.`sector_id` = `sector`.`id`')
-            ->leftJoin('department_structure', '`employee`.`department_id` = `department_structure`.`id`')
+            ->leftJoin('departmentStructure', '`employee`.`department_id` = `departmentStructure`.`id`')
             ->with('sectors')
             ->with('departments')
             ->all();
@@ -162,8 +162,8 @@ class SiteController extends Controller
 
     public function actionType()
     {
-        $tps=Types::find()->all();
-        return $this->render('types',
+        $tps=WorkTypes::find()->all();
+        return $this->render('workTypes',
             [
                 'tp' => $tps
             ]
@@ -183,7 +183,7 @@ class SiteController extends Controller
     public function actionStructure()
     {
         $ds=DepartmentStructure::find()->all();
-        return $this->render('department_structure',
+        return $this->render('departmentStructure',
             [
                 'ds' => $ds
             ]

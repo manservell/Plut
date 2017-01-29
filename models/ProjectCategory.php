@@ -5,7 +5,7 @@ namespace app\models;
 use Yii;
 
 /**
- * This is the model class for table "project_category".
+ * This is the model class for table "projectCategory".
  *
  * @property string $id
  * @property string $responsible_for
@@ -17,7 +17,7 @@ class ProjectCategory extends \yii\db\ActiveRecord
      */
     public static function tableName()
     {
-        return 'project_category';
+        return 'projectCategory';
     }
 
     /**
@@ -37,8 +37,8 @@ class ProjectCategory extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => 'ID',
-            'responsible_for' => 'Responsible For',
+            'id' => Yii::t('app', 'ID'),
+            'responsible_for' => Yii::t('app', 'Категории по проектам'),
         ];
     }
 }

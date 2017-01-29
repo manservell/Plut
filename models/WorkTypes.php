@@ -5,19 +5,19 @@ namespace app\models;
 use Yii;
 
 /**
- * This is the model class for table "types".
+ * This is the model class for table "workTypes".
  *
- * @property integer $id
+ * @property string $id
  * @property string $type
  */
-class Types extends \yii\db\ActiveRecord
+class WorkTypes extends \yii\db\ActiveRecord
 {
     /**
      * @inheritdoc
      */
     public static function tableName()
     {
-        return 'types';
+        return 'workTypes';
     }
 
     /**
@@ -27,7 +27,7 @@ class Types extends \yii\db\ActiveRecord
     {
         return [
             [['type'], 'required'],
-            [['type'], 'string', 'max' => 155],
+            [['type'], 'string', 'max' => 50],
         ];
     }
 
@@ -37,8 +37,8 @@ class Types extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => 'ID',
-            'type' => 'Type',
+            'id' => Yii::t('app', 'ID'),
+            'type' => Yii::t('app', 'Виды работ'),
         ];
     }
 }

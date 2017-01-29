@@ -37,8 +37,8 @@ class Sector extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => 'ID',
-            'sector' => 'Sector',
+            'id' => Yii::t('app', 'ID'),
+            'sector' => Yii::t('app', 'Сектор'),
         ];
     }
 }
