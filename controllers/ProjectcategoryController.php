@@ -3,16 +3,16 @@
 namespace app\controllers;
 
 use Yii;
-use app\models\DepartmentStructure;
+use app\models\ProjectCategory;
 use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * DepartmentstructureController implements the CRUD actions for DepartmentStructure model.
+ * ProjectcategoryController implements the CRUD actions for ProjectCategory model.
  */
-class DepartmentstructureController extends Controller
+class ProjectcategoryController extends Controller
 {
     /**
      * @inheritdoc
@@ -30,13 +30,13 @@ class DepartmentstructureController extends Controller
     }
 
     /**
-     * Lists all DepartmentStructure models.
+     * Lists all ProjectCategory models.
      * @return mixed
      */
     public function actionIndex()
     {
         $dataProvider = new ActiveDataProvider([
-            'query' => DepartmentStructure::find(),
+            'query' => ProjectCategory::find(),
         ]);
 
         return $this->render('index', [
@@ -45,7 +45,7 @@ class DepartmentstructureController extends Controller
     }
 
     /**
-     * Displays a single DepartmentStructure model.
+     * Displays a single ProjectCategory model.
      * @param string $id
      * @return mixed
      */
@@ -57,13 +57,13 @@ class DepartmentstructureController extends Controller
     }
 
     /**
-     * Creates a new DepartmentStructure model.
+     * Creates a new ProjectCategory model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new DepartmentStructure();
+        $model = new ProjectCategory();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
@@ -75,7 +75,7 @@ class DepartmentstructureController extends Controller
     }
 
     /**
-     * Updates an existing DepartmentStructure model.
+     * Updates an existing ProjectCategory model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param string $id
      * @return mixed
@@ -94,7 +94,7 @@ class DepartmentstructureController extends Controller
     }
 
     /**
-     * Deletes an existing DepartmentStructure model.
+     * Deletes an existing ProjectCategory model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param string $id
      * @return mixed
@@ -107,15 +107,15 @@ class DepartmentstructureController extends Controller
     }
 
     /**
-     * Finds the DepartmentStructure model based on its primary key value.
+     * Finds the ProjectCategory model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param string $id
-     * @return DepartmentStructure the loaded model
+     * @return ProjectCategory the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = DepartmentStructure::findOne($id)) !== null) {
+        if (($model = ProjectCategory::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');

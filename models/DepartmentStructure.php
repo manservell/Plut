@@ -5,7 +5,7 @@ namespace app\models;
 use Yii;
 
 /**
- * This is the model class for table "department_structure".
+ * This is the model class for table "departmentStructure".
  *
  * @property string $id
  * @property string $structure_category
@@ -17,7 +17,7 @@ class DepartmentStructure extends \yii\db\ActiveRecord
      */
     public static function tableName()
     {
-        return 'department_structure';
+        return 'departmentStructure';
     }
 
     /**
@@ -37,8 +37,8 @@ class DepartmentStructure extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => 'ID',
-            'structure_category' => 'Structure Category',
+            'id' => Yii::t('app', 'ID'),
+            'structure_category' => Yii::t('app', 'Категории по структуре отдела'),
         ];
     }
 }
