@@ -5,10 +5,10 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\DepartmentStructure */
 
-$this->title = 'Update Department Structure: ' . $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Department Structures', 'url' => ['index']];
+$this->title = 'Обновить категорию: ' . $model->id;
+$this->params['breadcrumbs'][] = ['label' => 'Категории по структуре отдела', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
-$this->params['breadcrumbs'][] = 'Update';
+$this->params['breadcrumbs'][] = 'Обновить';
 ?>
 <div class="department-structure-update">
 

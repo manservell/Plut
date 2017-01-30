@@ -6,7 +6,7 @@
         <th>Вид работ</th>
         <th>Статус</th>
     </tr>
-        <? foreach ($kod as $value) { ?>
+        <? foreach ($cod as $value) { ?>
     <tr>
         <td align="center">
             <?= $value->code ?>

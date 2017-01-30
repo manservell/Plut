@@ -5,7 +5,7 @@ namespace app\models;
 use Yii;
 
 /**
- * This is the model class for table "kodesWork".
+ * This is the model class for table "codes_work".
  *
  * @property string $id
  * @property string $code
@@ -13,14 +13,14 @@ use Yii;
  * @property string $type_id
  * @property string $note
  */
-class KodesWork extends \yii\db\ActiveRecord
+class CodesWork extends \yii\db\ActiveRecord
 {
     /**
      * @inheritdoc
      */
     public static function tableName()
     {
-        return 'kodesWork';
+        return 'codes_work';
     }
 
     /**
