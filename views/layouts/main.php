@@ -27,7 +27,7 @@ AppAsset::register($this);
 <div class="wrap">
     <?php
     NavBar::begin([
-        'brandLabel' => 'Учёт персонала',
+        'brandLabel' => 'Учёт рабочего времени',
         'brandUrl' => Yii::$app->homeUrl,
         'options' => [
             'class' => 'navbar-inverse navbar-fixed-top',
@@ -39,24 +39,21 @@ AppAsset::register($this);
             ['label' => 'Главная', 'url' => ['/site/index']],
             ['label' => 'О приложении', 'url' => ['/site/about']],
             ['label' => 'Справочники',
-                'url' => ['/site/contact']
-
-
-
-
-
-
-
-
-
+                'visible' => !Yii::$app->user->isGuest,
+                'items' => [
+                    ['label' => 'Категории по структуре отдела', 'url' => ['/departmentstructure/']],
+                    ['label' => 'Сектора', 'url' => ['/sector/']],
+                    ['label' => 'Категории по проектам', 'url' => ['/projectcategory/']],
+                    ['label' => 'Виды работ', 'url' => ['/worktypes/']]
+                ]
             ],
             Yii::$app->user->isGuest ? (
-                ['label' => 'Login', 'url' => ['/site/login']]
+            ['label' => 'Войти', 'url' => ['/site/login']]
             ) : (
                 '<li>'
                 . Html::beginForm(['/site/logout'], 'post')
                 . Html::submitButton(
-                    'Logout (' . Yii::$app->user->identity->username . ')',
+                    'Выйти (' . Yii::$app->user->identity->username . ')',
                     ['class' => 'btn btn-link logout']
                 )
                 . Html::endForm()
@@ -77,7 +74,7 @@ AppAsset::register($this);
 
 <footer class="footer">
     <div class="container">
-        <p class="pull-left">&copy; My Company <?= date('Y') ?></p>
+        <p class="pull-left">&copy; Pluton <?= date('Y') ?></p>
 
         <p class="pull-right"><?= Yii::powered() ?></p>
     </div>
