@@ -51,15 +51,15 @@ class Project extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => 'ID',
-            'number' => 'Number',
-            'name' => 'Name',
-            'customer' => 'Customer',
-            'status' => 'Status',
-            'responsible_id' => 'Responsible ID',
-            'budget_hours' => 'Budget Hours',
-            'planned_end_date' => 'Planned End Date',
-            'actual_end_date' => 'Actual End Date',
+            'id' => Yii::t('app', 'ID'),
+            'number' => Yii::t('app', 'Номер пректа'),
+            'name' => Yii::t('app', 'Наименование'),
+            'customer' => Yii::t('app', 'Заказчик'),
+            'status' => Yii::t('app', 'Статус'),
+            'responsible_id' => Yii::t('app', 'Ответственный'),
+            'budget_hours' => Yii::t('app', 'Бюджет часов'),
+            'planned_end_date' => Yii::t('app', 'Запланированная дата выполнения'),
+            'actual_end_date' => Yii::t('app', 'Фактическая дата выполнения'),
         ];
     }
 }

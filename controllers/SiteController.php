@@ -180,6 +180,7 @@ class SiteController extends Controller
         );
     }
 
+
     public function actionStructure()
     {
         $ds=DepartmentStructure::find()->all();

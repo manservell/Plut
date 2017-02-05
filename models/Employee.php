@@ -36,8 +36,6 @@ class Employee extends \yii\db\ActiveRecord
             [['first_name', 'middle_name', 'last_name'], 'string', 'max' => 55],
         ];
     }
-
-
     public function getSectors(){
         return $this->hasOne(Sector::className(), ['id'=>'sector_id']);
     }
@@ -46,20 +44,19 @@ class Employee extends \yii\db\ActiveRecord
         return $this->hasOne(DepartmentStructure::className(), ['id'=>'department_id']);
     }
 
-
     /**
      * @inheritdoc
      */
     public function attributeLabels()
     {
         return [
-            'id' => 'ID',
-            'first_name' => 'First Name',
-            'middle_name' => 'Middle Name',
-            'last_name' => 'Last Name',
-            'department_id' => 'Department ID',
-            'sector_id' => 'Sector ID',
-            'status' => 'Status',
+            'id' => Yii::t('app', 'ID'),
+            'first_name' => Yii::t('app', 'Имя'),
+            'middle_name' => Yii::t('app', 'Отчество'),
+            'last_name' => Yii::t('app', 'Фамилия'),
+            'department_id' => Yii::t('app', 'Категория по структуре отдела'),
+            'sector_id' => Yii::t('app', 'Сектор'),
+            'status' => Yii::t('app', 'Статус'),
         ];
     }
 }

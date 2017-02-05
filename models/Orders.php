@@ -28,7 +28,6 @@ class Orders extends \yii\db\ActiveRecord
     public function getEmployees(){
         return $this->hasOne(Employee::className(), ['id'=>'responsible_id']);
     }
-
     /**
      * @inheritdoc
      */
@@ -50,14 +49,14 @@ class Orders extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => 'ID',
-            'number' => 'Number',
-            'name' => 'Name',
-            'responsible_id' => 'Responsible ID',
-            'budget_hours' => 'Budget Hours',
-            'planned_end_date' => 'Planned End Date',
-            'actual_end_date' => 'Actual End Date',
-            'status' => 'Status',
+            'id' => Yii::t('app', 'ID'),
+            'number' => Yii::t('app', 'Номер заказа'),
+            'name' => Yii::t('app', 'Наименование'),
+            'responsible_id' => Yii::t('app', 'Ответственный'),
+            'budget_hours' => Yii::t('app', 'Бюджет часов'),
+            'planned_end_date' => Yii::t('app', 'Запланированная дата выполнения'),
+            'actual_end_date' => Yii::t('app', 'Фактическая дата выполнения'),
+            'status' => Yii::t('app', 'Статус'),
         ];
     }
 }

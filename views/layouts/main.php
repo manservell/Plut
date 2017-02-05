@@ -38,6 +38,21 @@ AppAsset::register($this);
         'items' => [
             ['label' => 'Главная', 'url' => ['/site/index']],
             ['label' => 'О приложении', 'url' => ['/site/about']],
+            ['label' => 'Таблицы',  'visible' => !Yii::$app->user->isGuest,
+                'items' => [
+                    ['label' => 'Сотрудники', 'url' => ['/employee/']],
+                    ['label' => 'Коды работ', 'url' => ['/codeswork/']],
+                    ['label' => 'Заказы', 'url' => ['/orders/']],
+                    ['label' => 'Проекты', 'url' => ['/project/']],
+                ]],
+            ['label' => 'Создать', 'visible' => !Yii::$app->user->isGuest,
+                'items' => [
+                    ['label' => 'Создать сотрудника', 'url' => ['/employee/create/']],
+                    ['label' => 'Создать код работ', 'url' => ['/codeswork/create/']],
+                    ['label' => 'Создать заказ', 'url' => ['/orders/create/']],
+                    ['label' => 'Создать проект', 'url' => ['/project/create/']],
+                ]
+            ],
             ['label' => 'Справочники',
                 'visible' => !Yii::$app->user->isGuest,
                 'items' => [
