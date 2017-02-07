@@ -4,6 +4,7 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use app\models\Employee;
 use yii\helpers\ArrayHelper;
+use yii\jui\DatePicker;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Orders */
@@ -28,10 +29,15 @@ use yii\helpers\ArrayHelper;
 
 
 
-    <?= $form->field($model, 'budget_hours')->textInput(['maxlength' => true]) ?>
+    <?=$form->field($model, 'budget_hours')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'planned_end_date')->textInput() ?>
-
+    <?//= $form->field($model, 'planned_end_date')->textInput() ?>
+    <? echo DatePicker::widget([
+       // 'model' => $model,
+    'attribute' => 'from_date',
+    //'language' => 'ru',
+    //'dateFormat' => 'yyyy-MM-dd',
+    ]);?>
     <?= $form->field($model, 'actual_end_date')->textInput() ?>
 
     <?= $form->field($model, 'status')->textInput(['maxlength' => true]) ?>
