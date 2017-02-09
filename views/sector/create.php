@@ -6,8 +6,8 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\Sector */
 
-$this->title = Yii::t('app', 'Создать сектор');
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Сектора'), 'url' => ['index']];
+$this->title = Yii::t('app', 'Create Sector');
+$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Sectors'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="sector-create">
