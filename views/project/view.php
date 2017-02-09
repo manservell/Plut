@@ -32,11 +32,11 @@ $this->params['breadcrumbs'][] = $this->title;
             'number',
             'name',
             'customer',
-            'status',
             'responsible_id',
             'budget_hours',
             'planned_end_date',
             'actual_end_date',
+            'status',
         ],
     ]) ?>
 

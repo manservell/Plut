@@ -27,7 +27,9 @@ use yii\helpers\ArrayHelper;
     ?>
     <?= $form->field($model, 'type_id')->dropDownList($items,$params);?>
 
-    <?= $form->field($model, 'note')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'note')->checkbox([
+        'label' => 'Требуется уточнение выполненных работ?',
+    ]); ?>
 
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? Yii::t('app', 'Создать') : Yii::t('app', 'Обновить'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>

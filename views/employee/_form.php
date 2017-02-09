@@ -41,7 +41,9 @@ use yii\helpers\ArrayHelper;
     <?= $form->field($model, 'sector_id')->dropDownList($items,$params);?>
 
 
-    <?= $form->field($model, 'status')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'status')->checkbox([
+        'label' => 'Сотрудник работает?',
+    ]); ?>
 
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? Yii::t('app', 'Создать') : Yii::t('app', 'Обновить'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
