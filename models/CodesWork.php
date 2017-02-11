@@ -36,6 +36,9 @@ class CodesWork extends \yii\db\ActiveRecord
             [['code'], 'unique'],
         ];
     }
+    public function getTypes(){
+        return $this->hasOne(WorkTypes::className(), ['id'=>'type_id']);
+    }
 
     /**
      * @inheritdoc

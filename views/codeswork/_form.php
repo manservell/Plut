@@ -2,6 +2,8 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use app\models\WorkTypes;
+use yii\helpers\ArrayHelper;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\CodesWork */
@@ -16,12 +18,21 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'type_id')->textInput(['maxlength' => true]) ?>
+    <?php
+    $sectors = WorkTypes::find()->all();
+    $items = ArrayHelper::map($sectors,'id','type');
+    $params = [
+        'prompt' => 'Выберите тип работ...'
+    ];
+    ?>
+    <?= $form->field($model, 'type_id')->dropDownList($items,$params);?>
 
-    <?= $form->field($model, 'note')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'note')->checkbox([
+        'label' => 'Требуется уточнение выполненных работ?',
+    ]); ?>
 
     <div class="form-group">
-        <?= Html::submitButton($model->isNewRecord ? Yii::t('app', 'Create') : Yii::t('app', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+        <?= Html::submitButton($model->isNewRecord ? Yii::t('app', 'Создать') : Yii::t('app', 'Обновить'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>
