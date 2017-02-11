@@ -36,9 +36,6 @@ class CodesWork extends \yii\db\ActiveRecord
             [['code'], 'unique'],
         ];
     }
-    public function getTypes(){
-        return $this->hasOne(WorkTypes::className(), ['id'=>'type_id']);
-    }
 
     /**
      * @inheritdoc
@@ -52,5 +49,14 @@ class CodesWork extends \yii\db\ActiveRecord
             'type_id' => Yii::t('app', 'Вид работ (из таблицы видов работ)'),
             'note' => Yii::t('app', 'Примечание'),
         ];
+    }
+
+    /**
+     * @inheritdoc
+     * @return CodesWorkQuery the active query used by this AR class.
+     */
+    public static function find()
+    {
+        return new CodesWorkQuery(get_called_class());
     }
 }

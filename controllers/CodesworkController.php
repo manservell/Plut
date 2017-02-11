@@ -4,7 +4,7 @@ namespace app\controllers;
 
 use Yii;
 use app\models\CodesWork;
-use yii\data\ActiveDataProvider;
+use app\models\CodesworkSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -35,11 +35,11 @@ class CodesworkController extends Controller
      */
     public function actionIndex()
     {
-        $dataProvider = new ActiveDataProvider([
-            'query' => CodesWork::find(),
-        ]);
+        $searchModel = new CodesworkSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
+            'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
     }

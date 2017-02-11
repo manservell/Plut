@@ -6,8 +6,8 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\CodesWork */
 
-$this->title = Yii::t('app', 'Создать код работ');
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Коды работ'), 'url' => ['index']];
+$this->title = Yii::t('app', 'Create Codes Work');
+$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Codes Works'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="codes-work-create">
