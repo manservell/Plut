@@ -36,13 +36,6 @@ class Employee extends \yii\db\ActiveRecord
             [['first_name', 'middle_name', 'last_name'], 'string', 'max' => 55],
         ];
     }
-    public function getSectors(){
-        return $this->hasOne(Sector::className(), ['id'=>'sector_id']);
-    }
-
-    public function getDepartments(){
-        return $this->hasOne(DepartmentStructure::className(), ['id'=>'department_id']);
-    }
 
     /**
      * @inheritdoc
@@ -58,5 +51,14 @@ class Employee extends \yii\db\ActiveRecord
             'sector_id' => Yii::t('app', 'Сектор'),
             'status' => Yii::t('app', 'Статус'),
         ];
+    }
+
+    /**
+     * @inheritdoc
+     * @return EmployeeQuery the active query used by this AR class.
+     */
+    public static function find()
+    {
+        return new EmployeeQuery(get_called_class());
     }
 }
