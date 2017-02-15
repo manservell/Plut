@@ -26,7 +26,12 @@ class Orders extends \yii\db\ActiveRecord
     {
         return 'orders';
     }
-
+    public function getEmployees(){
+        return $this->hasOne(Employee::className(), ['id'=>'responsible_id']);
+    }
+    public function getProjects(){
+        return $this->hasOne(Project::className(), ['id'=>'project_id']);
+    }
     /**
      * @inheritdoc
      */

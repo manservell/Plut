@@ -41,9 +41,6 @@ class Project extends \yii\db\ActiveRecord
             [['number'], 'unique'],
         ];
     }
-    public function getEmployees(){
-        return $this->hasOne(Employee::className(), ['id'=>'responsible_id']);
-    }
 
     /**
      * @inheritdoc
@@ -61,5 +58,14 @@ class Project extends \yii\db\ActiveRecord
             'planned_end_date' => Yii::t('app', 'Запланированная дата выполнения'),
             'actual_end_date' => Yii::t('app', 'Фактическая дата выполнения'),
         ];
+    }
+
+    /**
+     * @inheritdoc
+     * @return ProjectQuery the active query used by this AR class.
+     */
+    public static function find()
+    {
+        return new ProjectQuery(get_called_class());
     }
 }
