@@ -5,6 +5,7 @@ use yii\widgets\ActiveForm;
 use yii\helpers\ArrayHelper;
 use yii\jui\DatePicker;
 use app\models\Employee;
+use kartik\select2\Select2;
 
 
 /* @var $this yii\web\View */
@@ -21,19 +22,24 @@ use app\models\Employee;
     <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'customer')->textInput(['maxlength' => true]) ?>
-    <?php
-    $sectors = Employee::find()->all();
-    $items = [];
-    foreach($sectors as $sector){
-        $items[$sector['id']]=$sector['last_name'].' '.$sector['first_name'].' '.$sector['middle_name'];
-    }
-    sort($items);
-    $params = [
-        'prompt' => 'Выберите сотрудника...'
-    ];
 
+    <?php
+    $items = Employee::find()
+        ->select(['id as value', 'concat(last_name, " ", first_name, " ", middle_name) as label'])
+        ->asArray()
+        ->all();
+    $items = ArrayHelper::map($items, 'value', 'label');
+     asort($items);
+     reset($items);
+    echo $form->field($model, 'responsible_id')->widget(Select2::className(),
+        [
+            'data' => $items,
+            'options' => ['placeholder' => 'Выберите ответственного сотрудника ...'],
+            'pluginOptions' => [
+                'allowClear' => true
+            ],
+        ]);
     ?>
-    <?= $form->field($model, 'responsible_id')->dropDownList($items,$params);?>
 
     <?= $form->field($model, 'budget_hours')->textInput(['maxlength' => true]) ?>
 
