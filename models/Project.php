@@ -41,6 +41,9 @@ class Project extends \yii\db\ActiveRecord
             [['number'], 'unique'],
         ];
     }
+    public function getEmployees(){
+        return $this->hasOne(Employee::className(), ['id'=>'responsible_id']);
+    }
 
     /**
      * @inheritdoc
