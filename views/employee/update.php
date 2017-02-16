@@ -9,7 +9,6 @@ $this->title = Yii::t('app', 'Обновить {modelClass}: ', [
     'modelClass' => 'сотрудника',
 ]) . $model->id;
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Сотрудники'), 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = Yii::t('app', 'Обновить');
 ?>
 <div class="employee-update">

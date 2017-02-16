@@ -38,7 +38,12 @@ class EmployeeController extends Controller
     {
         $searchModel = new EmployeeSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-
+        /*
+                echo '<pre>';
+                var_dump($dataProvider );
+                echo '</pre>';
+                exit(0);
+        */
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
@@ -65,9 +70,8 @@ class EmployeeController extends Controller
     public function actionCreate()
     {
         $model = new Employee();
-
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['index']);
         } else {
             return $this->render('create', [
                 'model' => $model,
@@ -84,9 +88,8 @@ class EmployeeController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['index']);
         } else {
             return $this->render('update', [
                 'model' => $model,

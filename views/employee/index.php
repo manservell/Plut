@@ -23,15 +23,22 @@ $this->params['breadcrumbs'][] = $this->title;
         'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
-
-            'last_name',
-            'first_name',
-            'middle_name',
-            'departments.structure_category',
-             'sectors.sector',
-             'status',
-
-            ['class' => 'yii\grid\ActionColumn'],
+            'fullName',
+            'departmentName',
+            'sectorName',
+            [
+                'label' => 'Статус',
+                'attribute' => 'status',
+                'format' => 'raw',
+                'value' => function ($model, $index) {
+                    return Html::checkbox('status[]', $model->status, ['value' => $index, 'disabled' => true]);
+                },
+                'filter'=>array("1"=>"Работает","0"=>"Не работает"),
+            ],
+            [
+                'class' => 'yii\grid\ActionColumn',
+                'template' => '{update}',// иконки удалить, обновить, просмотр....
+            ],
         ],
     ]); ?>
 </div>

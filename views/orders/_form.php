@@ -6,7 +6,6 @@ use app\models\Employee;
 use app\models\Project;
 use yii\helpers\ArrayHelper;
 use yii\jui\DatePicker;
-use yii\jui\AutoComplete;
 use kartik\select2\Select2;
 
 /* @var $this yii\web\View */
@@ -38,12 +37,7 @@ use kartik\select2\Select2;
         ]);
     ?>
 
-
-
     <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
-
-
-
 
     <?php
     $items = Employee::find()
@@ -69,17 +63,6 @@ use kartik\select2\Select2;
             ],
         ]);
     ?>
-
-
-
-
-
-
-
-
-
-
-
 
     <?=$form->field($model, 'budget_hours')->textInput(['maxlength' => true]) ?>
 
