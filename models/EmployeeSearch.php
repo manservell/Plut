@@ -51,8 +51,8 @@ class EmployeeSearch extends Employee
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
-        $defSort = $dataProvider->getSort();
-        $defSort->attributes['sectorName'] = [
+        $defSort = $dataProvider->getSort();// получаем существующие правила сортировки
+        $defSort->attributes['sectorName'] = [       // добавляем свои
             'asc' => ['sector.sector' => SORT_ASC],
             'desc' => ['sector.sector' => SORT_DESC],
             'label' => 'Сектор'

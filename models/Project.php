@@ -45,6 +45,11 @@ class Project extends \yii\db\ActiveRecord
         return $this->hasOne(Employee::className(), ['id'=>'responsible_id']);
     }
 
+    /* Геттер для ФИО*/
+    public function getFullName() {
+        return $this->employees->last_name. ' '. $this->employees->first_name. ' ' . $this->employees->middle_name;
+    }
+
     /**
      * @inheritdoc
      */
@@ -60,6 +65,7 @@ class Project extends \yii\db\ActiveRecord
             'budget_hours' => Yii::t('app', 'Бюджет часов'),
             'planned_end_date' => Yii::t('app', 'Запланированная дата выполнения'),
             'actual_end_date' => Yii::t('app', 'Фактическая дата выполнения'),
+            'fullName' => Yii::t('app', 'ФИО'),
         ];
     }
 

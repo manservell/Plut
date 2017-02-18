@@ -25,13 +25,13 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'status') ?>
 
-    <?php // echo $form->field($model, 'responsible_id') ?>
+    <?= $form->field($model, 'responsible_id') ?>
 
-    <?php // echo $form->field($model, 'budget_hours') ?>
+    <?= $form->field($model, 'budget_hours') ?>
 
-    <?php // echo $form->field($model, 'planned_end_date') ?>
+    <?= $form->field($model, 'planned_end_date') ?>
 
-    <?php // echo $form->field($model, 'actual_end_date') ?>
+    <?= $form->field($model, 'actual_end_date') ?>
 
     <div class="form-group">
         <?= Html::submitButton(Yii::t('app', 'Search'), ['class' => 'btn btn-primary']) ?>

@@ -23,18 +23,17 @@ $this->params['breadcrumbs'][] = $this->title;
         'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
-
-
+            'fullName',
             'number',
             'name',
             'customer',
-            'employees.last_name',
             'budget_hours',
             'planned_end_date',
             'actual_end_date',
             'status',
 
             ['class' => 'yii\grid\ActionColumn'],
+           // 'template' => '{update}',// иконки удалить, обновить, просмотр....
         ],
     ]); ?>
 </div>

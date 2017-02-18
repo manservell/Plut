@@ -12,6 +12,7 @@ use app\models\Project;
  */
 class ProjectSearch extends Project
 {
+    public $fullName;
     /**
      * @inheritdoc
      */
@@ -19,7 +20,7 @@ class ProjectSearch extends Project
     {
         return [
             [['id', 'status', 'responsible_id', 'budget_hours'], 'integer'],
-            [['number', 'name', 'customer', 'planned_end_date', 'actual_end_date'], 'safe'],
+            [['number', 'name', 'customer', 'planned_end_date', 'actual_end_date', 'fullName'], 'safe'],
         ];
     }
 
@@ -48,12 +49,22 @@ class ProjectSearch extends Project
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
+        $defSort = $dataProvider->getSort();
+        $defSort->attributes['fullName'] = [
+            'asc' => ['employees.last_name' => SORT_ASC, 'employees.first_name' => SORT_ASC, 'employees.middle_name' => SORT_ASC],
+            'desc' => ['employees.last_name' => SORT_DESC, 'employees.first_name' => SORT_DESC, 'employees.middle_name' => SORT_DESC],
+            'label' => 'ФИО'
+        ];
 
-        $this->load($params);
+        $dataProvider->setSort($defSort);
+        $this->status = 1; //устанавливается по-умолчанию
 
-        if (!$this->validate()) {
+        //$this->load($params);
+
+        if (!($this->load($params) && $this->validate())) {
             // uncomment the following line if you do not want to return any records when validation fails
             // $query->where('0=1');
+            $query->joinWith(['employees']);
             return $dataProvider;
         }
 
@@ -67,9 +78,22 @@ class ProjectSearch extends Project
             'actual_end_date' => $this->actual_end_date,
         ]);
 
-        $query->andFilterWhere(['like', 'number', $this->number])
-            ->andFilterWhere(['like', 'name', $this->name])
-            ->andFilterWhere(['like', 'customer', $this->customer]);
+
+        $query->andFilterWhere(['like', 'last_name', $this->fullName])
+            ->orFilterWhere(['like', 'first_name', $this->fullName])
+            ->orFilterWhere(['like', 'middle_name', $this->fullName]);
+
+       $query->joinWith(['employees' => function ($q) {
+            $q->where('employee.last_name LIKE "%' . $this->fullName . '%"' .
+                'employee.first_name LIKE "%' . $this->fullName . '%"' .
+                'employee.middle_name LIKE "%' . $this->fullName . '%"');
+        }]);
+
+
+      //  $query->andWhere('last_name LIKE "%' . $this->fullName . '%" ' .
+           // 'OR middle_name LIKE "%' . $this->fullName . '%"' .
+           // 'OR first_name LIKE "%' . $this->fullName . '%"'
+      ///  );
 
         return $dataProvider;
     }
