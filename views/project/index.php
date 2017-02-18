@@ -32,8 +32,9 @@ $this->params['breadcrumbs'][] = $this->title;
             'actual_end_date',
             'status',
 
-            ['class' => 'yii\grid\ActionColumn'],
-           // 'template' => '{update}',// иконки удалить, обновить, просмотр....
+            ['class' => 'yii\grid\ActionColumn',
+            'template' => '{update}',// иконки удалить, обновить, просмотр....
+                ]
         ],
     ]); ?>
 </div>

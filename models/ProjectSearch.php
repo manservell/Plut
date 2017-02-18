@@ -57,7 +57,7 @@ class ProjectSearch extends Project
         ];
 
         $dataProvider->setSort($defSort);
-        $this->status = 1; //устанавливается по-умолчанию
+      //  $this->status = 1; //устанавливается по-умолчанию
 
         //$this->load($params);
 
@@ -71,22 +71,22 @@ class ProjectSearch extends Project
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
-            'status' => $this->status,
+            'project.status' => $this->status,
             'responsible_id' => $this->responsible_id,
+            'responsible_id' => $this->name,
             'budget_hours' => $this->budget_hours,
             'planned_end_date' => $this->planned_end_date,
             'actual_end_date' => $this->actual_end_date,
         ]);
 
 
-        $query->andFilterWhere(['like', 'last_name', $this->fullName])
-            ->orFilterWhere(['like', 'first_name', $this->fullName])
-            ->orFilterWhere(['like', 'middle_name', $this->fullName]);
+        $query->andFilterWhere(['like', 'name', $this->name])
+            ->andFilterWhere(['like', 'customer', $this->customer]);
 
        $query->joinWith(['employees' => function ($q) {
             $q->where('employee.last_name LIKE "%' . $this->fullName . '%"' .
-                'employee.first_name LIKE "%' . $this->fullName . '%"' .
-                'employee.middle_name LIKE "%' . $this->fullName . '%"');
+                ' OR employee.first_name LIKE "%' . $this->fullName . '%"' .
+                ' OR employee.middle_name LIKE "%' . $this->fullName . '%"');
         }]);
 
 
