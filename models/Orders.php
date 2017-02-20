@@ -29,9 +29,19 @@ class Orders extends \yii\db\ActiveRecord
     public function getEmployees(){
         return $this->hasOne(Employee::className(), ['id'=>'responsible_id']);
     }
+    /* Геттер для ФИО*/
+    public function getFullName() {
+        return $this->employees->last_name. ' '. $this->employees->first_name. ' ' . $this->employees->middle_name;
+    }
     public function getProjects(){
         return $this->hasOne(Project::className(), ['id'=>'project_id']);
     }
+    /* Геттер для номера проекта*/
+    public function getProjectNumber() {
+        return $this->projects->number;
+    }
+
+
     /**
      * @inheritdoc
      */
@@ -62,6 +72,8 @@ class Orders extends \yii\db\ActiveRecord
             'planned_end_date' => Yii::t('app', 'Запланированная дата выполнения'),
             'actual_end_date' => Yii::t('app', 'Фактическая дата выполнения'),
             'status' => Yii::t('app', 'Статус'),
+            'fullName' => Yii::t('app', 'ФИО'),
+            'projectNumber' => Yii::t('app', 'Номер проекта'),
         ];
     }
 

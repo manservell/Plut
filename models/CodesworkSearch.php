@@ -12,6 +12,7 @@ use app\models\CodesWork;
  */
 class CodesworkSearch extends CodesWork
 {
+    public $typeName;
     /**
      * @inheritdoc
      */
@@ -19,7 +20,7 @@ class CodesworkSearch extends CodesWork
     {
         return [
             [['id', 'type_id', 'note'], 'integer'],
-            [['code', 'name'], 'safe'],
+            [['code', 'name','typeName'], 'safe'],
         ];
     }
 
@@ -48,12 +49,19 @@ class CodesworkSearch extends CodesWork
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
+        $defSort = $dataProvider->getSort();// получаем существующие правила сортировки
+        $defSort->attributes['typeName'] = [           // добавляем свои
+            'asc' => ['work_types.type' => SORT_ASC],
+            'desc' => ['work_types.type' => SORT_DESC],
+            'label' => 'Вид работ'
+        ];
 
         $this->load($params);
 
         if (!$this->validate()) {
             // uncomment the following line if you do not want to return any records when validation fails
             // $query->where('0=1');
+            $query->joinWith(['types']);
             return $dataProvider;
         }
 
@@ -63,7 +71,9 @@ class CodesworkSearch extends CodesWork
             'type_id' => $this->type_id,
             'note' => $this->note,
         ]);
-
+        $query->joinWith(['types' => function ($q) {
+            $q->where('work_types.type LIKE "%' . $this->typeName . '%"');
+        }]);
         $query->andFilterWhere(['like', 'code', $this->code])
             ->andFilterWhere(['like', 'name', $this->name]);
 

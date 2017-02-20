@@ -25,10 +25,20 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
             'code',
             'name',
-            'types.type',
-            'note',
+            'typeName',
+            [
+                'label' => 'Примечание',
+                'attribute' => 'note',
+                'format' => 'raw',
+                'value' => function ($model, $index) {
+                    return Html::checkbox('note[]', $model->note, ['value' => $index, 'disabled' => true]);
+                },
+                'filter'=>array("1"=>"Требуется уточнение выполненных работ","0"=>"Не требует уточнения"),
+            ],
 
-            ['class' => 'yii\grid\ActionColumn'],
+            ['class' => 'yii\grid\ActionColumn',
+            'template' => '{update}{delete}',
+            ],
         ],
     ]); ?>
 </div>

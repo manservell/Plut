@@ -40,6 +40,11 @@ class CodesWork extends \yii\db\ActiveRecord
         return $this->hasOne(WorkTypes::className(), ['id'=>'type_id']);
     }
 
+    /* Геттер для типа работ*/
+    public function getTypeName() {
+        return $this->types->type;
+    }
+
     /**
      * @inheritdoc
      */
@@ -50,7 +55,9 @@ class CodesWork extends \yii\db\ActiveRecord
             'code' => Yii::t('app', 'Код работ'),
             'name' => Yii::t('app', 'Наименование'),
             'type_id' => Yii::t('app', 'Вид работ (из таблицы видов работ)'),
+            'typeName' => Yii::t('app', 'Вид работ (из таблицы видов работ)'),
             'note' => Yii::t('app', 'Примечание'),
+
         ];
     }
 

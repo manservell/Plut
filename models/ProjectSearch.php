@@ -49,10 +49,10 @@ class ProjectSearch extends Project
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
-        $defSort = $dataProvider->getSort();
-        $defSort->attributes['fullName'] = [
-            'asc' => ['employees.last_name' => SORT_ASC, 'employees.first_name' => SORT_ASC, 'employees.middle_name' => SORT_ASC],
-            'desc' => ['employees.last_name' => SORT_DESC, 'employees.first_name' => SORT_DESC, 'employees.middle_name' => SORT_DESC],
+        $defSort = $dataProvider->getSort();// получаем существующие правила сортировки
+        $defSort->attributes['fullName'] = [ // добавляем свои
+            'asc' => ['employee.last_name' => SORT_ASC, 'employee.first_name' => SORT_ASC, 'employee.middle_name' => SORT_ASC],
+            'desc' => ['employee.last_name' => SORT_DESC, 'employee.first_name' => SORT_DESC, 'employee.middle_name' => SORT_DESC],
             'label' => 'ФИО'
         ];
 
@@ -72,28 +72,22 @@ class ProjectSearch extends Project
         $query->andFilterWhere([
             'id' => $this->id,
             'project.status' => $this->status,
+            'number' => $this->number,
             'responsible_id' => $this->responsible_id,
-            'responsible_id' => $this->name,
             'budget_hours' => $this->budget_hours,
             'planned_end_date' => $this->planned_end_date,
             'actual_end_date' => $this->actual_end_date,
         ]);
 
 
-        $query->andFilterWhere(['like', 'name', $this->name])
-            ->andFilterWhere(['like', 'customer', $this->customer]);
+        $query->andFilterWhere(['like', 'customer', $this->customer])
+            ->andFilterWhere(['like', 'name', $this->name]);
 
        $query->joinWith(['employees' => function ($q) {
             $q->where('employee.last_name LIKE "%' . $this->fullName . '%"' .
                 ' OR employee.first_name LIKE "%' . $this->fullName . '%"' .
                 ' OR employee.middle_name LIKE "%' . $this->fullName . '%"');
         }]);
-
-
-      //  $query->andWhere('last_name LIKE "%' . $this->fullName . '%" ' .
-           // 'OR middle_name LIKE "%' . $this->fullName . '%"' .
-           // 'OR first_name LIKE "%' . $this->fullName . '%"'
-      ///  );
 
         return $dataProvider;
     }

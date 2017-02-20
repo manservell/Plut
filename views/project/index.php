@@ -30,7 +30,15 @@ $this->params['breadcrumbs'][] = $this->title;
             'budget_hours',
             'planned_end_date',
             'actual_end_date',
-            'status',
+            [
+                'label' => 'Статус',
+                'attribute' => 'status',
+                'format' => 'raw',
+                'value' => function ($model, $index) {
+                    return Html::listBox('status[]', $model->status,['0'=>'Открытый','1'=>'Закрытый','2'=>'Не определён'],['disabled' => true,'size'=>3,'appearance' => true]);
+                },
+                'filter'=>array("0"=>"Открытый","1"=>"Закрытый","2"=>"Не определён"),
+            ],
 
             ['class' => 'yii\grid\ActionColumn',
             'template' => '{update}',// иконки удалить, обновить, просмотр....

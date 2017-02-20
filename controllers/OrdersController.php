@@ -66,7 +66,8 @@ class OrdersController extends Controller
         $model = new Orders();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['index']);//переводит на страницу index
+            //return $this->redirect(['view', 'id' => $model->id]);//переводит на страницу view
         } else {
             return $this->render('create', [
                 'model' => $model,
@@ -83,9 +84,9 @@ class OrdersController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['index']);//переводит на страницу index
+           // return $this->redirect(['view', 'id' => $model->id]);   //переводит на страницу view
         } else {
             return $this->render('update', [
                 'model' => $model,
