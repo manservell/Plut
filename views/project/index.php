@@ -35,7 +35,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute' => 'status',
                 'format' => 'raw',
                 'value' => function ($model, $index) {
-                    return Html::listBox('status[]', $model->status,['0'=>'Открытый','1'=>'Закрытый','2'=>'Не определён'],['disabled' => true,'size'=>3,'appearance' => true]);
+                    $status=[0=>"Открытый",1=>"Закрытый",2=>"Не определён"];
+                    return Html::tag('status[]', $status[$model->status],['0'=>'Открытый','1'=>'Закрытый','2'=>'Не определён'],[]);
                 },
                 'filter'=>array("0"=>"Открытый","1"=>"Закрытый","2"=>"Не определён"),
             ],
