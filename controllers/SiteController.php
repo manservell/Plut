@@ -13,7 +13,7 @@ use app\models\ContactForm;
 use app\models\Employee;
 use app\models\DepartmentStructure;
 use app\models\Sector;
-use app\models\KodesWork;
+use app\models\CodesWork;
 use app\models\Orders;
 use app\models\Project;
 
@@ -83,9 +83,9 @@ class SiteController extends Controller
                                     ')->all();
 */
         $emp=Employee::find()
-            ->select('`employee`.`id`, `employee`.`sector_id`, `employee`.`department_id`, `first_name`,`middle_name`,`last_name`,`sector`.`sector`, `departmentStructure`.`structure_category`, `status`')
+            ->select('`employee`.`id`, `employee`.`sector_id`, `employee`.`department_id`, `first_name`,`middle_name`,`last_name`,`sector`.`sector`, `department_structure`.`structure_category`, `status`')
             ->leftJoin('sector', '`employee`.`sector_id` = `sector`.`id`')
-            ->leftJoin('departmentStructure', '`employee`.`department_id` = `departmentStructure`.`id`')
+            ->leftJoin('department_structure', '`employee`.`department_id` = `department_structure`.`id`')
             ->with('sectors')
             ->with('departments')
             ->all();
@@ -109,18 +109,18 @@ class SiteController extends Controller
      * @return string
      */
 
-    public function actionKode()
+    public function actionCode()
     {
-        $kodes=KodesWork::find()->all();
+        $codes=CodesWork::find()->all();
         /*
         echo "<pre>";
         var_dump($kodes);
         echo "</pre>";
         exit(0);
         */
-        return $this->render('kode',
+        return $this->render('code',
             [
-                'kod' => $kodes
+                'cod' => $codes
             ]
         );
     }
@@ -179,6 +179,7 @@ class SiteController extends Controller
             ]
         );
     }
+
 
     public function actionStructure()
     {

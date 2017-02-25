@@ -45,21 +45,36 @@ class Project extends \yii\db\ActiveRecord
         return $this->hasOne(Employee::className(), ['id'=>'responsible_id']);
     }
 
+    /* Геттер для ФИО*/
+    public function getFullName() {
+        return $this->employees->last_name. ' '. $this->employees->first_name. ' ' . $this->employees->middle_name;
+    }
+
     /**
      * @inheritdoc
      */
     public function attributeLabels()
     {
         return [
-            'id' => 'ID',
-            'number' => 'Number',
-            'name' => 'Name',
-            'customer' => 'Customer',
-            'status' => 'Status',
-            'responsible_id' => 'Responsible ID',
-            'budget_hours' => 'Budget Hours',
-            'planned_end_date' => 'Planned End Date',
-            'actual_end_date' => 'Actual End Date',
+            'id' => Yii::t('app', 'ID'),
+            'number' => Yii::t('app', 'Номер пректа'),
+            'name' => Yii::t('app', 'Наименование'),
+            'customer' => Yii::t('app', 'Заказчик'),
+            'status' => Yii::t('app', 'Статус'),
+            'responsible_id' => Yii::t('app', 'Ответственный'),
+            'budget_hours' => Yii::t('app', 'Бюджет часов'),
+            'planned_end_date' => Yii::t('app', 'Запланированная дата выполнения'),
+            'actual_end_date' => Yii::t('app', 'Фактическая дата выполнения'),
+            'fullName' => Yii::t('app', 'ФИО'),
         ];
+    }
+
+    /**
+     * @inheritdoc
+     * @return ProjectQuery the active query used by this AR class.
+     */
+    public static function find()
+    {
+        return new ProjectQuery(get_called_class());
     }
 }

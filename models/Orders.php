@@ -9,6 +9,7 @@ use Yii;
  *
  * @property string $id
  * @property string $number
+ * @property string $project_id
  * @property string $name
  * @property string $responsible_id
  * @property string $budget_hours
@@ -28,6 +29,18 @@ class Orders extends \yii\db\ActiveRecord
     public function getEmployees(){
         return $this->hasOne(Employee::className(), ['id'=>'responsible_id']);
     }
+    /* Геттер для ФИО*/
+    public function getFullName() {
+        return $this->employees->last_name. ' '. $this->employees->first_name. ' ' . $this->employees->middle_name;
+    }
+    public function getProjects(){
+        return $this->hasOne(Project::className(), ['id'=>'project_id']);
+    }
+    /* Геттер для номера проекта*/
+    public function getProjectNumber() {
+        return $this->projects->number;
+    }
+
 
     /**
      * @inheritdoc
@@ -35,8 +48,8 @@ class Orders extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['number', 'name', 'responsible_id', 'budget_hours', 'planned_end_date'], 'required'],
-            [['responsible_id', 'budget_hours', 'status'], 'integer'],
+            [['number', 'project_id', 'name', 'responsible_id', 'budget_hours', 'planned_end_date'], 'required'],
+            [['project_id', 'responsible_id', 'budget_hours', 'status'], 'integer'],
             [['planned_end_date', 'actual_end_date'], 'safe'],
             [['number'], 'string', 'max' => 15],
             [['name'], 'string', 'max' => 155],
@@ -50,14 +63,26 @@ class Orders extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => 'ID',
-            'number' => 'Number',
-            'name' => 'Name',
-            'responsible_id' => 'Responsible ID',
-            'budget_hours' => 'Budget Hours',
-            'planned_end_date' => 'Planned End Date',
-            'actual_end_date' => 'Actual End Date',
-            'status' => 'Status',
+            'id' => Yii::t('app', 'ID'),
+            'number' => Yii::t('app', 'Номер заказа'),
+            'project_id' => Yii::t('app', 'Номер проекта'),
+            'name' => Yii::t('app', 'Наименование'),
+            'responsible_id' => Yii::t('app', 'Ответственный'),
+            'budget_hours' => Yii::t('app', 'Бюджет часов'),
+            'planned_end_date' => Yii::t('app', 'Запланированная дата выполнения'),
+            'actual_end_date' => Yii::t('app', 'Фактическая дата выполнения'),
+            'status' => Yii::t('app', 'Статус'),
+            'fullName' => Yii::t('app', 'ФИО'),
+            'projectNumber' => Yii::t('app', 'Номер проекта'),
         ];
+    }
+
+    /**
+     * @inheritdoc
+     * @return OrdersQuery the active query used by this AR class.
+     */
+    public static function find()
+    {
+        return new OrdersQuery(get_called_class());
     }
 }

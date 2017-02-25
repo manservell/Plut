@@ -36,16 +36,28 @@ class Employee extends \yii\db\ActiveRecord
             [['first_name', 'middle_name', 'last_name'], 'string', 'max' => 55],
         ];
     }
-
-
     public function getSectors(){
         return $this->hasOne(Sector::className(), ['id'=>'sector_id']);
+    }
+
+    /* Геттер для названия сектора*/
+    public function getSectorName() {
+        return $this->sectors->sector;
     }
 
     public function getDepartments(){
         return $this->hasOne(DepartmentStructure::className(), ['id'=>'department_id']);
     }
 
+    /* Геттер для названия департамента*/
+    public function getDepartmentName() {
+        return $this->departments->structure_category;
+    }
+
+    /* Геттер для ФИО*/
+    public function getFullName() {
+        return $this->last_name. ' '. $this->first_name. ' ' . $this->middle_name;
+    }
 
     /**
      * @inheritdoc
@@ -53,13 +65,25 @@ class Employee extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => 'ID',
-            'first_name' => 'First Name',
-            'middle_name' => 'Middle Name',
-            'last_name' => 'Last Name',
-            'department_id' => 'Department ID',
-            'sector_id' => 'Sector ID',
-            'status' => 'Status',
+            'id' => Yii::t('app', 'ID'),
+            'first_name' => Yii::t('app', 'Имя'),
+            'middle_name' => Yii::t('app', 'Отчество'),
+            'last_name' => Yii::t('app', 'Фамилия'),
+            'department_id' => Yii::t('app', 'Категория по структуре отдела'),
+            'departmentName' => Yii::t('app', 'Категория по структуре отдела'),
+            'status' => Yii::t('app', 'Статус'),
+            'sector_id' => Yii::t('app', 'Сектор'),
+            'sectorName' => Yii::t('app', 'Сектор'),
+            'fullName' => Yii::t('app', 'ФИО'),
         ];
+    }
+
+    /**
+     * @inheritdoc
+     * @return EmployeeQuery the active query used by this AR class.
+     */
+    public static function find()
+    {
+        return new EmployeeQuery(get_called_class());
     }
 }

@@ -5,7 +5,7 @@ namespace app\models;
 use Yii;
 
 /**
- * This is the model class for table "workTypes".
+ * This is the model class for table "work_types".
  *
  * @property string $id
  * @property string $type
@@ -17,7 +17,7 @@ class WorkTypes extends \yii\db\ActiveRecord
      */
     public static function tableName()
     {
-        return 'workTypes';
+        return 'work_types';
     }
 
     /**

@@ -6,8 +6,8 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\ProjectCategory */
 
-$this->title = Yii::t('app', 'Create Project Category');
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Project Categories'), 'url' => ['index']];
+$this->title = Yii::t('app', 'Создать категорию');
+$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Категории по проектам'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="project-category-create">
