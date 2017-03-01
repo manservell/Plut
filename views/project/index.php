@@ -2,6 +2,8 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
+use yii\widgets\Pjax;
+use yii\jui\DatePicker;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\ProjectSearch */
@@ -18,6 +20,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <p>
         <?= Html::a(Yii::t('app', 'Создать проект'), ['create'], ['class' => 'btn btn-success']) ?>
     </p>
+    <?php Pjax::begin();?>
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
@@ -28,8 +31,48 @@ $this->params['breadcrumbs'][] = $this->title;
             'name',
             'customer',
             'budget_hours',
-            'planned_end_date',
-            'actual_end_date',
+            [
+                'attribute' => 'planned_end_date',
+                'format' => 'raw',
+                'filter'=>
+                    DatePicker::widget([
+                        'model'=>$searchModel,
+                        'attribute'=>'planned_end_date_from',
+                        'value'=>$value,
+                        'options' => ['placeholder' => 'Дата от: '],
+                        'dateFormat' => 'yyyy-MM-dd',
+                    ]).
+                    '<br/>'.
+                    '<br/>'.
+                    DatePicker::widget([
+                        'model'=>$searchModel,
+                        'attribute'=>'planned_end_date_till',
+                        'value'=>$value,
+                        'options' => ['placeholder' => 'Дата до: '],
+                        'dateFormat' => 'yyyy-MM-dd',
+                    ])
+            ],
+            [
+                'attribute' => 'actual_end_date',
+                'format' => 'raw',
+                'filter'=>
+                    DatePicker::widget([
+                        'model'=>$searchModel,
+                        'attribute'=>'actual_end_date_from',
+                        'value'=>$value,
+                        'options' => ['placeholder' => 'Дата от: '],
+                        'dateFormat' => 'yyyy-MM-dd',
+                    ]).
+                    '<br/>'.
+                    '<br/>'.
+                    DatePicker::widget([
+                        'model'=>$searchModel,
+                        'attribute'=>'actual_end_date_till',
+                        'value'=>$value,
+                        'options' => ['placeholder' => 'Дата до: '],
+                        'dateFormat' => 'yyyy-MM-dd',
+                    ])
+            ],
             [
                 'label' => 'Статус',
                 'attribute' => 'status',
@@ -46,4 +89,5 @@ $this->params['breadcrumbs'][] = $this->title;
                 ]
         ],
     ]); ?>
+    <?php Pjax::end();?>
 </div>

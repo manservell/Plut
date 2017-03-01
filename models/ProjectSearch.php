@@ -13,6 +13,10 @@ use app\models\Project;
 class ProjectSearch extends Project
 {
     public $fullName;
+    public $planned_end_date_from;
+    public $planned_end_date_till;
+    public $actual_end_date_from;
+    public $actual_end_date_till;
     /**
      * @inheritdoc
      */
@@ -20,7 +24,7 @@ class ProjectSearch extends Project
     {
         return [
             [['id', 'status', 'responsible_id', 'budget_hours'], 'integer'],
-            [['number', 'name', 'customer', 'planned_end_date', 'actual_end_date', 'fullName'], 'safe'],
+            [['number', 'name', 'customer', 'planned_end_date', 'actual_end_date', 'planned_end_date_from', 'actual_end_date_from', 'actual_end_date_till', 'planned_end_date_till', 'fullName'], 'safe'],
         ];
     }
 
@@ -70,7 +74,6 @@ class ProjectSearch extends Project
 
         // grid filtering conditions
         $query->andFilterWhere([
-            'id' => $this->id,
             'project.status' => $this->status,
             'number' => $this->number,
             'responsible_id' => $this->responsible_id,
@@ -81,7 +84,11 @@ class ProjectSearch extends Project
 
 
         $query->andFilterWhere(['like', 'customer', $this->customer])
-            ->andFilterWhere(['like', 'name', $this->name]);
+            ->andFilterWhere(['like', 'name', $this->name])
+            ->andFilterWhere(['>=', 'planned_end_date', $this->planned_end_date_from])
+            ->andFilterWhere(['<=', 'planned_end_date', $this->planned_end_date_till])
+            ->andFilterWhere(['>=', 'actual_end_date', $this->actual_end_date_from])
+            ->andFilterWhere(['<=', 'actual_end_date', $this->actual_end_date_till]);
 
        $query->joinWith(['employees' => function ($q) {
             $q->where('employee.last_name LIKE "%' . $this->fullName . '%"' .
