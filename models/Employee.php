@@ -8,6 +8,8 @@ use Yii;
  * This is the model class for table "employee".
  *
  * @property string $id
+ * @property string $username
+ * @property string $password
  * @property string $first_name
  * @property string $middle_name
  * @property string $last_name
@@ -31,11 +33,17 @@ class Employee extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['first_name', 'middle_name', 'last_name', 'department_id', 'sector_id'], 'required'],
+            [['first_name', 'middle_name', 'last_name', 'department_id', 'sector_id', 'username'], 'required'],
             [['department_id', 'sector_id', 'status'], 'integer'],
             [['first_name', 'middle_name', 'last_name'], 'string', 'max' => 55],
+            [['username'], 'string', 'max' => 30],
+            [['username'], 'unique'],
+            [['password'], 'required'],
+            [['password'], 'string', 'max' => 50],
+            [['password'], 'validatePassword'],
         ];
     }
+
     public function getSectors(){
         return $this->hasOne(Sector::className(), ['id'=>'sector_id']);
     }
@@ -66,6 +74,8 @@ class Employee extends \yii\db\ActiveRecord
     {
         return [
             'id' => Yii::t('app', 'ID'),
+            'username' => Yii::t('app', 'Логин'),
+            'password' => Yii::t('app', 'Пароль'),
             'first_name' => Yii::t('app', 'Имя'),
             'middle_name' => Yii::t('app', 'Отчество'),
             'last_name' => Yii::t('app', 'Фамилия'),
@@ -85,5 +95,22 @@ class Employee extends \yii\db\ActiveRecord
     public static function find()
     {
         return new EmployeeQuery(get_called_class());
+    }
+    /**
+     * Validates password
+     *
+     * @param string $password password to validate
+     * @return bool if password provided is valid for current user
+     */
+    public function validatePassword($password)
+    {
+        return $this->password === md5(md5($password));
+    }
+
+    public function generatePass()
+    {
+        if(!empty($this->new_pass))
+            $this->password = md5(md5($this->new_pass));
+        return true;
     }
 }

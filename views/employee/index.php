@@ -26,6 +26,8 @@ $this->params['breadcrumbs'][] = $this->title;
             'fullName',
             'departmentName',
             'sectorName',
+            'username',
+            'password',
             [
                 'label' => 'Статус',
                 'attribute' => 'status',

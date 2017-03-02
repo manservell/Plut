@@ -36,6 +36,9 @@ class EmployeeController extends Controller
      */
     public function actionIndex()
     {
+        if(empty(Yii::$app->request->queryParams))           // вывожу работающих сотрудников по умолчанию, если не заданны другие фильтры
+            Yii::$app->request->queryParams=['EmployeeSearch'=>['status'=>1]];
+
         $searchModel = new EmployeeSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
         /*
