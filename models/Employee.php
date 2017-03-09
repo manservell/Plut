@@ -19,6 +19,7 @@ use Yii;
  */
 class Employee extends \yii\db\ActiveRecord
 {
+    public $new_pass;
     /**
      * @inheritdoc
      */
@@ -104,7 +105,14 @@ class Employee extends \yii\db\ActiveRecord
      */
     public function validatePassword($password)
     {
-        return $this->password === md5(md5($password));
+        $temp=md5(md5($this->password));           //тут была ошибка    $temp=md5(md5($password));
+        $this->password = $temp;
+
+       // echo "<pre>";
+       // var_dump($temp ,$this->password);
+       // echo "</pre>";
+      //  exit(0);
+        return $this->password === $temp;
     }
 
     public function generatePass()
