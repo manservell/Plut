@@ -20,6 +20,10 @@ use yii\helpers\ArrayHelper;
     <?= $form->field($model, 'middle_name')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'last_name')->textInput(['maxlength' => true]) ?>
+
+    <?= $form->field($model, 'username')->textInput(['maxlength' => true]) ?>
+
+    <?= $form->field($model, 'new_pass')->textInput(['maxlength' => true]) ?>
     <?php
     $departments = DepartmentStructure::find()->all();
     $items = ArrayHelper::map($departments,'id','structure_category');

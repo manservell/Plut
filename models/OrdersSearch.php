@@ -14,6 +14,10 @@ class OrdersSearch extends Orders
 {
     public $fullName;
     public $projectNumber;
+    public $planned_end_date_from;
+    public $planned_end_date_till;
+    public $actual_end_date_from;
+    public $actual_end_date_till;
     /**
      * @inheritdoc
      */
@@ -21,7 +25,7 @@ class OrdersSearch extends Orders
     {
         return [
             [['id', 'project_id', 'responsible_id', 'budget_hours', 'status'], 'integer'],
-            [['number', 'name', 'planned_end_date', 'actual_end_date', 'fullName', 'projectNumber'], 'safe'],
+            [['number', 'name', 'planned_end_date', 'actual_end_date', 'planned_end_date_from', 'actual_end_date_from', 'actual_end_date_till', 'planned_end_date_till', 'fullName', 'projectNumber'], 'safe'],
         ];
     }
 
@@ -85,7 +89,11 @@ class OrdersSearch extends Orders
             'orders.number' => $this->number,
         ]);
 
-        $query->andFilterWhere(['like', 'orders.name', $this->name]);
+        $query->andFilterWhere(['like', 'orders.name', $this->name])
+            ->andFilterWhere(['>=', 'orders.planned_end_date', $this->planned_end_date_from])
+            ->andFilterWhere(['<=', 'orders.planned_end_date', $this->planned_end_date_till])
+            ->andFilterWhere(['>=', 'orders.actual_end_date', $this->actual_end_date_from])
+            ->andFilterWhere(['<=', 'orders.actual_end_date', $this->actual_end_date_till]);
 
         $query->joinWith(['employees' => function ($q) {
             $q->where('employee.last_name LIKE "%' . $this->fullName . '%"' .
