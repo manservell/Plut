@@ -39,6 +39,8 @@ class Employee extends \yii\db\ActiveRecord
             [['first_name', 'middle_name', 'last_name'], 'string', 'max' => 55],
             [['username'], 'string', 'max' => 30],
             [['username'], 'unique'],
+            [['new_pass'], 'string', 'max' => 16],
+            [['new_pass'], 'generatePass'],
             [['password'], 'required'],
             [['password'], 'string', 'max' => 50],
             [['password'], 'validatePassword'],
@@ -86,6 +88,7 @@ class Employee extends \yii\db\ActiveRecord
             'sector_id' => Yii::t('app', 'Сектор'),
             'sectorName' => Yii::t('app', 'Сектор'),
             'fullName' => Yii::t('app', 'ФИО'),
+            'new_pass' => Yii::t('app', 'Новый пароль'),
         ];
     }
 
@@ -107,18 +110,20 @@ class Employee extends \yii\db\ActiveRecord
     {
         $temp=md5(md5($this->password));           //тут была ошибка    $temp=md5(md5($password));
         $this->password = $temp;
-
-       // echo "<pre>";
-       // var_dump($temp ,$this->password);
-       // echo "</pre>";
-      //  exit(0);
         return $this->password === $temp;
     }
-
     public function generatePass()
     {
         if(!empty($this->new_pass))
+            $this->password = null;
+       // echo "<pre>";
+       // var_dump($this->password);
+       // echo "</pre>";
             $this->password = md5(md5($this->new_pass));
+        //echo "<pre>";
+        //var_dump($this->password);
+       // echo "</pre>";
+       // exit(0);
         return true;
     }
 }

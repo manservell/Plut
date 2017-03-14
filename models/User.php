@@ -7,8 +7,6 @@ class User extends Employee implements \yii\web\IdentityInterface
    // public $id;
    // public $username;
   //  public $password;
-    public $authKey;
-    public $accessToken;
     /**
      private static $users = [
         '100' => [
@@ -43,11 +41,6 @@ class User extends Employee implements \yii\web\IdentityInterface
      */
     public static function findIdentityByAccessToken($token, $type = null)
     {
-          foreach (self::$users as $user) {
-            if ($user['accessToken'] === $token) {
-                return new static($user);
-            }
-        }
         return null;
 
        // return null;
@@ -91,8 +84,7 @@ class User extends Employee implements \yii\web\IdentityInterface
      */
     public function getAuthKey()
     {
-        return $this->authKey;
-       //return false;
+       return false;
     }
 
     /**
@@ -100,8 +92,7 @@ class User extends Employee implements \yii\web\IdentityInterface
      */
     public function validateAuthKey($authKey)
     {
-        return $this->authKey === $authKey;
-        //return false;
+        return false;
     }
 
     /**
