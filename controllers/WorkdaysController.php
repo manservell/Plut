@@ -3,18 +3,17 @@
 namespace app\controllers;
 
 use Yii;
-use app\models\Employee;
-use app\models\EmployeeSearch;
+use app\models\WorkDays;
+use app\models\WorkdaysSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * EmployeeController implements the CRUD actions for Employee model.
+ * WorkdaysController implements the CRUD actions for WorkDays model.
  */
-class EmployeeController extends Controller
+class WorkdaysController extends Controller
 {
-
     /**
      * @inheritdoc
      */
@@ -31,22 +30,37 @@ class EmployeeController extends Controller
     }
 
     /**
-     * Lists all Employee models.
+     * Lists all WorkDays models.
      * @return mixed
      */
     public function actionIndex()
     {
-        if(empty(Yii::$app->request->queryParams))           // вывожу работающих сотрудников по умолчанию, если не заданны другие фильтры
-            Yii::$app->request->queryParams=['EmployeeSearch'=>['status'=>1]];
+        if( isset($_POST['id']) && isset($_POST['hours']) ) {
+            $model = $this->findModel((int)$_POST['id']);
+            $model->hours = (int)$_POST['hours'];
+            $model->save();
+        }
+        if( isset($_GET['add_day']) ) {
 
-        $searchModel = new EmployeeSearch();
+            //Находим последний день в БД
+            $last_day = WorkDays::find()->orderBy('id DESC')->one();
+
+            $last_day = new \DateTime($last_day->date);
+            $model = new WorkDays();
+
+            //Определяем номер дня недели и выбираем количество рабочих часов по умолчанию
+            if ($last_day->format('N') > 5)
+                $model->hours = 0;
+            else
+                $model->hours = 8;
+
+            $model->date = date_add($last_day, date_interval_create_from_date_string('1 days'))->format('Y-m-d');
+            $model->save();
+
+        }
+        $searchModel = new WorkdaysSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-        /*
-                echo '<pre>';
-                var_dump($dataProvider );
-                echo '</pre>';
-                exit(0);
-        */
+
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
@@ -54,7 +68,7 @@ class EmployeeController extends Controller
     }
 
     /**
-     * Displays a single Employee model.
+     * Displays a single WorkDays model.
      * @param string $id
      * @return mixed
      */
@@ -66,22 +80,17 @@ class EmployeeController extends Controller
     }
 
     /**
-     * Creates a new Employee model.
+     * Creates a new WorkDays model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new Employee();
-        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
-            $model->save();
-            return $this->redirect(['index']);//переводит на страницу index
+        $model = new WorkDays();
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['view', 'id' => $model->id]);
         } else {
-            //header('Content-Type: text/html; charset=utf-8');
-            //echo '<pre>';
-            // var_dump($model->errors);
-            //  echo '</pre>';
-            // exit(0);
             return $this->render('create', [
                 'model' => $model,
             ]);
@@ -89,7 +98,7 @@ class EmployeeController extends Controller
     }
 
     /**
-     * Updates an existing Employee model.
+     * Updates an existing WorkDays model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param string $id
      * @return mixed
@@ -97,8 +106,9 @@ class EmployeeController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['index']);//переводит на страницу index
+            return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('update', [
                 'model' => $model,
@@ -107,7 +117,7 @@ class EmployeeController extends Controller
     }
 
     /**
-     * Deletes an existing Employee model.
+     * Deletes an existing WorkDays model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param string $id
      * @return mixed
@@ -120,15 +130,15 @@ class EmployeeController extends Controller
     }
 
     /**
-     * Finds the Employee model based on its primary key value.
+     * Finds the WorkDays model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param string $id
-     * @return Employee the loaded model
+     * @return WorkDays the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Employee::findOne($id)) !== null) {
+        if (($model = WorkDays::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');

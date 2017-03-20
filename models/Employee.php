@@ -34,13 +34,14 @@ class Employee extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['first_name', 'middle_name', 'last_name', 'department_id', 'sector_id', 'username', 'password'], 'required'],
+            [['first_name', 'middle_name', 'last_name', 'department_id', 'sector_id', 'username'], 'required'],
             [['department_id', 'sector_id', 'status'], 'integer'],
             [['first_name', 'middle_name', 'last_name'], 'string', 'max' => 55],
             [['username'], 'string', 'max' => 30],
             [['username'], 'unique'],
             [['new_pass'], 'string', 'max' => 16],
             [['new_pass'], 'generatePass'],
+            [['new_pass'], 'generatePass', 'skipOnEmpty' => false, 'skipOnError' => false],
             [['password'], 'string', 'max' => 50],
         ];
     }
