@@ -49,14 +49,12 @@ class WorkdaysController extends Controller
             $model = new WorkDays();
 
             //Определяем номер дня недели и выбираем количество рабочих часов по умолчанию
-            if ($last_day->format('N') > 5)
+            if ($last_day->format('N') ==5||$last_day->format('N') ==6)
                 $model->hours = 0;
             else
                 $model->hours = 8;
-
-            $model->date = date_add($last_day, date_interval_create_from_date_string('1 days'))->format('Y-m-d');
-            $model->save();
-
+                $model->date = date_add($last_day, date_interval_create_from_date_string('1 days'))->format('Y-m-d');
+                $model->save();
         }
         $searchModel = new WorkdaysSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);

@@ -1,5 +1,4 @@
 <?php
-
 use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\widgets\Pjax;
@@ -10,35 +9,20 @@ use yii\widgets\Pjax;
 $this->title = Yii::t('app', 'Рабочий календарь');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<script>
-    $(document).ready(function(){
-        $('body').on('click', '.hours_change',function(e){
-            e.stopPropagation();
-            e.preventDefault();
-            var form = $(this).closest('form');
-            form.find('.hours_change').hide();
-            form.find('.hours_input').show();
-            form.find('.hours_save').show();
-            form.find('.hours_view').hide();
-        })
-    })
-</script>
 <div class="work-days-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a(Yii::t('app', 'Добавить 30 дней'), ['index'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a(Yii::t('app', 'Добавить 30 дней'), ['index?add_day=true'], ['class' => 'btn btn-success']) ?>
     </p>
 <?php Pjax::begin(); ?>    <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
-
-            'id',
-            'data',
+            'date',
             [
                 'attribute' => 'hours',
                 'format' => 'raw',
@@ -53,8 +37,6 @@ $this->params['breadcrumbs'][] = $this->title;
                     return $res;
                 },
             ],
-
-            ['class' => 'yii\grid\ActionColumn'],
         ],
     ]); ?>
 <?php Pjax::end(); ?></div>

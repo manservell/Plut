@@ -19,7 +19,7 @@ class WorkdaysSearch extends WorkDays
     {
         return [
             [['id', 'hours'], 'integer'],
-            [['data'], 'safe'],
+            [['date'], 'safe'],
         ];
     }
 
@@ -59,8 +59,7 @@ class WorkdaysSearch extends WorkDays
 
         // grid filtering conditions
         $query->andFilterWhere([
-            'id' => $this->id,
-            'data' => $this->data,
+            'date' => $this->date,
             'hours' => $this->hours,
         ]);
 
