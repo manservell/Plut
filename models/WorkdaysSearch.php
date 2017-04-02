@@ -12,6 +12,8 @@ use app\models\WorkDays;
  */
 class WorkdaysSearch extends WorkDays
 {
+    public $date_from;
+    public $date_till;
     /**
      * @inheritdoc
      */
@@ -19,7 +21,7 @@ class WorkdaysSearch extends WorkDays
     {
         return [
             [['id', 'hours'], 'integer'],
-            [['date'], 'safe'],
+            [['date', 'date_from', 'date_till'], 'safe'],
         ];
     }
 
@@ -62,6 +64,9 @@ class WorkdaysSearch extends WorkDays
             'date' => $this->date,
             'hours' => $this->hours,
         ]);
+
+        $query->andFilterWhere(['>=', 'date', $this->date_from])
+            ->andFilterWhere(['<=', 'date', $this->date_till]);
 
         return $dataProvider;
     }

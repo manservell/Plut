@@ -44,6 +44,7 @@ AppAsset::register($this);
                     ['label' => 'Коды работ', 'url' => ['/codeswork/']],
                     ['label' => 'Заказы', 'url' => ['/orders/']],
                     ['label' => 'Проекты', 'url' => ['/project/']],
+                    ['label' => 'Табель рабочего времени', 'url' => ['/timesheet/']],
                 ]],
             ['label' => 'Создать', 'visible' => !Yii::$app->user->isGuest,
                 'items' => [
@@ -59,7 +60,8 @@ AppAsset::register($this);
                     ['label' => 'Категории по структуре отдела', 'url' => ['/departmentstructure/']],
                     ['label' => 'Сектора', 'url' => ['/sector/']],
                     ['label' => 'Категории по проектам', 'url' => ['/projectcategory/']],
-                    ['label' => 'Виды работ', 'url' => ['/worktypes/']]
+                    ['label' => 'Виды работ', 'url' => ['/worktypes/']],
+                    ['label' => 'Рабочий календарь', 'url' => ['/workdays/']]
                 ]
             ],
             Yii::$app->user->isGuest ? (
