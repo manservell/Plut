@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Мар 23 2017 г., 21:01
+-- Время создания: Апр 03 2017 г., 19:11
 -- Версия сервера: 5.5.50-log
 -- Версия PHP: 5.5.37
 
@@ -227,6 +227,33 @@ INSERT INTO `sector` (`id`, `sector`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Структура таблицы `time_sheet`
+--
+
+CREATE TABLE IF NOT EXISTS `time_sheet` (
+  `id` int(25) unsigned NOT NULL,
+  `full_name` varchar(255) NOT NULL COMMENT 'ФИО',
+  `sector` varchar(255) NOT NULL COMMENT 'Сектор',
+  `project_number` varchar(15) NOT NULL COMMENT 'Номер проекта',
+  `project_name` varchar(155) NOT NULL COMMENT 'Наименование проекта',
+  `order_number` varchar(15) NOT NULL COMMENT 'Номер заказа',
+  `work_code` varchar(15) NOT NULL COMMENT 'Код работ',
+  `date` date NOT NULL COMMENT 'Дата',
+  `hours` int(2) unsigned NOT NULL COMMENT 'Часы',
+  `note` varchar(255) DEFAULT NULL COMMENT 'Примечание'
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COMMENT='Табель рабочего времени';
+
+--
+-- Дамп данных таблицы `time_sheet`
+--
+
+INSERT INTO `time_sheet` (`id`, `full_name`, `sector`, `project_number`, `project_name`, `order_number`, `work_code`, `date`, `hours`, `note`) VALUES
+(1, 'Резниченко Алексей Константинович', 'Оборудования среднего напряжения', '2', '4', '8', '4', '2017-01-31', 55, 'без примечания'),
+(2, 'Марсик Пётр Абдулаевич', 'Тягового оборудования', '4', '3', '9', '2', '2017-04-02', 8, '');
+
+-- --------------------------------------------------------
+
+--
 -- Структура таблицы `work_days`
 --
 
@@ -234,19 +261,43 @@ CREATE TABLE IF NOT EXISTS `work_days` (
   `id` int(10) unsigned NOT NULL,
   `date` date NOT NULL COMMENT 'Дата',
   `hours` int(10) NOT NULL COMMENT 'Кол-во рабочих часов'
-) ENGINE=InnoDB AUTO_INCREMENT=104 DEFAULT CHARSET=utf8 COMMENT='Ввод и корректировка рабочего времени в календаре';
+) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8 COMMENT='Ввод и корректировка рабочего времени в календаре';
 
 --
 -- Дамп данных таблицы `work_days`
 --
 
 INSERT INTO `work_days` (`id`, `date`, `hours`) VALUES
-(98, '2017-03-22', 8),
-(99, '2017-03-23', 8),
-(100, '2017-03-24', 8),
-(101, '2017-03-25', 0),
-(102, '2017-03-26', 0),
-(103, '2017-03-27', 8);
+(1, '2017-03-28', 8),
+(2, '2017-03-29', 8),
+(3, '2017-03-30', 8),
+(4, '2017-03-31', 8),
+(5, '2017-04-01', 0),
+(6, '2017-04-02', 0),
+(7, '2017-04-03', 8),
+(8, '2017-04-04', 8),
+(9, '2017-04-05', 8),
+(10, '2017-04-06', 8),
+(11, '2017-04-07', 8),
+(12, '2017-04-08', 0),
+(13, '2017-04-09', 0),
+(14, '2017-04-10', 8),
+(15, '2017-04-11', 8),
+(16, '2017-04-12', 8),
+(17, '2017-04-13', 8),
+(18, '2017-04-14', 8),
+(19, '2017-04-15', 0),
+(20, '2017-04-16', 0),
+(21, '2017-04-17', 8),
+(22, '2017-04-18', 8),
+(23, '2017-04-19', 8),
+(24, '2017-04-20', 8),
+(25, '2017-04-21', 8),
+(26, '2017-04-22', 0),
+(27, '2017-04-23', 0),
+(28, '2017-04-24', 8),
+(29, '2017-04-25', 8),
+(30, '2017-04-26', 8);
 
 -- --------------------------------------------------------
 
@@ -318,6 +369,12 @@ ALTER TABLE `sector`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Индексы таблицы `time_sheet`
+--
+ALTER TABLE `time_sheet`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Индексы таблицы `work_days`
 --
 ALTER TABLE `work_days`
@@ -369,10 +426,15 @@ ALTER TABLE `project_category`
 ALTER TABLE `sector`
   MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=7;
 --
+-- AUTO_INCREMENT для таблицы `time_sheet`
+--
+ALTER TABLE `time_sheet`
+  MODIFY `id` int(25) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+--
 -- AUTO_INCREMENT для таблицы `work_days`
 --
 ALTER TABLE `work_days`
-  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=104;
+  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=31;
 --
 -- AUTO_INCREMENT для таблицы `work_types`
 --

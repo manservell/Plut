@@ -23,6 +23,25 @@ class TimeSheet extends \yii\db\ActiveRecord
     /**
      * @inheritdoc
      */
+    public static function tableName()
+    {
+        return 'time_sheet';
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function rules()
+    {
+        return [
+            [['full_name', 'sector', 'project_number', 'project_name', 'order_number', 'work_code', 'date', 'hours'], 'required'],
+            [['date'], 'safe'],
+            [['hours'], 'integer'],
+            [['full_name', 'sector', 'note'], 'string', 'max' => 255],
+            [['project_number', 'order_number', 'work_code'], 'string', 'max' => 15],
+            [['project_name'], 'string', 'max' => 155],
+        ];
+    }
     public function getProjects(){
         return $this->hasOne(Project::className(), ['id'=>'project_number']);
     }
@@ -44,25 +63,13 @@ class TimeSheet extends \yii\db\ActiveRecord
     public function getCodeWork() {
         return $this->codes->code;
     }
-    public static function tableName()
-    {
-        return 'time_sheet';
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function rules()
-    {
-        return [
-            [['full_name', 'sector', 'project_number', 'project_name', 'order_number', 'work_code', 'date', 'hours'], 'required'],
-            [['date'], 'safe'],
-            [['hours'], 'integer'],
-            [['full_name', 'sector', 'note'], 'string', 'max' => 255],
-            [['project_number', 'order_number', 'work_code'], 'string', 'max' => 15],
-            [['project_name'], 'string', 'max' => 155],
-        ];
-    }
+   // public function getSectors(){
+       // return $this->hasOne(Sector::className(), ['id'=>'sector']);
+  //  }
+    /* Геттер для названия сектора*/
+    //public function getSectorName() {
+        //return $this->sectors->sector;
+   // }
 
     /**
      * @inheritdoc
@@ -73,6 +80,7 @@ class TimeSheet extends \yii\db\ActiveRecord
             'id' => Yii::t('app', 'ID'),
             'full_name' => Yii::t('app', 'ФИО'),
             'sector' => Yii::t('app', 'Сектор'),
+            'sectorName' => Yii::t('app', 'Сектор'),
             'projectNumber' => Yii::t('app', 'Номер проекта'),
             'projectName' => Yii::t('app', 'Наименование проекта'),
             'orderNumber' => Yii::t('app', 'Номер заказа'),

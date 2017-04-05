@@ -2,10 +2,6 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
-use app\models\Project;
-use app\models\Orders;
-use app\models\CodesWork;
-use yii\helpers\ArrayHelper;
 use yii\jui\DatePicker;
 use kartik\select2\Select2;
 
@@ -14,26 +10,30 @@ use kartik\select2\Select2;
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
+
 <div class="time-sheet-form">
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'full_name')->textInput(['maxlength' => true]) ?>
+    <?php
+    echo $form->field($model, 'full_name')->widget(Select2::className(),
+        [
+            'value' => '23',
+            'data' => $items_full_name,
+            'options' => ['placeholder' => 'Выберите наименование проекта ...'],
+            'pluginOptions' => [
+                'allowClear' => true
+            ],
+        ]);
+    ?>
+
 
     <?= $form->field($model, 'sector')->textInput(['maxlength' => true]) ?>
 
-
     <?php
-    $items = Project::find()
-        ->select(['id as value', 'concat(number) as label'])
-        ->asArray()
-        ->all();
-    $items = ArrayHelper::map($items, 'value', 'label');
-    asort($items);
-    reset($items);
     echo $form->field($model, 'project_number')->widget(Select2::className(),
         [
-            'data' => $items,
+            'data' => $items_project_number,
             'options' => ['placeholder' => 'Выберите номер проекта ...'],
             'pluginOptions' => [
                 'allowClear' => true
@@ -42,16 +42,9 @@ use kartik\select2\Select2;
     ?>
 
     <?php
-    $items = Project::find()
-        ->select(['id as value', 'concat(name) as label'])
-        ->asArray()
-        ->all();
-    $items = ArrayHelper::map($items, 'value', 'label');
-    asort($items);
-    reset($items);
     echo $form->field($model, 'project_name')->widget(Select2::className(),
         [
-            'data' => $items,
+            'data' => $items_project_name,
             'options' => ['placeholder' => 'Выберите наименование проекта ...'],
             'pluginOptions' => [
                 'allowClear' => true
@@ -60,16 +53,9 @@ use kartik\select2\Select2;
     ?>
 
     <?php
-    $items = Orders::find()
-        ->select(['id as value', 'concat(number) as label'])
-        ->asArray()
-        ->all();
-    $items = ArrayHelper::map($items, 'value', 'label');
-    asort($items);
-    reset($items);
     echo $form->field($model, 'order_number')->widget(Select2::className(),
         [
-            'data' => $items,
+            'data' => $items_orders,
             'options' => ['placeholder' => 'Выберите номер заказа ...'],
             'pluginOptions' => [
                 'allowClear' => true
@@ -77,15 +63,8 @@ use kartik\select2\Select2;
         ]);
     ?>
 
-
     <?php
-    $items = CodesWork::find()
-        ->select(['id as value', 'concat(code) as label'])
-        ->asArray()
-        ->all();
-    $items = ArrayHelper::map($items, 'value', 'label');
-    asort($items);
-    reset($items);
+
     echo $form->field($model, 'work_code')->widget(Select2::className(),
         [
             'data' => $items,

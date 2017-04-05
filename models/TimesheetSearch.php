@@ -18,6 +18,7 @@ class TimesheetSearch extends TimeSheet
     public $codeWork;
     public $date_from;
     public $date_till;
+    //public $sectorName; // это пропиши в рулы     , 'sectorNamet'
     /**
      * @inheritdoc
      */
@@ -55,11 +56,18 @@ class TimesheetSearch extends TimeSheet
             'query' => $query,
         ]);
         $defSort = $dataProvider->getSort();// получаем существующие правила сортировки
+
         $defSort->attributes['projectNumber'] = [       // добавляем свои
             'asc' => ['project.number' => SORT_ASC],
             'desc' => ['project.number' => SORT_DESC],
             'label' => 'Номер проекта'
         ];
+
+      //  $defSort->attributes['sectorName'] = [       // добавляем свои
+         //   'asc' => ['sector.sector' => SORT_ASC],
+          //  'desc' => ['sector.sector' => SORT_DESC],
+          //  'label' => 'Сектор'
+       // ];
 
         $defSort->attributes['projectName'] = [       // добавляем свои
             'asc' => ['project.name' => SORT_ASC],
@@ -114,6 +122,9 @@ class TimesheetSearch extends TimeSheet
         $query->joinWith(['projects' => function ($q) {
             $q->where('project.number LIKE "%' . $this->projectNumber . '%"');
         }]);
+        //$query->joinWith(['sectors' => function ($q) {
+            //$q->where('sector.sector LIKE "%' . $this->sectorName . '%"');
+        //}]);
         $query->joinWith(['projects' => function ($q) {
             $q->where('project.name LIKE "%' . $this->projectName . '%"');
         }]);

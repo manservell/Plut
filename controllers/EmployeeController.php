@@ -41,12 +41,6 @@ class EmployeeController extends Controller
 
         $searchModel = new EmployeeSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-        /*
-                echo '<pre>';
-                var_dump($dataProvider );
-                echo '</pre>';
-                exit(0);
-        */
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
@@ -77,11 +71,6 @@ class EmployeeController extends Controller
             $model->save();
             return $this->redirect(['index']);//переводит на страницу index
         } else {
-            //header('Content-Type: text/html; charset=utf-8');
-            //echo '<pre>';
-            // var_dump($model->errors);
-            //  echo '</pre>';
-            // exit(0);
             return $this->render('create', [
                 'model' => $model,
             ]);

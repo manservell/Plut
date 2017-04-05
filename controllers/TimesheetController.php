@@ -2,12 +2,17 @@
 
 namespace app\controllers;
 
+use app\models\Employee;
 use Yii;
 use app\models\TimeSheet;
 use app\models\TimesheetSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use app\models\Project;
+use app\models\Orders;
+use app\models\CodesWork;
+use yii\helpers\ArrayHelper;
 
 /**
  * TimesheetController implements the CRUD actions for TimeSheet model.
@@ -63,13 +68,72 @@ class TimesheetController extends Controller
      */
     public function actionCreate()
     {
+       // header('Content-Type: text/html; charset=utf-8');
+       // echo "<pre>";
+       // var_dump(Yii::$app->user->identity->sectorName);
+       // echo "</pre>";
+        //exit(0);
         $model = new TimeSheet();
+        //$model->full_name= Yii::$app->user->identity->last_name.' '.Yii::$app->user->identity->first_name.' '.Yii::$app->user->identity->middle_name;
+        $model->full_name= Yii::$app->user->identity->fullName;
+        $model->sector= Yii::$app->user->identity->sectorName;
+
+        $items_full_name = Employee::find()
+            ->select(['id as value', 'concat(last_name, " ", first_name, " ", middle_name) as label'])
+            ->asArray()
+            ->all();
+        $items_full_name = ArrayHelper::map($items_full_name, 'value', 'label');
+        asort($items_full_name);
+        reset($items_full_name);
+
+        $items = CodesWork::find()
+            ->select(['id as value', 'concat(code) as label'])
+            ->asArray()
+            ->all();
+        $items = ArrayHelper::map($items, 'value', 'label');
+        asort($items);
+        reset($items);
+
+        $items_project_number = Project::find()
+            ->select(['id as value', 'concat(number) as label'])
+            ->asArray()
+            ->all();
+        $items_project_number = ArrayHelper::map($items_project_number, 'value', 'label');
+        asort($items_project_number);
+        reset($items_project_number);
+        // header('Content-Type: text/html; charset=utf-8');
+        // echo "<pre>";
+        // var_dump($items_project_number);
+        // echo "</pre>";
+        //exit(0);
+
+        $items_project_name = Project::find()
+            ->select(['id as value', 'concat(name) as label'])
+            ->asArray()
+            ->all();
+        $items_project_name = ArrayHelper::map($items_project_name, 'value', 'label');
+        asort($items_project_name);
+        reset($items_project_name);
+
+        $items_orders = Orders::find()
+            ->select(['id as value', 'concat(number) as label'])
+            ->asArray()
+            ->all();
+        $items_orders = ArrayHelper::map($items_orders, 'value', 'label');
+        asort($items_orders);
+        reset($items_orders);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('create', [
                 'model' => $model,
+                'items' => $items,
+                'items_project_number' => $items_project_number,
+                'items_project_name' => $items_project_name,
+                'items_orders' => $items_orders,
+                'items_full_name' => $items_full_name,
+
             ]);
         }
     }
