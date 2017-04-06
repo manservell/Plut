@@ -11,6 +11,7 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use app\models\Project;
 use app\models\Orders;
+use app\models\Sector;
 use app\models\CodesWork;
 use yii\helpers\ArrayHelper;
 
@@ -68,15 +69,10 @@ class TimesheetController extends Controller
      */
     public function actionCreate()
     {
-       // header('Content-Type: text/html; charset=utf-8');
-       // echo "<pre>";
-       // var_dump(Yii::$app->user->identity->sectorName);
-       // echo "</pre>";
-        //exit(0);
         $model = new TimeSheet();
         //$model->full_name= Yii::$app->user->identity->last_name.' '.Yii::$app->user->identity->first_name.' '.Yii::$app->user->identity->middle_name;
-        $model->full_name= Yii::$app->user->identity->fullName;
-        $model->sector= Yii::$app->user->identity->sectorName;
+      //  $model->full_name= Yii::$app->user->identity->fullName;
+       // $model->sector= Yii::$app->user->identity->sectorName;
 
         $items_full_name = Employee::find()
             ->select(['id as value', 'concat(last_name, " ", first_name, " ", middle_name) as label'])
@@ -85,6 +81,14 @@ class TimesheetController extends Controller
         $items_full_name = ArrayHelper::map($items_full_name, 'value', 'label');
         asort($items_full_name);
         reset($items_full_name);
+
+        $items_sector = Sector::find()
+            ->select(['id as value', 'concat(sector) as label'])
+            ->asArray()
+            ->all();
+        $items_sector = ArrayHelper::map($items_sector, 'value', 'label');
+        asort($items_sector);
+        reset($items_sector);
 
         $items = CodesWork::find()
             ->select(['id as value', 'concat(code) as label'])
@@ -101,11 +105,6 @@ class TimesheetController extends Controller
         $items_project_number = ArrayHelper::map($items_project_number, 'value', 'label');
         asort($items_project_number);
         reset($items_project_number);
-        // header('Content-Type: text/html; charset=utf-8');
-        // echo "<pre>";
-        // var_dump($items_project_number);
-        // echo "</pre>";
-        //exit(0);
 
         $items_project_name = Project::find()
             ->select(['id as value', 'concat(name) as label'])
@@ -133,6 +132,7 @@ class TimesheetController extends Controller
                 'items_project_name' => $items_project_name,
                 'items_orders' => $items_orders,
                 'items_full_name' => $items_full_name,
+                'items_sector' => $items_sector,
 
             ]);
         }

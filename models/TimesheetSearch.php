@@ -12,9 +12,11 @@ use app\models\TimeSheet;
  */
 class TimesheetSearch extends TimeSheet
 {
+    public $fullName;
     public $projectNumber;
     public $projectName;
     public $orderNumber;
+    public $sectorName;
     public $codeWork;
     public $date_from;
     public $date_till;
@@ -26,7 +28,7 @@ class TimesheetSearch extends TimeSheet
     {
         return [
             [['id', 'hours'], 'integer'],
-            [['full_name', 'sector', 'project_number', 'project_name', 'order_number', 'work_code', 'date', 'note', 'projectNumber', 'projectName', 'orderNumber', 'codeWork', 'date_from', 'date_till'], 'safe'],
+            [['employee_id', 'sector_id', 'project_number_id', 'project_name_id', 'order_number_id', 'work_code_id', 'date', 'note', 'projectNumber', 'projectName', 'orderNumber', 'codeWork', 'date_from', 'date_till', 'sectorName', 'fullName'], 'safe'],
         ];
     }
 
@@ -57,17 +59,23 @@ class TimesheetSearch extends TimeSheet
         ]);
         $defSort = $dataProvider->getSort();// получаем существующие правила сортировки
 
+        $defSort->attributes['fullName'] = [ // добавляем свои
+            'asc' => ['employee.last_name' => SORT_ASC, 'employee.first_name' => SORT_ASC, 'employee.middle_name' => SORT_ASC],
+            'desc' => ['employee.last_name' => SORT_DESC, 'employee.first_name' => SORT_DESC, 'employee.middle_name' => SORT_DESC],
+            'label' => 'ФИО'
+        ];
+
         $defSort->attributes['projectNumber'] = [       // добавляем свои
             'asc' => ['project.number' => SORT_ASC],
             'desc' => ['project.number' => SORT_DESC],
             'label' => 'Номер проекта'
         ];
 
-      //  $defSort->attributes['sectorName'] = [       // добавляем свои
-         //   'asc' => ['sector.sector' => SORT_ASC],
-          //  'desc' => ['sector.sector' => SORT_DESC],
-          //  'label' => 'Сектор'
-       // ];
+        $defSort->attributes['sectorName'] = [       // добавляем свои
+            'asc' => ['sector.sector' => SORT_ASC],
+            'desc' => ['sector.sector' => SORT_DESC],
+            'label' => 'Сектор'
+        ];
 
         $defSort->attributes['projectName'] = [       // добавляем свои
             'asc' => ['project.name' => SORT_ASC],
@@ -102,17 +110,17 @@ class TimesheetSearch extends TimeSheet
             'id' => $this->id,
             'date' => $this->date,
             'hours' => $this->hours,
-            'full_name' => $this->full_name,
-            'sector' => $this->sector,
-            'project_number' => $this->project_number,
-            'project_name' => $this->project_name,
-            'order_number' => $this->order_number,
-            'work_code' => $this->work_code,
+            'employee_id' => $this->employee_id,
+            'sector_id' => $this->sector_id,
+            'project_number_id' => $this->project_number_id,
+            'project_name_id' => $this->project_name_id,
+            'order_number_id' => $this->order_number_id,
+            'work_code_id' => $this->work_code_id,
             'note' => $this->note,
         ]);
 
-        $query->andFilterWhere(['like', 'full_name', $this->full_name])
-            ->andFilterWhere(['like', 'sector', $this->sector])
+        $query->andFilterWhere(['like', 'employee_id', $this->employee_id])
+            ->andFilterWhere(['like', 'sector_id', $this->sector_id])
             ->andFilterWhere(['like', 'note', $this->note]);
 
         $query->andFilterWhere(['like', 'date', $this->date])
@@ -122,9 +130,9 @@ class TimesheetSearch extends TimeSheet
         $query->joinWith(['projects' => function ($q) {
             $q->where('project.number LIKE "%' . $this->projectNumber . '%"');
         }]);
-        //$query->joinWith(['sectors' => function ($q) {
-            //$q->where('sector.sector LIKE "%' . $this->sectorName . '%"');
-        //}]);
+        $query->joinWith(['sectors' => function ($q) {
+            $q->where('sector.sector LIKE "%' . $this->sectorName . '%"');
+        }]);
         $query->joinWith(['projects' => function ($q) {
             $q->where('project.name LIKE "%' . $this->projectName . '%"');
         }]);
@@ -133,6 +141,12 @@ class TimesheetSearch extends TimeSheet
         }]);
         $query->joinWith(['codes' => function ($q) {
             $q->where('code LIKE "%' . $this->codeWork . '%"');
+        }]);
+
+        $query->joinWith(['employees' => function ($q) {
+            $q->where('employee.last_name LIKE "%' . $this->fullName . '%"' .
+                ' OR employee.first_name LIKE "%' . $this->fullName . '%"' .
+                ' OR employee.middle_name LIKE "%' . $this->fullName . '%"');
         }]);
         return $dataProvider;
     }

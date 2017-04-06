@@ -8,12 +8,12 @@ use Yii;
  * This is the model class for table "time_sheet".
  *
  * @property string $id
- * @property string $full_name
- * @property string $sector
- * @property string $project_number
- * @property string $project_name
- * @property string $order_number
- * @property string $work_code
+ * @property string $employee_id
+ * @property string $sector_id
+ * @property string $project_number_id
+ * @property string $project_name_id
+ * @property string $order_number_id
+ * @property string $work_code_id
  * @property string $date
  * @property string $hours
  * @property string $note
@@ -34,16 +34,14 @@ class TimeSheet extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['full_name', 'sector', 'project_number', 'project_name', 'order_number', 'work_code', 'date', 'hours'], 'required'],
+            [['employee_id', 'sector_id', 'project_number_id', 'project_name_id', 'order_number_id', 'work_code_id', 'date', 'hours'], 'required'],
             [['date'], 'safe'],
-            [['hours'], 'integer'],
-            [['full_name', 'sector', 'note'], 'string', 'max' => 255],
-            [['project_number', 'order_number', 'work_code'], 'string', 'max' => 15],
-            [['project_name'], 'string', 'max' => 155],
+            [['hours', 'employee_id', 'sector_id', 'project_number_id', 'project_name_id', 'order_number_id', 'work_code_id'], 'integer'],
+            [[ 'note'], 'string', 'max' => 255],
         ];
     }
     public function getProjects(){
-        return $this->hasOne(Project::className(), ['id'=>'project_number']);
+        return $this->hasOne(Project::className(), ['id'=>'project_number_id']);
     }
     public function getProjectNumber() {
         return $this->projects->number;
@@ -52,24 +50,30 @@ class TimeSheet extends \yii\db\ActiveRecord
         return $this->projects->name;
     }
     public function getOrder(){
-        return $this->hasOne(Orders::className(), ['id'=>'order_number']);
+        return $this->hasOne(Orders::className(), ['id'=>'order_number_id']);
     }
     public function getOrderNumber() {
         return $this->order->number;
     }
     public function getCodes(){
-        return $this->hasOne(CodesWork::className(), ['id'=>'work_code']);
+        return $this->hasOne(CodesWork::className(), ['id'=>'work_code_id']);
     }
     public function getCodeWork() {
         return $this->codes->code;
     }
-   // public function getSectors(){
-       // return $this->hasOne(Sector::className(), ['id'=>'sector']);
-  //  }
-    /* Геттер для названия сектора*/
-    //public function getSectorName() {
-        //return $this->sectors->sector;
-   // }
+    public function getSectors(){
+        return $this->hasOne(Sector::className(), ['id'=>'sector_id']);
+    }
+    public function getSectorName() {
+        return $this->sectors->sector;
+    }
+    public function getEmployees(){
+        return $this->hasOne(Employee::className(), ['id'=>'employee_id']);
+    }
+    /* Геттер для ФИО*/
+    public function getFullName() {
+        return $this->employees->last_name. ' '. $this->employees->first_name. ' ' . $this->employees->middle_name;
+    }
 
     /**
      * @inheritdoc
@@ -78,8 +82,7 @@ class TimeSheet extends \yii\db\ActiveRecord
     {
         return [
             'id' => Yii::t('app', 'ID'),
-            'full_name' => Yii::t('app', 'ФИО'),
-            'sector' => Yii::t('app', 'Сектор'),
+            'fullName' => Yii::t('app', 'ФИО'),
             'sectorName' => Yii::t('app', 'Сектор'),
             'projectNumber' => Yii::t('app', 'Номер проекта'),
             'projectName' => Yii::t('app', 'Наименование проекта'),
