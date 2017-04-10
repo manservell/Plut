@@ -2,9 +2,6 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
-use app\models\Sector;
-use app\models\DepartmentStructure;
-use yii\helpers\ArrayHelper;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Employee */
@@ -24,26 +21,10 @@ use yii\helpers\ArrayHelper;
     <?= $form->field($model, 'username')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'new_pass')->textInput(['maxlength' => true]) ?>
-    <?php
-    $departments = DepartmentStructure::find()->all();
-    $items = ArrayHelper::map($departments,'id','structure_category');
-    $params = [
-        'prompt' => 'Выберите категорию по структуре отдела...'
-    ];
-    ?>
-    <?= $form->field($model, 'department_id')->dropDownList($items,$params);?>
 
+    <?= $form->field($model, 'department_id')->dropDownList($items_department,$params_department);?>
 
-
-    <?php
-    $sectors = Sector::find()->all();
-    $items = ArrayHelper::map($sectors,'id','sector');
-    $params = [
-        'prompt' => 'Выберите сектор...'
-    ];
-    ?>
-    <?= $form->field($model, 'sector_id')->dropDownList($items,$params);?>
-
+    <?= $form->field($model, 'sector_id')->dropDownList($items_sector,$params_sector);?>
 
     <?= $form->field($model, 'status')->checkbox([
         'label' => 'Сотрудник работает?',

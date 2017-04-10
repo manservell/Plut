@@ -5,9 +5,12 @@ namespace app\controllers;
 use Yii;
 use app\models\Orders;
 use app\models\OrdersSearch;
+use app\models\Project;
+use app\models\Employee;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\helpers\ArrayHelper;
 
 /**
  * OrdersController implements the CRUD actions for Orders model.
@@ -65,12 +68,34 @@ class OrdersController extends Controller
     {
         $model = new Orders();
 
+        $items_project = Project::find()
+            ->select(['id as value', 'concat(number, " ", name) as label'])
+            ->asArray()
+            ->all();
+        $items_project = ArrayHelper::map($items_project, 'value', 'label');
+        asort($items_project);
+        reset($items_project);
+
+     //   $items_employee = Employee::find()
+         //   ->select(['id as value', 'last_name as label'])
+          //  ->asArray()
+           // ->all();
+        $items_employee = Employee::find()
+            ->select(['id as value', 'concat(last_name, " ", first_name, " ", middle_name) as label'])
+            ->asArray()
+            ->all();
+        $items_employee = ArrayHelper::map($items_employee, 'value', 'label');
+        asort($items_employee);
+        reset($items_employee);
+
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['index']);//переводит на страницу index
             //return $this->redirect(['view', 'id' => $model->id]);//переводит на страницу view
         } else {
             return $this->render('create', [
                 'model' => $model,
+                'items_project' => $items_project,
+                'items_employee' => $items_employee,
             ]);
         }
     }

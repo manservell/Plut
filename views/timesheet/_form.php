@@ -15,8 +15,7 @@ use kartik\select2\Select2;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?php
-    echo $form->field($model, 'employee_id')->widget(Select2::className(),
+    <?= $form->field($model, 'employee_id')->widget(Select2::className(),
         [
             'value' => '23',
             'data' => $items_full_name,
@@ -27,9 +26,7 @@ use kartik\select2\Select2;
         ]);
     ?>
 
-    <?php
-
-    echo $form->field($model, 'sector_id')->widget(Select2::className(),
+    <?= $form->field($model, 'sector_id')->widget(Select2::className(),
         [
             'data' => $items_sector,
             'options' => ['placeholder' => 'Выберите сектор ...'],
@@ -39,8 +36,7 @@ use kartik\select2\Select2;
         ]);
     ?>
 
-    <?php
-    echo $form->field($model, 'project_number_id')->widget(Select2::className(),
+    <?= $form->field($model, 'project_number_id')->widget(Select2::className(),
         [
             'data' => $items_project_number,
             'options' => ['placeholder' => 'Выберите номер проекта ...'],
@@ -50,8 +46,7 @@ use kartik\select2\Select2;
         ]);
     ?>
 
-    <?php
-    echo $form->field($model, 'project_name_id')->widget(Select2::className(),
+    <?= $form->field($model, 'project_name_id')->widget(Select2::className(),
         [
             'data' => $items_project_name,
             'options' => ['placeholder' => 'Выберите наименование проекта ...'],
@@ -61,8 +56,7 @@ use kartik\select2\Select2;
         ]);
     ?>
 
-    <?php
-    echo $form->field($model, 'order_number_id')->widget(Select2::className(),
+    <?= $form->field($model, 'order_number_id')->widget(Select2::className(),
         [
             'data' => $items_orders,
             'options' => ['placeholder' => 'Выберите номер заказа ...'],
@@ -72,9 +66,7 @@ use kartik\select2\Select2;
         ]);
     ?>
 
-    <?php
-
-    echo $form->field($model, 'work_code_id')->widget(Select2::className(),
+    <?= $form->field($model, 'work_code_id')->widget(Select2::className(),
         [
             'data' => $items,
             'options' => ['placeholder' => 'Выберите код работ ...'],
@@ -85,9 +77,6 @@ use kartik\select2\Select2;
     ?>
 
     <?= $form->field($model, 'date')->widget(DatePicker::className(), [
-        // 'model' => $model,
-        //'attribute' => 'from_date',
-        //'language' => 'ru',
         'dateFormat' => 'yyyy-MM-dd',
     ]);?>
 

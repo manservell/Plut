@@ -2,8 +2,6 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
-use app\models\WorkTypes;
-use yii\helpers\ArrayHelper;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\CodesWork */
@@ -18,14 +16,7 @@ use yii\helpers\ArrayHelper;
 
     <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
 
-    <?php
-    $sectors = WorkTypes::find()->all();
-    $items = ArrayHelper::map($sectors,'id','type');
-    $params = [
-        'prompt' => 'Выберите тип работ...'
-    ];
-    ?>
-    <?= $form->field($model, 'type_id')->dropDownList($items,$params);?>
+    <?= $form->field($model, 'type_id')->dropDownList($items_type,$params_type);?>
 
     <?= $form->field($model, 'note')->checkbox([
         'label' => 'Требуется уточнение выполненных работ?',
