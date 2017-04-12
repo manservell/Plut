@@ -17,9 +17,9 @@ use kartik\select2\Select2;
 
     <?= $form->field($model, 'employee_id')->widget(Select2::className(),
         [
-            'value' => '23',
             'data' => $items_full_name,
-            'options' => ['placeholder' => 'Выберите наименование проекта ...'],
+            'disabled'=> true,
+           // 'options' => ['placeholder' => 'Выберите наименование проекта ...'],
             'pluginOptions' => [
                 'allowClear' => true
             ],
@@ -29,7 +29,8 @@ use kartik\select2\Select2;
     <?= $form->field($model, 'sector_id')->widget(Select2::className(),
         [
             'data' => $items_sector,
-            'options' => ['placeholder' => 'Выберите сектор ...'],
+            'disabled'=> true,
+            //'options' => ['placeholder' => 'Выберите сектор ...'],
             'pluginOptions' => [
                 'allowClear' => true
             ],

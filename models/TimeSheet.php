@@ -34,7 +34,7 @@ class TimeSheet extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['employee_id', 'sector_id', 'project_number_id', 'project_name_id', 'order_number_id', 'work_code_id', 'date', 'hours'], 'required'],
+            [['employee_id', 'sector_id', 'project_number_id', 'project_name_id', 'order_number_id', 'work_code_id', 'date', 'hours' ], 'required'],
             [['date'], 'safe'],
             [['hours', 'employee_id', 'sector_id', 'project_number_id', 'project_name_id', 'order_number_id', 'work_code_id'], 'integer'],
             [[ 'note'], 'string', 'max' => 255],

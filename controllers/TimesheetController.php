@@ -70,9 +70,9 @@ class TimesheetController extends Controller
     public function actionCreate()
     {
         $model = new TimeSheet();
-        //$model->full_name= Yii::$app->user->identity->last_name.' '.Yii::$app->user->identity->first_name.' '.Yii::$app->user->identity->middle_name;
-      //  $model->full_name= Yii::$app->user->identity->fullName;
-       // $model->sector= Yii::$app->user->identity->sectorName;
+
+        $model->employee_id = Yii::$app->user->identity->id;
+        $model->sector_id= Yii::$app->user->identity->id;
 
         $items_full_name = Employee::find()
             ->select(['id as value', 'concat(last_name, " ", first_name, " ", middle_name) as label'])
