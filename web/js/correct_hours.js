@@ -13,4 +13,20 @@ $(document).ready(function(){
         form.find('.hours_save').show();
         form.find('.hours_view').hide();
     })
+    $('body').on('change','#timesheet-project_number_id',function(e){
+       /* $.ajax({
+            type: "POST",
+            url: "/timesheet/create",
+            data: { project_id:  },
+            success: function(data){
+                alert(data);
+            }
+        });*/
+        console.log (e);
+    })
+
+
+
+
+
 })

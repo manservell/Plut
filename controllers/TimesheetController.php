@@ -67,12 +67,18 @@ class TimesheetController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
+
     public function actionCreate()
     {
+        if($_POST['location']){
+            echo $_POST['location'];
+            exit(0);
+        }
+
         $model = new TimeSheet();
 
         $model->employee_id = Yii::$app->user->identity->id;
-        $model->sector_id= Yii::$app->user->identity->id;
+        $model->sector_id= Yii::$app->user->identity->sector_id;
 
         $items_full_name = Employee::find()
             ->select(['id as value', 'concat(last_name, " ", first_name, " ", middle_name) as label'])
@@ -108,6 +114,7 @@ class TimesheetController extends Controller
 
         $items_project_name = Project::find()
             ->select(['id as value', 'concat(name) as label'])
+           // ->where()
             ->asArray()
             ->all();
         $items_project_name = ArrayHelper::map($items_project_name, 'value', 'label');
