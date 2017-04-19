@@ -4,6 +4,7 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use yii\jui\DatePicker;
 use kartik\select2\Select2;
+use yii\widgets\Pjax;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\TimeSheet */
@@ -36,7 +37,7 @@ use kartik\select2\Select2;
             ],
         ]);
     ?>
-
+    <?php Pjax::begin(); ?>
     <?= $form->field($model, 'project_number_id')->widget(Select2::className(),
         [
             'data' => $items_project_number,
@@ -46,10 +47,12 @@ use kartik\select2\Select2;
             ],
         ]);
     ?>
+    <?= Html::a("Обновить", ['timesheet/create'], ['class' => 'hidden', 'id'=>'project_number_id_link']) ?>
 
     <?= $form->field($model, 'project_name_id')->widget(Select2::className(),
         [
             'data' => $items_project_name,
+            'disabled'=> true,
             'options' => ['placeholder' => 'Выберите наименование проекта ...'],
             'pluginOptions' => [
                 'allowClear' => true
@@ -66,7 +69,7 @@ use kartik\select2\Select2;
             ],
         ]);
     ?>
-
+    <?php Pjax::end(); ?>
     <?= $form->field($model, 'work_code_id')->widget(Select2::className(),
         [
             'data' => $items,
@@ -92,3 +95,4 @@ use kartik\select2\Select2;
     <?php ActiveForm::end(); ?>
 
 </div>
+

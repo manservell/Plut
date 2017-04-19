@@ -70,12 +70,14 @@ class TimesheetController extends Controller
 
     public function actionCreate()
     {
-        if($_POST['location']){
-            echo $_POST['location'];
-            exit(0);
-        }
-
         $model = new TimeSheet();
+        $project_id = Yii::$app->request->get('project_id');
+       if($project_id){
+           $model->project_number_id =$project_id;
+           $model->project_name_id =$project_id;
+       }
+
+
 
         $model->employee_id = Yii::$app->user->identity->id;
         $model->sector_id= Yii::$app->user->identity->sector_id;
@@ -113,8 +115,7 @@ class TimesheetController extends Controller
         reset($items_project_number);
 
         $items_project_name = Project::find()
-            ->select(['id as value', 'concat(name) as label'])
-           // ->where()
+            ->select(['id as value', 'concat(name, " ", "(",customer,")") as label'])
             ->asArray()
             ->all();
         $items_project_name = ArrayHelper::map($items_project_name, 'value', 'label');
