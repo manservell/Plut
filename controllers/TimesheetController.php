@@ -73,9 +73,24 @@ class TimesheetController extends Controller
         $model = new TimeSheet();
         $project_id = Yii::$app->request->get('project_id');
        if($project_id){
-           $model->project_number_id =$project_id;
-           $model->project_name_id =$project_id;
-       }
+        $model->project_number_id =$project_id;
+        $model->project_name_id =$project_id;
+    }
+        $order_id = Yii::$app->request->get('order_id');
+        if($order_id){
+            $orders = Orders::find()
+                ->where(['id' => $order_id])
+                ->one();
+            $project_id= $orders->project_id;
+           // echo($project_id);
+           // echo "<pre>";
+           // var_dump($orders);
+           // echo "</pre>";
+           // exit(0);
+            $model->project_number_id =$project_id;
+            $model->project_name_id =$project_id;
+            $model->order_number_id =$order_id;
+        }
 
 
 

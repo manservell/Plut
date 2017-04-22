@@ -47,7 +47,7 @@ use yii\widgets\Pjax;
             ],
         ]);
     ?>
-    <?= Html::a("Обновить", ['timesheet/create'], ['class' => 'hidden', 'id'=>'project_number_id_link']) ?>
+    <?= Html::a("Обновить", ['timesheet/create'], ['class' => 'hidden', 'id'=>'id_link']) ?><!--создал невидимую ссылку для pjax запроса -->
 
     <?= $form->field($model, 'project_name_id')->widget(Select2::className(),
         [
