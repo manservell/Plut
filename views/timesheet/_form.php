@@ -47,14 +47,13 @@ use yii\widgets\Pjax;
             ],
         ]);
     ?>
-    <?= Html::a("Обновить", ['timesheet/create'], ['class' => 'hidden', 'id'=>'id_link']) ?><!--создал невидимую ссылку для pjax запроса -->
 
     <?= $form->field($model, 'project_name_id')->widget(Select2::className(),
         [
             'data' => $items_project_name,
-            'disabled'=> true,
             'options' => ['placeholder' => 'Выберите наименование проекта ...'],
             'pluginOptions' => [
+                'disabled'=> true,
                 'allowClear' => true
             ],
         ]);
@@ -69,6 +68,8 @@ use yii\widgets\Pjax;
             ],
         ]);
     ?>
+    <!--создал невидимую ссылку для pjax запроса -->
+    <?= Html::a("Обновить", ['timesheet/create'], ['class' => 'hidden', 'id'=>'id_link']) ?>
     <?php Pjax::end(); ?>
     <?= $form->field($model, 'work_code_id')->widget(Select2::className(),
         [

@@ -70,23 +70,32 @@ class TimesheetController extends Controller
 
     public function actionCreate()
     {
+        //Создаю новый объект (новая строка в таблице TimeSheet)
         $model = new TimeSheet();
+        //Присваиваю переменной значение свойства project_id массива GET
         $project_id = Yii::$app->request->get('project_id');
+        //Присваиваю переменной значение свойства order_id массива GET
+        $order_id = Yii::$app->request->get('order_id');
+        //Если $project_id не пустая, то
        if($project_id){
+           //Присваиваю свойству project_number_id объекта TimeSheet значение $project_id (т.е его id)
         $model->project_number_id =$project_id;
+           //Присваиваю свойству project_name_id объектаTimeSheet значение $project_id (т.е его id)
         $model->project_name_id =$project_id;
     }
-        $order_id = Yii::$app->request->get('order_id');
+        //Если $order_id не пустая, то
         if($order_id){
+            //В таблице Orders нахожу строку (объект), которая соответствует 'id' => $order_id
             $orders = Orders::find()
                 ->where(['id' => $order_id])
                 ->one();
+            //Из этой строки (объекта) получаю id проекта, к которому привязан выбранный заказ
             $project_id= $orders->project_id;
-           // echo($project_id);
-           // echo "<pre>";
-           // var_dump($orders);
-           // echo "</pre>";
-           // exit(0);
+            //echo "<pre>";
+            //var_dump($project_id);
+            //echo "</pre>";
+            //exit(0);
+            //Присваиваю новые значения полям
             $model->project_number_id =$project_id;
             $model->project_name_id =$project_id;
             $model->order_number_id =$order_id;
