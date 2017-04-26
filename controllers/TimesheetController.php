@@ -42,7 +42,12 @@ class TimesheetController extends Controller
     public function actionIndex()
     {
         $searchModel = new TimesheetSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        //Запрашиваю ID текущего пользователя
+        $person=Yii::$app->user->identity->id;
+        //вывожу в индексе записи только текущего пользователя
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams=['TimesheetSearch'=>['employee_id'=>$person]]);
+        //так было изначально
+        //$dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
             'searchModel' => $searchModel,
@@ -101,10 +106,100 @@ class TimesheetController extends Controller
             $model->order_number_id =$order_id;
         }
 
-
-
         $model->employee_id = Yii::$app->user->identity->id;
         $model->sector_id= Yii::$app->user->identity->sector_id;
+
+        $items_full_name = Employee::find()
+            ->select(['id as value', 'concat(last_name, " ", first_name, " ", middle_name) as label'])
+            ->asArray()
+            ->all();
+        $items_full_name = ArrayHelper::map($items_full_name, 'value', 'label');
+        asort($items_full_name);
+        reset($items_full_name);
+
+        $items_sector = Sector::find()
+            ->select(['id as value', 'concat(sector) as label'])
+            ->asArray()
+            ->all();
+        $items_sector = ArrayHelper::map($items_sector, 'value', 'label');
+        asort($items_sector);
+        reset($items_sector);
+
+        $items = CodesWork::find()
+            ->select(['id as value', 'concat(code) as label'])
+            ->asArray()
+            ->all();
+        $items = ArrayHelper::map($items, 'value', 'label');
+        asort($items);
+        reset($items);
+
+        $items_project_number = Project::find()
+            ->select(['id as value', 'concat(number) as label'])
+            ->asArray()
+            ->all();
+        $items_project_number = ArrayHelper::map($items_project_number, 'value', 'label');
+        asort($items_project_number);
+        reset($items_project_number);
+
+        $items_project_name = Project::find()
+            ->select(['id as value', 'concat(name, " ", "(",customer,")") as label'])
+            ->asArray()
+            ->all();
+        $items_project_name = ArrayHelper::map($items_project_name, 'value', 'label');
+        asort($items_project_name);
+        reset($items_project_name);
+
+        $items_orders = Orders::find()
+            ->select(['id as value', 'concat(number) as label'])
+            ->asArray()
+            ->all();
+        $items_orders = ArrayHelper::map($items_orders, 'value', 'label');
+        asort($items_orders);
+        reset($items_orders);
+
+        $render=true;
+
+        if ($model->load(Yii::$app->request->post())) {
+            if($model->order_number_id){
+                $orders = Orders::find()
+                    ->where(['id' => $model->order_number_id])
+                    ->one();
+                $project_id= $orders->project_id;
+                $model->project_number_id =$project_id;
+                $model->project_name_id =$project_id;
+            }
+            $render = false;
+            if (!$render && $model->save()) {
+                return $this->redirect(['view', 'id' => $model->id]);
+            }
+            else {
+                $render = true;
+            }
+        }
+
+        if($render) {
+            return $this->render('create', [
+                'model' => $model,
+                'items' => $items,
+                'items_project_number' => $items_project_number,
+                'items_project_name' => $items_project_name,
+                'items_orders' => $items_orders,
+                'items_full_name' => $items_full_name,
+                'items_sector' => $items_sector,
+
+            ]);
+        }
+    }
+
+    /**
+     * Updates an existing TimeSheet model.
+     * If update is successful, the browser will be redirected to the 'view' page.
+     * @param string $id
+     * @return mixed
+     */
+    public function actionUpdate($id)
+    {
+        $model = $this->findModel($id);
 
         $items_full_name = Employee::find()
             ->select(['id as value', 'concat(last_name, " ", first_name, " ", middle_name) as label'])
@@ -157,7 +252,7 @@ class TimesheetController extends Controller
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
-            return $this->render('create', [
+            return $this->render('update', [
                 'model' => $model,
                 'items' => $items,
                 'items_project_number' => $items_project_number,
@@ -165,26 +260,6 @@ class TimesheetController extends Controller
                 'items_orders' => $items_orders,
                 'items_full_name' => $items_full_name,
                 'items_sector' => $items_sector,
-
-            ]);
-        }
-    }
-
-    /**
-     * Updates an existing TimeSheet model.
-     * If update is successful, the browser will be redirected to the 'view' page.
-     * @param string $id
-     * @return mixed
-     */
-    public function actionUpdate($id)
-    {
-        $model = $this->findModel($id);
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        } else {
-            return $this->render('update', [
-                'model' => $model,
             ]);
         }
     }

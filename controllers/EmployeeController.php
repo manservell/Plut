@@ -106,11 +106,28 @@ class EmployeeController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+
+        $departments = DepartmentStructure::find()->all();
+        $items_department = ArrayHelper::map($departments,'id','structure_category');
+        $params_department = [
+            'prompt' => 'Выберите категорию по структуре отдела...'
+        ];
+
+        $sectors = Sector::find()->all();
+        $items_sector = ArrayHelper::map($sectors,'id','sector');
+        $params_sector = [
+            'prompt' => 'Выберите сектор...'
+        ];
+
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['index']);//переводит на страницу index
         } else {
             return $this->render('update', [
                 'model' => $model,
+                'items_department' => $items_department,
+                'params_department' => $params_department,
+                'items_sector' => $items_sector,
+                'params_sector' => $params_sector,
             ]);
         }
     }

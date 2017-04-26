@@ -109,12 +109,30 @@ class OrdersController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+
+        $items_project = Project::find()
+            ->select(['id as value', 'concat(number, " ", name) as label'])
+            ->asArray()
+            ->all();
+        $items_project = ArrayHelper::map($items_project, 'value', 'label');
+        asort($items_project);
+        reset($items_project);
+
+        $items_employee = Employee::find()
+            ->select(['id as value', 'concat(last_name, " ", first_name, " ", middle_name) as label'])
+            ->asArray()
+            ->all();
+        $items_employee = ArrayHelper::map($items_employee, 'value', 'label');
+        asort($items_employee);
+        reset($items_employee);
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['index']);//переводит на страницу index
            // return $this->redirect(['view', 'id' => $model->id]);   //переводит на страницу view
         } else {
             return $this->render('update', [
                 'model' => $model,
+                'items_project' => $items_project,
+                'items_employee' => $items_employee,
             ]);
         }
     }

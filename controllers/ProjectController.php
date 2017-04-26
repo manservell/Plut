@@ -93,11 +93,19 @@ class ProjectController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+        $items_employee = Employee::find()
+            ->select(['id as value', 'concat(last_name, " ", first_name, " ", middle_name) as label'])
+            ->asArray()
+            ->all();
+        $items_employee = ArrayHelper::map($items_employee, 'value', 'label');
+        asort($items_employee);
+        reset($items_employee);
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['index']);
         } else {
             return $this->render('update', [
                 'model' => $model,
+                'items_employee' => $items_employee,
             ]);
         }
     }
