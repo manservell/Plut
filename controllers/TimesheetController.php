@@ -44,8 +44,13 @@ class TimesheetController extends Controller
         $searchModel = new TimesheetSearch();
         //Запрашиваю ID текущего пользователя
         $person=Yii::$app->user->identity->id;
+        //echo "<pre>";
+       // var_dump(Yii::$app->request->queryParams);
+        //echo "</pre>";
+        //exit(0);
         //вывожу в индексе записи только текущего пользователя
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams=['TimesheetSearch'=>['employee_id'=>$person]]);
+
         //так было изначально
         //$dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
@@ -170,7 +175,8 @@ class TimesheetController extends Controller
             }
             $render = false;
             if (!$render && $model->save()) {
-                return $this->redirect(['view', 'id' => $model->id]);
+                return $this->redirect(['index']);
+               // return $this->redirect(['view', 'id' => $model->id]);
             }
             else {
                 $render = true;
