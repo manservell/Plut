@@ -52,6 +52,7 @@ AppAsset::register($this);
                     ['label' => 'Создать код работ', 'url' => ['/codeswork/create/']],
                     ['label' => 'Создать заказ', 'url' => ['/orders/create/']],
                     ['label' => 'Создать проект', 'url' => ['/project/create/']],
+                    ['label' => 'Создать запись в табеле', 'url' => ['/timesheet/create/']],
                 ]
             ],
             ['label' => 'Справочники',
