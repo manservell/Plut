@@ -113,3 +113,19 @@ a.desc:after {
 .nav > li > form > button.logout:focus {
     outline: none;
 }
+.form-inline .hours_input{
+    display: none;
+    margin: 0 15px;
+    width: 60px;
+}
+
+.form-inline .hours_view{
+    display: inline-block;
+    padding: 0 15px;
+    min-width: 60px;
+}
+
+.form-inline .hours_save{
+    display: none;
+    background-color: #00b3ee;
+}

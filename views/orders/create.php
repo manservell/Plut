@@ -1,4 +1,14 @@
 <?php
+//echo"<pre>";
+//header('Content-Type: text/html; charset=utf-8');
+//var_dump($items_project);//массив проектов
+//var_dump($items_employee);//массив сотрудников
+//echo "</pre>";
+//exit(0);
+
+?>
+
+<?php
 
 use yii\helpers\Html;
 
@@ -16,6 +26,8 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?= $this->render('_form', [
         'model' => $model,
+        'items_project' => $items_project,
+        'items_employee' => $items_employee,
     ]) ?>
 
 </div>

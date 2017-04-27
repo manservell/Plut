@@ -41,9 +41,8 @@ class Employee extends \yii\db\ActiveRecord
             [['username'], 'unique'],
             [['new_pass'], 'string', 'max' => 16],
             [['new_pass'], 'generatePass'],
-            [['password'], 'required'],
+            [['new_pass'], 'generatePass', 'skipOnEmpty' => false, 'skipOnError' => false],
             [['password'], 'string', 'max' => 50],
-            [['password'], 'validatePassword'],
         ];
     }
 
@@ -106,24 +105,22 @@ class Employee extends \yii\db\ActiveRecord
      * @param string $password password to validate
      * @return bool if password provided is valid for current user
      */
-    public function validatePassword($password)
+    public function generatePass($attribute)
     {
-        $temp=md5(md5($this->password));           //тут была ошибка    $temp=md5(md5($password));
-        $this->password = $temp;
-        return $this->password === $temp;
-    }
-    public function generatePass()
-    {
-        if(!empty($this->new_pass))
-            $this->password = null;
-       // echo "<pre>";
-       // var_dump($this->password);
-       // echo "</pre>";
+        if(!empty($this->new_pass)){
+            // echo "<pre>";
+            // var_dump($this->password);
+            // echo "</pre>";
             $this->password = md5(md5($this->new_pass));
+        }
         //echo "<pre>";
         //var_dump($this->password);
        // echo "</pre>";
        // exit(0);
+        if(empty($this->password)) {
+            $this->addError($attribute, 'Заполните пароль!');
+            return false;
+        }
         return true;
     }
 }

@@ -3,18 +3,16 @@
 namespace app\controllers;
 
 use Yii;
-use app\models\CodesWork;
-use app\models\CodesworkSearch;
-use app\models\WorkTypes;
+use app\models\WorkDays;
+use app\models\WorkdaysSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-use yii\helpers\ArrayHelper;
 
 /**
- * CodesworkController implements the CRUD actions for CodesWork model.
+ * WorkdaysController implements the CRUD actions for WorkDays model.
  */
-class CodesworkController extends Controller
+class WorkdaysController extends Controller
 {
     /**
      * @inheritdoc
@@ -32,12 +30,42 @@ class CodesworkController extends Controller
     }
 
     /**
-     * Lists all CodesWork models.
+     * Lists all WorkDays models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new CodesworkSearch();
+        if( isset($_POST['id']) && isset($_POST['hours']) ) {
+            $model = $this->findModel((int)$_POST['id']);
+            $model->hours = (int)$_POST['hours'];
+            $model->save();
+        }
+        if( isset($_GET['add_day']) ) {
+            for ($i = 1; $i <= 30; $i++) {
+
+                //Находим последний день в БД
+                $last_day = WorkDays::find()->orderBy('id DESC')->one();
+                $last_day = new \DateTime($last_day->date);
+                $model = new WorkDays();
+
+                //Определяем номер дня недели и выбираем количество рабочих часов по умолчанию
+                if ($last_day->format('N') == 5 || $last_day->format('N') == 6)
+                    $model->hours = 0;
+                else
+                    $model->hours = 8;
+                $model->date = date_add($last_day, date_interval_create_from_date_string('1 days'))->format('Y-m-d');
+                $model->save();
+            }
+            //убираю с урла лишнее, а то добавлялись дни при обновлении страницы
+        $data = filter_input( INPUT_GET, 'add_day');
+        if( $data){
+            // что-то сделали с данными, записали в БД
+            header('Location: http://plut.local/workdays/');
+            exit();
+        }
+            //закончил убирать
+        }
+        $searchModel = new WorkdaysSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -47,7 +75,7 @@ class CodesworkController extends Controller
     }
 
     /**
-     * Displays a single CodesWork model.
+     * Displays a single WorkDays model.
      * @param string $id
      * @return mixed
      */
@@ -59,34 +87,25 @@ class CodesworkController extends Controller
     }
 
     /**
-     * Creates a new CodesWork model.
+     * Creates a new WorkDays model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new CodesWork();
-
-        $sectors = WorkTypes::find()->all();
-        $items_type = ArrayHelper::map($sectors,'id','type');
-        $params_type = [
-            'prompt' => 'Выберите тип работ...'
-        ];
+        $model = new WorkDays();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['index']);//переводит на страницу index
-           // return $this->redirect(['view', 'id' => $model->id]);//переводит на страницу view
+            return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('create', [
                 'model' => $model,
-                'items_type' => $items_type,
-                'params_type' => $params_type,
             ]);
         }
     }
 
     /**
-     * Updates an existing CodesWork model.
+     * Updates an existing WorkDays model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param string $id
      * @return mixed
@@ -95,26 +114,17 @@ class CodesworkController extends Controller
     {
         $model = $this->findModel($id);
 
-        $sectors = WorkTypes::find()->all();
-        $items_type = ArrayHelper::map($sectors,'id','type');
-        $params_type = [
-            'prompt' => 'Выберите тип работ...'
-        ];
-
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['index']);//переводит на страницу index
-           // return $this->redirect(['view', 'id' => $model->id]); //переводит на страницу view
+            return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('update', [
                 'model' => $model,
-                'items_type' => $items_type,
-                'params_type' => $params_type,
             ]);
         }
     }
 
     /**
-     * Deletes an existing CodesWork model.
+     * Deletes an existing WorkDays model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param string $id
      * @return mixed
@@ -127,15 +137,15 @@ class CodesworkController extends Controller
     }
 
     /**
-     * Finds the CodesWork model based on its primary key value.
+     * Finds the WorkDays model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param string $id
-     * @return CodesWork the loaded model
+     * @return WorkDays the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = CodesWork::findOne($id)) !== null) {
+        if (($model = WorkDays::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');

@@ -21,7 +21,11 @@ class AppAsset extends AssetBundle
         'css/site.css',
     ];
     public $js = [
+        'js/correct_hours.js'
     ];
+   // public $jsOptions=[
+   // 'position'=> \yii\web\View::POS_HEAD
+//];
     public $depends = [
         'yii\web\YiiAsset',
         'yii\bootstrap\BootstrapAsset',

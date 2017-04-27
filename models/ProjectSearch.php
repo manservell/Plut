@@ -82,7 +82,6 @@ class ProjectSearch extends Project
             'actual_end_date' => $this->actual_end_date,
         ]);
 
-
         $query->andFilterWhere(['like', 'customer', $this->customer])
             ->andFilterWhere(['like', 'name', $this->name])
             ->andFilterWhere(['>=', 'planned_end_date', $this->planned_end_date_from])
@@ -90,7 +89,7 @@ class ProjectSearch extends Project
             ->andFilterWhere(['>=', 'actual_end_date', $this->actual_end_date_from])
             ->andFilterWhere(['<=', 'actual_end_date', $this->actual_end_date_till]);
 
-       $query->joinWith(['employees' => function ($q) {
+        $query->joinWith(['employees' => function ($q) {
             $q->where('employee.last_name LIKE "%' . $this->fullName . '%"' .
                 ' OR employee.first_name LIKE "%' . $this->fullName . '%"' .
                 ' OR employee.middle_name LIKE "%' . $this->fullName . '%"');
