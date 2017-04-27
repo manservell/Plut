@@ -65,7 +65,8 @@ AppAsset::register($this);
                     ['label' => 'Сектора', 'url' => ['/sector/']],
                     ['label' => 'Категории по проектам', 'url' => ['/projectcategory/']],
                     ['label' => 'Виды работ', 'url' => ['/worktypes/']],
-                    ['label' => 'Рабочий календарь', 'url' => ['/workdays/']]
+                    ['label' => 'Рабочий календарь', 'url' => ['/workdays/']],
+                    ['label' => 'Контроль доступа', 'url' => ['/rbac/'], 'visible' => \Yii::$app->user->can('employee_index')]
                 ]
             ],
             Yii::$app->user->isGuest ? (
