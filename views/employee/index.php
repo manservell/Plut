@@ -27,17 +27,6 @@ $this->params['breadcrumbs'][] = $this->title;
             'departmentName',
             'sectorName',
             'username',
-            //'password',
-            [
-                'label' => 'Статус',
-                'attribute' => 'status',
-                'format' => 'raw',
-                'value' => function ($model, $index) {
-                    return Html::checkbox('status[]', $model->status, ['value' => $index, 'disabled' => true]);
-                },
-                'filter'=>array("1"=>"Работает","0"=>"Не работает"),
-            ],
-            'username',
             [
                 'label' => 'Роль',
                 'attribute' => 'role',
@@ -46,6 +35,15 @@ $this->params['breadcrumbs'][] = $this->title;
                     return Html::tag('role[]', $model->role);
                 },
                 'filter'=>$roles,
+            ],
+            [
+                'label' => 'Статус',
+                'attribute' => 'status',
+                'format' => 'raw',
+                'value' => function ($model, $index) {
+                    return Html::checkbox('status[]', $model->status, ['value' => $index, 'disabled' => true]);
+                },
+                'filter'=>array("1"=>"Работает","0"=>"Не работает"),
             ],
             [
                 'class' => 'yii\grid\ActionColumn',
