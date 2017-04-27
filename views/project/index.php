@@ -2,8 +2,8 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
-use yii\widgets\Pjax;
 use yii\jui\DatePicker;
+use yii\widgets\Pjax;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\ProjectSearch */
@@ -20,7 +20,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <p>
         <?= Html::a(Yii::t('app', 'Создать проект'), ['create'], ['class' => 'btn btn-success']) ?>
     </p>
-    <?php Pjax::begin();?>
+    <?php Pjax::begin(); ?>
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
@@ -34,60 +34,58 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'attribute' => 'planned_end_date',
                 'format' => 'raw',
-                'filter'=>
+                'value' => function ($model, $index) {
+                    return Html::tag('planned_end_date[]', $model->planned_end_date);
+                },
+/*
+                'filter' =>
+                    Html::tag(
+                        'div',
+                        Html::tag('div', Html::activeTextInput($searchModel, 'planned_end_date_from', ['class' => 'form-control']), ['class' => 'col-xs-6']) .
+                        Html::tag('div', Html::activeTextInput($searchModel, 'planned_end_date_till', ['class' => 'form-control']), ['class' => 'col-xs-6']),
+                        ['class' => 'row']
+                    ),
+*/
+                'filter' =>
                     DatePicker::widget([
-                        'model'=>$searchModel,
-                        'attribute'=>'planned_end_date_from',
-                        'value'=>$value,
-                        'options' => ['placeholder' => 'Дата от: '],
+                        'model' => $searchModel,
+                        'attribute' => 'planned_end_date_from',
+                        'value' => $value,
                         'dateFormat' => 'yyyy-MM-dd',
                     ]).
-                    '<br/>'.
-                    '<br/>'.
                     DatePicker::widget([
-                        'model'=>$searchModel,
-                        'attribute'=>'planned_end_date_till',
-                        'value'=>$value,
-                        'options' => ['placeholder' => 'Дата до: '],
+                        'model' => $searchModel,
+                        'attribute' => 'planned_end_date_till',
+                        'value' => $value,
                         'dateFormat' => 'yyyy-MM-dd',
                     ])
+
             ],
             [
                 'attribute' => 'actual_end_date',
                 'format' => 'raw',
-                'filter'=>
+                'value' => function ($model, $index) {
+                    return Html::tag('actual_end_date[]', $model->actual_end_date);
+                },
+                'filter' =>
                     DatePicker::widget([
-                        'model'=>$searchModel,
-                        'attribute'=>'actual_end_date_from',
-                        'value'=>$value,
-                        'options' => ['placeholder' => 'Дата от: '],
+                        'model' => $searchModel,
+                        'attribute' => 'actual_end_date_from',
+                        'value' => $value,
                         'dateFormat' => 'yyyy-MM-dd',
                     ]).
-                    '<br/>'.
-                    '<br/>'.
                     DatePicker::widget([
-                        'model'=>$searchModel,
-                        'attribute'=>'actual_end_date_till',
-                        'value'=>$value,
-                        'options' => ['placeholder' => 'Дата до: '],
+                        'model' => $searchModel,
+                        'attribute' => 'actual_end_date_till',
+                        'value' => $value,
                         'dateFormat' => 'yyyy-MM-dd',
                     ])
-            ],
-            [
-                'label' => 'Статус',
-                'attribute' => 'status',
-                'format' => 'raw',
-                'value' => function ($model, $index) {
-                    $status=[0=>"Открытый",1=>"Закрытый",2=>"Не определён"];
-                    return Html::tag('status[]', $status[$model->status],['0'=>'Открытый','1'=>'Закрытый','2'=>'Не определён'],[]);
-                },
-                'filter'=>array("0"=>"Открытый","1"=>"Закрытый","2"=>"Не определён"),
-            ],
 
-            ['class' => 'yii\grid\ActionColumn',
-            'template' => '{update}',// иконки удалить, обновить, просмотр....
-                ]
+            ],
+            'status',
+
+            ['class' => 'yii\grid\ActionColumn'],
+           // 'template' => '{update}',// иконки удалить, обновить, просмотр....
         ],
     ]); ?>
-    <?php Pjax::end();?>
-</div>
+    <?php Pjax::end(); ?></div>

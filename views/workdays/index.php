@@ -1,49 +1,45 @@
 <?php
+
 use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\widgets\Pjax;
-use yii\jui\DatePicker;
+use yii\widgets\ActiveForm;
 /* @var $this yii\web\View */
-/* @var $searchModel app\models\WorkdaysSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = Yii::t('app', 'Рабочий календарь');
+$this->title = Yii::t('app', 'Work Days');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
+<script>
+$(document).ready(function(){
+    $('body').on('click', '.hours_change',function(e){
+        e.stopPropagation();
+        e.preventDefault();
+        var form = $(this).closest('form');
+        form.find('.hours_change').hide();
+        form.find('.hours_input').show();
+        form.find('.hours_save').show();
+        form.find('.hours_view').hide();
+    })
+})
+</script>
 <div class="work-days-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a(Yii::t('app', 'Добавить 30 дней'), ['index?add_day=true'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a(Yii::t('app', 'Добавить день'), ['index?add_day=1'], ['class' => 'btn btn-success']) ?>
     </p>
 <?php Pjax::begin(); ?>    <?= GridView::widget([
         'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
+
+            'id',
+            'date',
+            // 'hours',
             [
-                'attribute' => 'date',
-                'format' => 'raw',
-                'filter'=>
-                    DatePicker::widget([
-                        'model'=>$searchModel,
-                        'attribute'=>'date_from',
-                        'value'=>$value,
-                        'options' => ['placeholder' => 'Дата от: '],
-                        'dateFormat' => 'yyyy-MM-dd',
-                    ]).
-                  //  '<br/>'.
-                    DatePicker::widget([
-                        'model'=>$searchModel,
-                        'attribute'=>'date_till',
-                        'value'=>$value,
-                        'options' => ['placeholder' => 'Дата до: '],
-                        'dateFormat' => 'yyyy-MM-dd',
-                    ])
-            ],
-            [
+
                 'attribute' => 'hours',
                 'format' => 'raw',
                 'value' => function ($model, $index) {

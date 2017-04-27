@@ -26,7 +26,7 @@ class Orders extends \yii\db\ActiveRecord
     {
         return 'orders';
     }
-    public function getEmployees(){
+    public function getEmployee(){
         return $this->hasOne(Employee::className(), ['id'=>'responsible_id']);
     }
     /* Геттер для ФИО*/

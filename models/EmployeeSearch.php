@@ -15,6 +15,7 @@ class EmployeeSearch extends Employee
     public $sectorName;
     public $departmentName;
     public $fullName;
+    public $role;
     /**
      * @inheritdoc
      */
@@ -22,7 +23,7 @@ class EmployeeSearch extends Employee
     {
         return [
             [['id', 'department_id', 'sector_id', 'status'], 'integer'],
-            [['first_name', 'middle_name', 'last_name', 'fullName', 'sectorName', 'departmentName'], 'safe'],
+            [['first_name', 'middle_name', 'last_name', 'fullName', 'sectorName', 'departmentName', 'role', 'username'], 'safe'],
         ];
     }
 
@@ -67,6 +68,11 @@ class EmployeeSearch extends Employee
             'desc' => ['employee.last_name' => SORT_DESC, 'employee.first_name' => SORT_DESC, 'employee.middle_name' => SORT_DESC],
             'label' => 'ФИО'
         ];
+        $defSort->attributes['role'] = [       // добавляем свои
+            'asc' => ['auth_assignment.item_name' => SORT_ASC],
+            'desc' => ['auth_assignment.item_name' => SORT_DESC],
+            'label' => 'Роль'
+        ];
         $dataProvider->setSort($defSort);
         $this->status = 1; //устанавливается по-умолчанию
 
@@ -95,6 +101,9 @@ class EmployeeSearch extends Employee
         }]);
         $query->joinWith(['departments' => function ($q) {
             $q->where('department_structure.structure_category LIKE "%' . $this->departmentName . '%"');
+        }]);
+        $query->joinWith(['roles' => function ($q) {
+            $q->andFilterWhere(['auth_assignment.item_name' => $this->role]);
         }]);
         return $dataProvider;
     }

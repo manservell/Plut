@@ -6,7 +6,7 @@ use app\models\ProjectCategory;
 use app\models\WorkTypes;
 use Yii;
 use yii\filters\AccessControl;
-use yii\web\Controller;
+use app\components\ParentController;
 use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\ContactForm;
@@ -19,7 +19,7 @@ use app\models\Project;
 
 
 
-class SiteController extends Controller
+class SiteController extends ParentController
 {
     /**
      * @inheritdoc
@@ -70,7 +70,10 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-       /*
+        /*
+        echo md5(md5('admin'));
+        exit(0);
+
         $emp=Employee::findBySql('
                                   SELECT e.`id`,`first_name`,`middle_name`,`last_name`,`sector`, structure_category as department, `status`
                                   FROM `employee` as e

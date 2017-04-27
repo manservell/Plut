@@ -5,14 +5,14 @@ namespace app\controllers;
 use Yii;
 use app\models\WorkTypes;
 use yii\data\ActiveDataProvider;
-use yii\web\Controller;
+use app\components\ParentController;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
  * WorktypesController implements the CRUD actions for WorkTypes model.
  */
-class WorktypesController extends Controller
+class WorktypesController extends ParentController
 {
     /**
      * @inheritdoc
@@ -29,12 +29,24 @@ class WorktypesController extends Controller
         ];
     }
 
+    public function beforeAction($action) {
+        if (!\Yii::$app->user->can(\Yii::$app->controller->id.'_'.$action->id)) {
+            var_dump(\Yii::$app->controller->id.'_'.$action->id);
+            exit(0);
+        }
+        return parent::beforeAction($action);
+    }
+
     /**
      * Lists all WorkTypes models.
      * @return mixed
      */
     public function actionIndex()
     {
+        if (!\Yii::$app->user->can('CodeworkIndex')) {
+            var_dump('Нет прав на выполенение это операции');
+            exit(0);
+        }
         $dataProvider = new ActiveDataProvider([
             'query' => WorkTypes::find(),
         ]);

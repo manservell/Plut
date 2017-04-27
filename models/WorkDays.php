@@ -7,9 +7,9 @@ use Yii;
 /**
  * This is the model class for table "work_days".
  *
- * @property string $id
+ * @property integer $id
  * @property string $date
- * @property integer $hours
+ * @property string $hours
  */
 class WorkDays extends \yii\db\ActiveRecord
 {
@@ -27,9 +27,9 @@ class WorkDays extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['date', 'hours'], 'required'],
+            [['date'], 'required'],
             [['date'], 'safe'],
-            [['hours'], 'integer'],
+            [['hours'], 'integer', 'max' => 24],
         ];
     }
 
@@ -39,7 +39,7 @@ class WorkDays extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => Yii::t('app', 'ID'),
+            'id' => Yii::t('app', 'id'),
             'date' => Yii::t('app', 'Дата'),
             'hours' => Yii::t('app', 'Кол-во рабочих часов'),
         ];

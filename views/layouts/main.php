@@ -4,10 +4,9 @@
 /* @var $content string */
 
 use yii\helpers\Html;
-use yii\bootstrap\Nav;
-use yii\bootstrap\NavBar;
 use yii\widgets\Breadcrumbs;
 use app\assets\AppAsset;
+use app\widgets\topmenu\TopmenuWidget;
 
 AppAsset::register($this);
 ?>
@@ -22,9 +21,11 @@ AppAsset::register($this);
     <?php $this->head() ?>
 </head>
 <body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <?php $this->beginBody() ?>
 
 <div class="wrap">
+    <?= TopmenuWidget::widget() ?>
     <?php
     NavBar::begin([
         'brandLabel' => 'Учёт рабочего времени',

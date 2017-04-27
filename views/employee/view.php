@@ -33,6 +33,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'departmentName',
             'sectorName',
             'status',
+            'role'
         ],
     ]) ?>
 

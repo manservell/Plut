@@ -17,6 +17,8 @@ class ProjectSearch extends Project
     public $planned_end_date_till;
     public $actual_end_date_from;
     public $actual_end_date_till;
+
+
     /**
      * @inheritdoc
      */
@@ -76,12 +78,20 @@ class ProjectSearch extends Project
         $query->andFilterWhere([
             'project.status' => $this->status,
             'number' => $this->number,
+            'id' => $this->id,
+            'project.status' => $this->status,
             'responsible_id' => $this->responsible_id,
             'budget_hours' => $this->budget_hours,
-            'planned_end_date' => $this->planned_end_date,
-            'actual_end_date' => $this->actual_end_date,
         ]);
 
+        $query->andFilterWhere(['>=', 'planned_end_date', $this->planned_end_date_from ? $this->planned_end_date_from : null])
+            ->andFilterWhere(['<=', 'planned_end_date', $this->planned_end_date_till ? $this->planned_end_date_till : null])
+            ->andFilterWhere(['>=', 'actual_end_date', $this->actual_end_date_from ? $this->actual_end_date_from : null])
+            ->andFilterWhere(['<=', 'actual_end_date', $this->actual_end_date_till ? $this->actual_end_date_till : null]);
+
+        $query->andFilterWhere(['like', 'last_name', $this->fullName])
+            ->orFilterWhere(['like', 'first_name', $this->fullName])
+            ->orFilterWhere(['like', 'middle_name', $this->fullName]);
         $query->andFilterWhere(['like', 'customer', $this->customer])
             ->andFilterWhere(['like', 'name', $this->name])
             ->andFilterWhere(['>=', 'planned_end_date', $this->planned_end_date_from])

@@ -5,14 +5,14 @@ namespace app\controllers;
 use Yii;
 use app\models\Types;
 use yii\data\ActiveDataProvider;
-use yii\web\Controller;
+use app\components\ParentController;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
  * TypesController implements the CRUD actions for Types model.
  */
-class TypesController extends Controller
+class TypesController extends ParentController
 {
     /**
      * @inheritdoc

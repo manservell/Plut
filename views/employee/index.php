@@ -37,6 +37,16 @@ $this->params['breadcrumbs'][] = $this->title;
                 },
                 'filter'=>array("1"=>"Работает","0"=>"Не работает"),
             ],
+            'username',
+            [
+                'label' => 'Роль',
+                'attribute' => 'role',
+                'format' => 'raw',
+                'value' => function ($model, $index) {
+                    return Html::tag('role[]', $model->role);
+                },
+                'filter'=>$roles,
+            ],
             [
                 'class' => 'yii\grid\ActionColumn',
                 'template' => '{update}',// иконки удалить, обновить, просмотр....
