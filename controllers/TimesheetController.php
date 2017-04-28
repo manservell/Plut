@@ -49,7 +49,8 @@ class TimesheetController extends Controller
         //echo "</pre>";
         //exit(0);
         //вывожу в индексе записи только текущего пользователя
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams=['TimesheetSearch'=>['employee_id'=>$person]]);
+        $searchModel->employee_id = $person;
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         //так было изначально
         //$dataProvider = $searchModel->search(Yii::$app->request->queryParams);
