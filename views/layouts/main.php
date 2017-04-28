@@ -66,8 +66,8 @@ AppAsset::register($this);
                     ['label' => 'Категории по проектам', 'url' => ['/projectcategory/']],
                     ['label' => 'Виды работ', 'url' => ['/worktypes/']],
                     ['label' => 'Рабочий календарь', 'url' => ['/workdays/']],
-                    ['label' => 'Контроль доступа', 'url' => ['/rbac/'], 'visible' => \Yii::$app->user->can('employee_index')]
-                ], 'visible' => \Yii::$app->user->can('employee_index')
+                    ['label' => 'Контроль доступа', 'url' => ['/rbac/']]
+                ], 'visible' => \Yii::$app->user->can('employee_create')
             ],
             Yii::$app->user->isGuest ? (
             ['label' => 'Войти', 'url' => ['/site/login']]
