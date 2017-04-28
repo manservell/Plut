@@ -44,15 +44,15 @@ AppAsset::register($this);
             ['label' => 'Таблицы',  'visible' => !Yii::$app->user->isGuest,
                 'items' => [
                     ['label' => 'Сотрудники', 'url' => ['/employee/']],
-                    ['label' => 'Коды работ', 'url' => ['/codeswork/']],
+                    ['label' => 'Коды работ', 'url' => ['/codeswork/'], 'visible' => \Yii::$app->user->can('codeswork_index') ],
                     ['label' => 'Заказы', 'url' => ['/orders/']],
                     ['label' => 'Проекты', 'url' => ['/project/']],
                     ['label' => 'Табель рабочего времени', 'url' => ['/timesheet/']],
                 ]],
             ['label' => 'Создать', 'visible' => !Yii::$app->user->isGuest,
                 'items' => [
-                    ['label' => 'Создать сотрудника', 'url' => ['/employee/create/']],
-                    ['label' => 'Создать код работ', 'url' => ['/codeswork/create/']],
+                    ['label' => 'Создать сотрудника', 'url' => ['/employee/create/'], 'visible' => \Yii::$app->user->can('employee_create')],
+                    ['label' => 'Создать код работ', 'url' => ['/codeswork/create/'], 'visible' => \Yii::$app->user->can('codeswork_create')],
                     ['label' => 'Создать заказ', 'url' => ['/orders/create/']],
                     ['label' => 'Создать проект', 'url' => ['/project/create/']],
                     ['label' => 'Создать запись в табеле', 'url' => ['/timesheet/create/']],
@@ -67,7 +67,7 @@ AppAsset::register($this);
                     ['label' => 'Виды работ', 'url' => ['/worktypes/']],
                     ['label' => 'Рабочий календарь', 'url' => ['/workdays/']],
                     ['label' => 'Контроль доступа', 'url' => ['/rbac/'], 'visible' => \Yii::$app->user->can('employee_index')]
-                ]
+                ], 'visible' => \Yii::$app->user->can('employee_index')
             ],
             Yii::$app->user->isGuest ? (
             ['label' => 'Войти', 'url' => ['/site/login']]
