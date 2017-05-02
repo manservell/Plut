@@ -13,6 +13,7 @@ use yii\helpers\ArrayHelper;
 ?>
 
 <div class="employee-form">
+
     <?php $form = ActiveForm::begin(); ?>
     <?php
         if(!empty($model->errors))
@@ -23,25 +24,14 @@ use yii\helpers\ArrayHelper;
     <?= $form->field($model, 'middle_name')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'last_name')->textInput(['maxlength' => true]) ?>
-    <?php
-    $departments = DepartmentStructure::find()->all();
-    $items = ArrayHelper::map($departments,'id','structure_category');
-    $params = [
-        'prompt' => 'Выберите категорию по структуре отдела...'
-    ];
-    ?>
-    <?= $form->field($model, 'department_id')->dropDownList($items,$params);?>
 
+    <?= $form->field($model, 'username')->textInput(['maxlength' => true]) ?>
 
+    <?= $form->field($model, 'new_pass')->textInput(['maxlength' => true]) ?>
 
-    <?php
-    $sectors = Sector::find()->all();
-    $items = ArrayHelper::map($sectors,'id','sector');
-    $params = [
-        'prompt' => 'Выберите сектор...'
-    ];
-    ?>
-    <?= $form->field($model, 'sector_id')->dropDownList($items,$params);?>
+    <?= $form->field($model, 'department_id')->dropDownList($items_department,$params_department);?>
+
+    <?= $form->field($model, 'sector_id')->dropDownList($items_sector,$params_sector);?>
     <?= $form->field($model, 'username')->textInput(['maxlength' => true]);?>
     <?php
     $roles = AuthItem::find()->where('type = 1')->all();

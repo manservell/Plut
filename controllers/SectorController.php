@@ -5,14 +5,14 @@ namespace app\controllers;
 use Yii;
 use app\models\Sector;
 use app\models\SectorSearch;
-use app\components\ParentController;
+use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
  * SectorController implements the CRUD actions for Sector model.
  */
-class SectorController extends ParentController
+class SectorController extends Controller
 {
     /**
      * @inheritdoc

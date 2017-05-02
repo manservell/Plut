@@ -5,14 +5,14 @@ namespace app\controllers;
 use Yii;
 use app\models\WorkTypes;
 use yii\data\ActiveDataProvider;
-use app\components\ParentController;
+use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
  * WorktypesController implements the CRUD actions for WorkTypes model.
  */
-class WorktypesController extends ParentController
+class WorktypesController extends Controller
 {
     /**
      * @inheritdoc

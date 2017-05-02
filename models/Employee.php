@@ -37,14 +37,14 @@ class Employee extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['first_name', 'middle_name', 'last_name', 'department_id', 'sector_id', 'username', 'role'], 'required'],
+            [['first_name', 'middle_name', 'last_name', 'department_id', 'sector_id', 'username'], 'required'],
             [['department_id', 'sector_id', 'status'], 'integer'],
             [['first_name', 'middle_name', 'last_name'], 'string', 'max' => 55],
             [['username'], 'string', 'max' => 30],
             [['username'], 'unique'],
             [['new_pass'], 'string', 'max' => 16],
             [['new_pass'], 'generatePass'],
-            [['password'], 'required'],
+            [['new_pass'], 'generatePass', 'skipOnEmpty' => false, 'skipOnError' => false],
             [['password'], 'string', 'max' => 50],
             [['password'], 'validatePassword'],
             [['role'], 'string', 'max' => 64],
@@ -143,15 +143,22 @@ class Employee extends \yii\db\ActiveRecord
      * @param string $password password to validate
      * @return bool if password provided is valid for current user
      */
-    public function validatePassword($password)
+    public function generatePass($attribute)
     {
-        return $this->password === md5(md5($password));
-    }
-
-    public function generatePass()
-    {
-        if(!empty($this->new_pass))
+        if(!empty($this->new_pass)){
+            // echo "<pre>";
+            // var_dump($this->password);
+            // echo "</pre>";
             $this->password = md5(md5($this->new_pass));
+        }
+        //echo "<pre>";
+        //var_dump($this->password);
+       // echo "</pre>";
+       // exit(0);
+        if(empty($this->password)) {
+            $this->addError($attribute, 'Заполните пароль!');
+            return false;
+        }
         return true;
     }
 }

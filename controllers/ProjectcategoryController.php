@@ -5,14 +5,14 @@ namespace app\controllers;
 use Yii;
 use app\models\ProjectCategory;
 use yii\data\ActiveDataProvider;
-use app\components\ParentController;
+use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
  * ProjectcategoryController implements the CRUD actions for ProjectCategory model.
  */
-class ProjectcategoryController extends ParentController
+class ProjectcategoryController extends Controller
 {
     /**
      * @inheritdoc

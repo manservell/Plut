@@ -82,6 +82,8 @@ class ProjectSearch extends Project
             'project.status' => $this->status,
             'responsible_id' => $this->responsible_id,
             'budget_hours' => $this->budget_hours,
+            'planned_end_date' => $this->planned_end_date,
+            'actual_end_date' => $this->actual_end_date,
         ]);
 
         $query->andFilterWhere(['>=', 'planned_end_date', $this->planned_end_date_from ? $this->planned_end_date_from : null])

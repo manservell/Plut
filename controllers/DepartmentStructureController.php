@@ -5,14 +5,14 @@ namespace app\controllers;
 use Yii;
 use app\models\DepartmentStructure;
 use yii\data\ActiveDataProvider;
-use app\components\ParentController;
+use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
  * DepartmentstructureController implements the CRUD actions for DepartmentStructure model.
  */
-class DepartmentstructureController extends ParentController
+class DepartmentstructureController extends Controller
 {
     /**
      * @inheritdoc

@@ -27,7 +27,7 @@ class WorkDays extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['date'], 'required'],
+            [['date', 'hours'], 'required'],
             [['date'], 'safe'],
             [['hours'], 'integer', 'max' => 24],
         ];
