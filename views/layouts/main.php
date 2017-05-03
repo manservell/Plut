@@ -46,7 +46,7 @@ AppAsset::register($this);
             ['label' => 'Таблицы',  'visible' => !Yii::$app->user->isGuest,
                 'items' => [
                     ['label' => 'Сотрудники', 'url' => ['/employee/']],
-                    ['label' => 'Коды работ', 'url' => ['/codeswork/'], 'visible' => \Yii::$app->user->can('codeswork_index') ],
+                    ['label' => 'Коды работ', 'url' => ['/codeswork/']],
                     ['label' => 'Заказы', 'url' => ['/orders/']],
                     ['label' => 'Проекты', 'url' => ['/project/']],
                     ['label' => 'Табель рабочего времени', 'url' => ['/timesheet/']],
@@ -54,22 +54,22 @@ AppAsset::register($this);
             ['label' => 'Создать', 'visible' => !Yii::$app->user->isGuest,
                 'items' => [
                     ['label' => 'Создать сотрудника', 'url' => ['/employee/create/'], 'visible' => \Yii::$app->user->can('employee_create')],
-                    ['label' => 'Создать код работ', 'url' => ['/codeswork/create/'], 'visible' => \Yii::$app->user->can('codeswork_create')],
-                    ['label' => 'Создать заказ', 'url' => ['/orders/create/']],
-                    ['label' => 'Создать проект', 'url' => ['/project/create/']],
+                    ['label' => 'Создать код работ', 'url' => ['/codeswork/create/'], 'visible' => \Yii::$app->user->can('employee_create')],
+                    ['label' => 'Создать заказ', 'url' => ['/orders/create/'], 'visible' => \Yii::$app->user->can('employee_create')],
+                    ['label' => 'Создать проект', 'url' => ['/project/create/'], 'visible' => \Yii::$app->user->can('employee_create')],
                     ['label' => 'Создать запись в табеле', 'url' => ['/timesheet/create/']],
                 ]
             ],
             ['label' => 'Справочники',
                 'visible' => !Yii::$app->user->isGuest,
                 'items' => [
-                    ['label' => 'Категории по структуре отдела', 'url' => ['/departmentstructure/']],
-                    ['label' => 'Сектора', 'url' => ['/sector/']],
-                    ['label' => 'Категории по проектам', 'url' => ['/projectcategory/']],
-                    ['label' => 'Виды работ', 'url' => ['/worktypes/']],
+                    ['label' => 'Категории по структуре отдела', 'url' => ['/departmentstructure/'], 'visible' => \Yii::$app->user->can('employee_create')],
+                    ['label' => 'Сектора', 'url' => ['/sector/'], 'visible' => \Yii::$app->user->can('employee_create')],
+                    ['label' => 'Категории по проектам', 'url' => ['/projectcategory/'], 'visible' => \Yii::$app->user->can('employee_create')],
+                    ['label' => 'Виды работ', 'url' => ['/worktypes/'], 'visible' => \Yii::$app->user->can('employee_create')],
                     ['label' => 'Рабочий календарь', 'url' => ['/workdays/']],
-                    ['label' => 'Контроль доступа', 'url' => ['/rbac/']]
-                ], 'visible' => \Yii::$app->user->can('employee_create')
+                    ['label' => 'Контроль доступа', 'url' => ['/rbac/'], 'visible' => \Yii::$app->user->can('employee_create')]
+                ]
             ],
             Yii::$app->user->isGuest ? (
             ['label' => 'Войти', 'url' => ['/site/login']]

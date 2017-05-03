@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Май 02 2017 г., 23:28
+-- Время создания: Май 03 2017 г., 19:56
 -- Версия сервера: 5.5.50-log
 -- Версия PHP: 5.5.37
 
@@ -38,7 +38,7 @@ CREATE TABLE IF NOT EXISTS `auth_assignment` (
 
 INSERT INTO `auth_assignment` (`item_name`, `user_id`, `created_at`) VALUES
 ('Admin', '2', NULL),
-('Admin', '3', 1493750674),
+('Admin', '3', 1493826863),
 ('Admin', '7', 1493752247),
 ('Admin', '8', 1493752077),
 ('Admin', '9', 1487842668),
@@ -69,9 +69,11 @@ INSERT INTO `auth_assignment` (`item_name`, `user_id`, `created_at`) VALUES
 ('User', '39', 1493751052),
 ('User', '40', 1493751030),
 ('User', '41', 1493750976),
-('User', '42', 1493750936),
+('User', '42', 1493827147),
 ('User', '43', 1493750905),
 ('User', '44', 1493752445),
+('User', '45', 1493830096),
+('User', '46', 1493830274),
 ('User', '5', NULL),
 ('User', '6', NULL);
 
@@ -139,7 +141,7 @@ CREATE TABLE IF NOT EXISTS `auth_item_child` (
 --
 
 INSERT INTO `auth_item_child` (`parent`, `child`) VALUES
-('User', 'codeswork_create'),
+('Admin', 'codeswork_create'),
 ('Admin', 'codeswork_index'),
 ('User', 'CodeworkIndex'),
 ('Admin', 'create_employee'),
@@ -253,7 +255,7 @@ CREATE TABLE IF NOT EXISTS `employee` (
   `status` int(1) unsigned NOT NULL DEFAULT '1' COMMENT 'Статус',
   `username` varchar(30) NOT NULL COMMENT 'Логин',
   `password` varchar(50) NOT NULL COMMENT 'Пароль'
-) ENGINE=InnoDB AUTO_INCREMENT=45 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=47 DEFAULT CHARSET=utf8;
 
 --
 -- Дамп данных таблицы `employee`
@@ -282,7 +284,6 @@ INSERT INTO `employee` (`id`, `first_name`, `middle_name`, `last_name`, `departm
 (32, 'Надежда', 'Николаевна', 'Касьян', 3, 4, 1, 'Kasyan', '74dbe29dffa65264d77003ff32ec91bc'),
 (34, 'Наталья', 'Николаевна', 'Постовит', 2, 5, 1, 'Postovit', 'd08f4440a92c90bf4250670acce1cb7f'),
 (35, 'Татьяна', 'Григорьевна', 'Палько', 3, 5, 1, 'Palco', '86d559a94ccbd83d7d83433d2f5da2ef'),
-(36, 'Виктория', 'Александровна', 'Янушкевич', 3, 5, 1, 'Yanushkevich', 'a3bd5e8cd9c8150665419f7cd2e536c8'),
 (37, 'Инна', 'Валентиновна', 'Толочная', 3, 5, 1, 'Tolochnaya', '3cb9eb9253532bdfd50d72bbab9190fc'),
 (38, 'Наталья', 'Павловна', 'Павкина', 3, 5, 1, 'Pavkina', '4f98db8f19545fc2545773d4eb7eadc8'),
 (39, 'Инна', 'Николаевна', 'Хруслова', 3, 5, 1, 'Khruslova', '907ecbb878e27f2f4b976f997b083dcb'),
@@ -335,7 +336,7 @@ CREATE TABLE IF NOT EXISTS `project` (
   `budget_hours` int(5) unsigned NOT NULL COMMENT 'Бюджет часов',
   `planned_end_date` date NOT NULL COMMENT 'Запланированная дата выполнения',
   `actual_end_date` date DEFAULT NULL COMMENT 'Фактическая дата выполнения'
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
 
 --
 -- Дамп данных таблицы `project`
@@ -345,11 +346,10 @@ INSERT INTO `project` (`id`, `number`, `name`, `customer`, `status`, `responsibl
 (1, '001', 'Тяговая подстанция', 'Стокгольм', 0, 43, 200, '2017-01-27', '2017-01-31'),
 (2, '002', 'Оборудование постоянного тока', 'Баку', 1, 3, 300, '2017-01-31', '2017-02-16'),
 (3, '003', 'Реверсивный выпрямитель', 'IPH центр', 1, 23, 100, '2017-01-20', '2017-01-18'),
-(4, '004', 'Тяговая подстанция', 'Баку', 1, 22, 34, '2017-01-28', '2017-01-29'),
 (5, '005', 'Ретрофит', 'Киев метрополитен', 2, 16, 46, '2017-02-09', '2017-02-26'),
 (6, '006', 'Оборудование постоянного тока', 'Харьков-метро проект', 2, 3, 234, '2017-02-12', '2017-02-25'),
-(7, '007', 'Тяговая подстанция', 'Львовская ж/д', 0, 33, 543, '2017-02-23', '2017-02-26'),
-(8, '008', 'Запорожье - метро проект', 'Zp', 0, 30, 99999, '2017-04-28', '2017-12-31');
+(8, '008', 'Запорожье - метро проект', 'Zp', 0, 30, 99999, '2017-04-28', '2017-12-31'),
+(9, '1215', 'метро', 'Турция', 0, 44, 500, '2017-05-28', '2017-05-31');
 
 -- --------------------------------------------------------
 
@@ -410,7 +410,7 @@ CREATE TABLE IF NOT EXISTS `time_sheet` (
   `date` date NOT NULL COMMENT 'Дата',
   `hours` int(2) unsigned NOT NULL COMMENT 'Часы',
   `note` varchar(255) DEFAULT NULL COMMENT 'Примечание'
-) ENGINE=InnoDB AUTO_INCREMENT=44 DEFAULT CHARSET=utf8 COMMENT='Табель рабочего времени';
+) ENGINE=InnoDB AUTO_INCREMENT=45 DEFAULT CHARSET=utf8 COMMENT='Табель рабочего времени';
 
 --
 -- Дамп данных таблицы `time_sheet`
@@ -447,7 +447,8 @@ INSERT INTO `time_sheet` (`id`, `employee_id`, `sector_id`, `project_number_id`,
 (40, 34, 5, 1, 1, 8, 3, '2017-04-30', 8, 'rukrjku'),
 (41, 34, 5, 2, 2, 9, 4, '2017-04-28', 4, ''),
 (42, 44, 6, 1, 1, 8, 2, '2017-10-22', 5, 'vv'),
-(43, 3, 1, 6, 6, 10, 1, '2017-05-03', 7, '');
+(43, 3, 1, 6, 6, 10, 1, '2017-05-03', 7, ''),
+(44, 44, 6, 6, 6, 10, 4, '2017-05-27', 65, '');
 
 -- --------------------------------------------------------
 
@@ -629,7 +630,7 @@ ALTER TABLE `department_structure`
 -- AUTO_INCREMENT для таблицы `employee`
 --
 ALTER TABLE `employee`
-  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=45;
+  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=47;
 --
 -- AUTO_INCREMENT для таблицы `orders`
 --
@@ -639,7 +640,7 @@ ALTER TABLE `orders`
 -- AUTO_INCREMENT для таблицы `project`
 --
 ALTER TABLE `project`
-  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=9;
+  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=10;
 --
 -- AUTO_INCREMENT для таблицы `project_category`
 --
@@ -654,7 +655,7 @@ ALTER TABLE `sector`
 -- AUTO_INCREMENT для таблицы `time_sheet`
 --
 ALTER TABLE `time_sheet`
-  MODIFY `id` int(25) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=44;
+  MODIFY `id` int(25) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=45;
 --
 -- AUTO_INCREMENT для таблицы `work_days`
 --

@@ -19,20 +19,16 @@ use yii\helpers\ArrayHelper;
         if(!empty($model->errors))
             var_dump($model->errors);
     ?>
+    <?= $form->field($model, 'last_name')->textInput(['maxlength' => true]) ?>
+
     <?= $form->field($model, 'first_name')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'middle_name')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'last_name')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'username')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'new_pass')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'sector_id')->dropDownList($items_sector,$params_sector);?>
 
     <?= $form->field($model, 'department_id')->dropDownList($items_department,$params_department);?>
 
-    <?= $form->field($model, 'sector_id')->dropDownList($items_sector,$params_sector);?>
-    <?= $form->field($model, 'username')->textInput(['maxlength' => true]);?>
     <?php
     $roles = AuthItem::find()->where('type = 1')->all();
     $items = ArrayHelper::map($roles, 'name', 'name');
@@ -41,6 +37,9 @@ use yii\helpers\ArrayHelper;
     ];
     ?>
     <?= $form->field($model, 'role')->dropDownList($items,$params);?>
+
+    <?= $form->field($model, 'username')->textInput(['maxlength' => true]) ?>
+
     <?= $form->field($model, 'new_pass')->textInput(['maxlength' => true]);?>
 
     <?= $form->field($model, 'status')->checkbox([

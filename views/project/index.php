@@ -51,12 +51,16 @@ $this->params['breadcrumbs'][] = $this->title;
                         'model' => $searchModel,
                         'attribute' => 'planned_end_date_from',
                         'value' => $value,
+                        'options' => ['placeholder' => 'Дата от: '],
                         'dateFormat' => 'yyyy-MM-dd',
                     ]).
+                    '<br/>'.
+                    '<br/>'.
                     DatePicker::widget([
                         'model' => $searchModel,
                         'attribute' => 'planned_end_date_till',
                         'value' => $value,
+                        'options' => ['placeholder' => 'Дата до: '],
                         'dateFormat' => 'yyyy-MM-dd',
                     ])
 
@@ -72,17 +76,30 @@ $this->params['breadcrumbs'][] = $this->title;
                         'model' => $searchModel,
                         'attribute' => 'actual_end_date_from',
                         'value' => $value,
+                        'options' => ['placeholder' => 'Дата от: '],
                         'dateFormat' => 'yyyy-MM-dd',
                     ]).
+                    '<br/>'.
+                    '<br/>'.
                     DatePicker::widget([
                         'model' => $searchModel,
                         'attribute' => 'actual_end_date_till',
                         'value' => $value,
+                        'options' => ['placeholder' => 'Дата до: '],
                         'dateFormat' => 'yyyy-MM-dd',
                     ])
 
             ],
-            'status',
+            [
+                'label' => 'Статус',
+                'attribute' => 'status',
+                'format' => 'raw',
+                'value' => function ($model, $index) {
+                    $status=[0=>"Открытый",1=>"Закрытый",2=>"Не определён"];
+                    return Html::tag('status[]', $status[$model->status],['0'=>'Открытый','1'=>'Закрытый','2'=>'Не определён'],[]);
+                },
+                'filter'=>array("0"=>"Открытый","1"=>"Закрытый","2"=>"Не определён"),
+            ],
 
             ['class' => 'yii\grid\ActionColumn'],
            // 'template' => '{update}',// иконки удалить, обновить, просмотр....
