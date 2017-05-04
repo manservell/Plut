@@ -8,7 +8,7 @@ use app\models\Employee;
 use app\models\EmployeeSearch;
 use app\models\DepartmentStructure;
 use app\models\Sector;
-use yii\web\Controller;
+use app\components\ParentController;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\helpers\ArrayHelper;
@@ -16,7 +16,7 @@ use yii\helpers\ArrayHelper;
 /**
  * EmployeeController implements the CRUD actions for Employee model.
  */
-class EmployeeController extends Controller
+class EmployeeController extends ParentController
 {
 
     /**

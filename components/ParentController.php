@@ -10,8 +10,6 @@ use yii\web\Controller;
  */
 class ParentController extends Controller
 {
-
-
     public function beforeAction($action) {
         if (!\Yii::$app->user->isGuest) {
             if (!\Yii::$app->user->can(\Yii::$app->controller->id . '_' . $action->id)) {

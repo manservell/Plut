@@ -7,7 +7,7 @@ use app\models\Orders;
 use app\models\OrdersSearch;
 use app\models\Project;
 use app\models\Employee;
-use yii\web\Controller;
+use app\components\ParentController;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\helpers\ArrayHelper;
@@ -15,7 +15,7 @@ use yii\helpers\ArrayHelper;
 /**
  * OrdersController implements the CRUD actions for Orders model.
  */
-class OrdersController extends Controller
+class OrdersController extends ParentController
 {
     /**
      * @inheritdoc

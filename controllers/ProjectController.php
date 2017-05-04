@@ -6,7 +6,7 @@ use Yii;
 use app\models\Project;
 use app\models\ProjectSearch;
 use app\models\Employee;
-use yii\web\Controller;
+use app\components\ParentController;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\helpers\ArrayHelper;
@@ -14,7 +14,7 @@ use yii\helpers\ArrayHelper;
 /**
  * ProjectController implements the CRUD actions for Project model.
  */
-class ProjectController extends Controller
+class ProjectController extends ParentController
 {
     /**
      * @inheritdoc

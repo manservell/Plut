@@ -10,11 +10,12 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\helpers\ArrayHelper;
+use app\components\ParentController;
 
 /**
  * CodesworkController implements the CRUD actions for CodesWork model.
  */
-class CodesworkController extends Controller
+class CodesworkController extends ParentController
 {
     /**
      * @inheritdoc

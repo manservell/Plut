@@ -18,7 +18,11 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a(Yii::t('app', 'Создать заказ'), ['create'], ['class' => 'btn btn-success']) ?>
+        <?php
+            if(\Yii::$app->user->can('employee_create')) {
+                echo Html::a(Yii::t('app', 'Создать заказ'), ['create'], ['class' => 'btn btn-success']);
+            }
+        ?>
     </p>
     <?php Pjax::begin();?>
     <?= GridView::widget([
@@ -85,7 +89,9 @@ $this->params['breadcrumbs'][] = $this->title;
                 'filter'=>array("0"=>"Открытый","1"=>"Закрытый","2"=>"Не определён"),
             ],
 
-            ['class' => 'yii\grid\ActionColumn', 'template' => '{update}'],// иконки удалить, обновить, просмотр....
+            ['class' => 'yii\grid\ActionColumn',
+                'template' => '{update}',
+                'visible' => \Yii::$app->user->can('employee_create'),],// иконки удалить, обновить, просмотр....
         ],
     ]); ?>
     <?php Pjax::end();?>

@@ -28,7 +28,11 @@ $(document).ready(function(){
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a(Yii::t('app', 'Добавить день'), ['index?add_day=1'], ['class' => 'btn btn-success']) ?>
+        <?php
+            if(\Yii::$app->user->can('employee_create')) {
+                echo  Html::a(Yii::t('app', 'Добавить 30 дней'), ['index?add_day=1'], ['class' => 'btn btn-success']);
+            }
+        ?>
     </p>
 <?php Pjax::begin(); ?>    <?= GridView::widget([
         'dataProvider' => $dataProvider,
@@ -39,18 +43,21 @@ $(document).ready(function(){
             'date',
             // 'hours',
             [
-
                 'attribute' => 'hours',
                 'format' => 'raw',
                 'value' => function ($model, $index) {
-                    $res = Html::beginForm(['workdays/index'], 'post', ['data-pjax' => '', 'class' => 'form-inline']);
-                    $res .= Html::tag('hours', $model->hours, ['class' => 'hours_view']);
-                    $res .= Html::input('text', 'hours', $model->hours, ['class' => 'form-control hours_input']);
-                    $res .= Html::input('hidden', 'id', $model->id, ['class' => 'form-control']);
-                    $res .= Html::submitButton('Изменить', ['class' => 'btn btn-primary hours_change']);
-                    $res .= Html::submitButton('Сохранить', ['class' => 'btn btn-primary hours_save', 'name' => 'hash-button']);
-                    $res .= Html::endForm();
-                    return $res;
+
+                         $res = Html::beginForm(['workdays/index'], 'post', ['data-pjax' => '', 'class' => 'form-inline']);
+                         $res .= Html::tag('hours', $model->hours, ['class' => 'hours_view']);
+                    if(\Yii::$app->user->can('employee_create')) {
+                        $res .= Html::input('text', 'hours', $model->hours, ['class' => 'form-control hours_input']);
+                        $res .= Html::input('hidden', 'id', $model->id, ['class' => 'form-control']);
+                        $res .= Html::submitButton('Изменить', ['class' => 'btn btn-primary hours_change']);
+                        $res .= Html::submitButton('Сохранить', ['class' => 'btn btn-primary hours_save', 'name' => 'hash-button']);
+                    }
+                         $res .= Html::endForm();
+                         return $res;
+
                 },
             ],
         ],

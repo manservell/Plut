@@ -54,7 +54,9 @@ $this->params['breadcrumbs'][] = $this->title;
             'hours',
             'note',
 
-            ['class' => 'yii\grid\ActionColumn'],
+            ['class' => 'yii\grid\ActionColumn',
+                'visible' => \Yii::$app->user->can('employee_create'),
+            ],
         ],
     ]); ?>
 <?php Pjax::end(); ?></div>

@@ -6,7 +6,7 @@ use app\models\Employee;
 use Yii;
 use app\models\TimeSheet;
 use app\models\TimesheetSearch;
-use yii\web\Controller;
+use app\components\ParentController;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use app\models\Project;
@@ -18,7 +18,7 @@ use yii\helpers\ArrayHelper;
 /**
  * TimesheetController implements the CRUD actions for TimeSheet model.
  */
-class TimesheetController extends Controller
+class TimesheetController extends ParentController
 {
     /**
      * @inheritdoc

@@ -16,7 +16,11 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a(Yii::t('app', 'Создать сотрудника'), ['create'], ['class' => 'btn btn-success']) ?>
+        <?php
+            if(\Yii::$app->user->can('employee_create')) {
+                echo Html::a(Yii::t('app', 'Создать сотрудника'), ['create'], ['class' => 'btn btn-success']);
+            }
+        ?>
     </p>
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
@@ -48,7 +52,8 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'class' => 'yii\grid\ActionColumn',
                 'template' => '{update}',// иконки удалить, обновить, просмотр....
-            ],
+                'visible' => \Yii::$app->user->can('employee_create'),
+            ]
         ],
     ]); ?>
 </div>
