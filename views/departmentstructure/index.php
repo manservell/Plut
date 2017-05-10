@@ -23,7 +23,11 @@ $this->params['breadcrumbs'][] = $this->title;
 
             'structure_category',
 
-            ['class' => 'yii\grid\ActionColumn'],
+            [
+                'class' => 'yii\grid\ActionColumn',
+                'template' => '{update}',// иконки удалить, обновить, просмотр....
+                'visible' => \Yii::$app->user->can('employee_create'),
+            ],
         ],
     ]); ?>
 <?php Pjax::end(); ?></div>

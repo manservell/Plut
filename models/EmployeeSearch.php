@@ -94,6 +94,7 @@ class EmployeeSearch extends Employee
         $query->andFilterWhere(['like', 'first_name', $this->fullName])
             ->orFilterWhere(['like', 'middle_name', $this->fullName])
             ->orFilterWhere(['like', 'last_name', $this->fullName]);
+        $query->andFilterWhere(['like', 'username', $this->username]);
         //  where ... and (first_name like %$this->fullName% or middle_name like %$this->fullName% or last_name like %$this->fullName%)
         // Фильтр по сектору
         $query->joinWith(['sectors' => function ($q) {

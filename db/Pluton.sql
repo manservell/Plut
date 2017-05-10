@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Май 03 2017 г., 19:56
+-- Время создания: Май 10 2017 г., 20:41
 -- Версия сервера: 5.5.50-log
 -- Версия PHP: 5.5.37
 
@@ -38,14 +38,15 @@ CREATE TABLE IF NOT EXISTS `auth_assignment` (
 
 INSERT INTO `auth_assignment` (`item_name`, `user_id`, `created_at`) VALUES
 ('Admin', '2', NULL),
-('Admin', '3', 1493826863),
+('Admin', '3', 1493925433),
 ('Admin', '7', 1493752247),
 ('Admin', '8', 1493752077),
 ('Admin', '9', 1487842668),
 ('Guest', '4', 1487840022),
+('Guest', '45', 1494433845),
 ('User', '1', 1487840045),
 ('User', '14', 1493752226),
-('User', '15', 1493750712),
+('User', '15', 1494432515),
 ('User', '16', 1493750747),
 ('User', '17', 1493752021),
 ('User', '18', 1493751997),
@@ -70,10 +71,10 @@ INSERT INTO `auth_assignment` (`item_name`, `user_id`, `created_at`) VALUES
 ('User', '40', 1493751030),
 ('User', '41', 1493750976),
 ('User', '42', 1493827147),
-('User', '43', 1493750905),
+('User', '43', 1494432474),
 ('User', '44', 1493752445),
-('User', '45', 1493830096),
 ('User', '46', 1493830274),
+('User', '47', 1493830740),
 ('User', '5', NULL),
 ('User', '6', NULL);
 
@@ -100,9 +101,12 @@ CREATE TABLE IF NOT EXISTS `auth_item` (
 INSERT INTO `auth_item` (`name`, `type`, `description`, `rule_name`, `data`, `created_at`, `updated_at`) VALUES
 ('Admin', 1, NULL, NULL, NULL, 1487779674, 1487779674),
 ('codeswork_create', 2, NULL, NULL, NULL, 1487914578, 1487914578),
+('codeswork_delete', 2, NULL, NULL, NULL, 1487914578, 1487914578),
 ('codeswork_index', 2, NULL, NULL, NULL, 1493321290, 1493321290),
+('codeswork_update', 2, NULL, NULL, NULL, 1487914578, 1487914578),
 ('CodeworkIndex', 2, NULL, NULL, NULL, 1487808864, 1487808864),
 ('create_employee', 2, NULL, NULL, NULL, 1487779651, 1487780184),
+('departmentstructure_create', 2, NULL, NULL, NULL, 1487881814, 1487881814),
 ('departmentstructure_index', 2, NULL, NULL, NULL, 1487881779, 1487881779),
 ('departmentstructure_update', 2, NULL, NULL, NULL, 1487881814, 1487881814),
 ('employee_create', 2, NULL, NULL, NULL, 1487840148, 1487840148),
@@ -111,19 +115,29 @@ INSERT INTO `auth_item` (`name`, `type`, `description`, `rule_name`, `data`, `cr
 ('Guest', 1, NULL, NULL, NULL, 1487809101, 1487809101),
 ('orders_create', 2, NULL, NULL, NULL, 1487914628, 1487914628),
 ('orders_index', 2, NULL, NULL, NULL, 1487873510, 1487873510),
+('orders_update', 2, NULL, NULL, NULL, 1487914628, 1487914628),
 ('project_create', 2, NULL, NULL, NULL, 1487914666, 1487914666),
 ('project_index', 2, NULL, NULL, NULL, 1487873555, 1487873555),
+('project_update', 2, NULL, NULL, NULL, 1487914666, 1487914666),
+('projectcategory_create', 2, NULL, NULL, NULL, 1487914839, 1487914839),
 ('projectcategory_index', 2, NULL, NULL, NULL, 1487914839, 1487914839),
+('projectcategory_update', 2, NULL, NULL, NULL, 1487914839, 1487914839),
+('sector_create', 2, NULL, NULL, NULL, 1487914796, 1487914796),
 ('sector_index', 2, NULL, NULL, NULL, 1487914796, 1487914796),
+('sector_update', 2, NULL, NULL, NULL, 1487914796, 1487914796),
 ('site_about', 2, NULL, NULL, NULL, 1493321234, 1493321234),
 ('site_index', 2, NULL, NULL, NULL, 1487810771, 1487810771),
 ('site_logout', 2, NULL, NULL, NULL, 1487837762, 1487837762),
 ('tabel_index', 2, NULL, NULL, NULL, 1489330570, 1489330570),
+('timesheet_create', 2, NULL, NULL, NULL, 1493322093, 1493322093),
 ('timesheet_index', 2, NULL, NULL, NULL, 1493322093, 1493322093),
+('timesheet_update', 2, NULL, NULL, NULL, 1493322093, 1493322093),
 ('User', 1, NULL, NULL, NULL, 1487780199, 1487780199),
 ('workdays_create', 2, NULL, NULL, NULL, 1489330730, 1489330730),
 ('workdays_index', 2, NULL, NULL, NULL, 1489330675, 1489330675),
-('worktypes_index', 2, NULL, NULL, NULL, 1487914889, 1487914889);
+('worktypes_create', 2, NULL, NULL, NULL, 1487914889, 1487914889),
+('worktypes_index', 2, NULL, NULL, NULL, 1487914889, 1487914889),
+('worktypes_update', 2, NULL, NULL, NULL, 1487914889, 1487914889);
 
 -- --------------------------------------------------------
 
@@ -142,9 +156,12 @@ CREATE TABLE IF NOT EXISTS `auth_item_child` (
 
 INSERT INTO `auth_item_child` (`parent`, `child`) VALUES
 ('Admin', 'codeswork_create'),
-('Admin', 'codeswork_index'),
+('Admin', 'codeswork_delete'),
+('User', 'codeswork_index'),
+('Admin', 'codeswork_update'),
 ('User', 'CodeworkIndex'),
 ('Admin', 'create_employee'),
+('User', 'departmentstructure_create'),
 ('User', 'departmentstructure_index'),
 ('User', 'departmentstructure_update'),
 ('Admin', 'employee_create'),
@@ -153,19 +170,29 @@ INSERT INTO `auth_item_child` (`parent`, `child`) VALUES
 ('User', 'Guest'),
 ('User', 'orders_create'),
 ('User', 'orders_index'),
+('User', 'orders_update'),
 ('User', 'project_create'),
 ('User', 'project_index'),
+('User', 'project_update'),
+('User', 'projectcategory_create'),
 ('User', 'projectcategory_index'),
+('User', 'projectcategory_update'),
+('User', 'sector_create'),
 ('User', 'sector_index'),
+('User', 'sector_update'),
 ('User', 'site_about'),
 ('Guest', 'site_index'),
 ('User', 'site_logout'),
 ('User', 'tabel_index'),
+('User', 'timesheet_create'),
 ('User', 'timesheet_index'),
+('User', 'timesheet_update'),
 ('Admin', 'User'),
 ('User', 'workdays_create'),
 ('User', 'workdays_index'),
-('User', 'worktypes_index');
+('User', 'worktypes_create'),
+('User', 'worktypes_index'),
+('User', 'worktypes_update');
 
 -- --------------------------------------------------------
 
@@ -192,7 +219,7 @@ CREATE TABLE IF NOT EXISTS `codes_work` (
   `name` varchar(155) NOT NULL COMMENT 'Наименование',
   `type_id` int(10) unsigned NOT NULL COMMENT 'Вид работ (из таблицы видов работ)',
   `note` int(1) unsigned NOT NULL DEFAULT '1' COMMENT 'Примечание'
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8;
 
 --
 -- Дамп данных таблицы `codes_work`
@@ -214,9 +241,9 @@ INSERT INTO `codes_work` (`id`, `code`, `name`, `type_id`, `note`) VALUES
 (13, '90', 'Повышение квалификации', 3, 1),
 (14, '91', 'Отпуск', 3, 1),
 (15, '92', 'Хозяйственные работы', 3, 1),
-(16, '93', 'Больничный лист', 3, 0),
-(17, '94', 'Работы по сторонним поручениям', 3, 1),
-(18, '95', 'Организационные вопросы', 3, 1);
+(19, '93', 'Больничный лист', 3, 0),
+(20, '94', 'Работы по сторонним поручениям', 3, 1),
+(21, '95', 'Организационные вопросы', 3, 1);
 
 -- --------------------------------------------------------
 
@@ -227,7 +254,7 @@ INSERT INTO `codes_work` (`id`, `code`, `name`, `type_id`, `note`) VALUES
 CREATE TABLE IF NOT EXISTS `department_structure` (
   `id` int(10) unsigned NOT NULL,
   `structure_category` varchar(55) NOT NULL COMMENT 'Категории по структуре отдела'
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COMMENT='Категории по структуре отдела';
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COMMENT='Категории по структуре отдела';
 
 --
 -- Дамп данных таблицы `department_structure`
@@ -237,7 +264,8 @@ INSERT INTO `department_structure` (`id`, `structure_category`) VALUES
 (1, 'Руководитель КО'),
 (2, 'Начальник сектора'),
 (3, 'Сотрудник'),
-(4, 'Заместитель начальника КО');
+(4, 'Заместитель начальника КО'),
+(5, 'Архивариус');
 
 -- --------------------------------------------------------
 
@@ -255,7 +283,7 @@ CREATE TABLE IF NOT EXISTS `employee` (
   `status` int(1) unsigned NOT NULL DEFAULT '1' COMMENT 'Статус',
   `username` varchar(30) NOT NULL COMMENT 'Логин',
   `password` varchar(50) NOT NULL COMMENT 'Пароль'
-) ENGINE=InnoDB AUTO_INCREMENT=47 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=46 DEFAULT CHARSET=utf8;
 
 --
 -- Дамп данных таблицы `employee`
@@ -309,7 +337,7 @@ CREATE TABLE IF NOT EXISTS `orders` (
   `planned_end_date` date NOT NULL COMMENT 'Запланированная дата выполнения',
   `actual_end_date` date DEFAULT NULL COMMENT 'Фактическая дата выполнения',
   `status` int(1) unsigned NOT NULL DEFAULT '1' COMMENT 'Статус'
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
 
 --
 -- Дамп данных таблицы `orders`
@@ -336,7 +364,7 @@ CREATE TABLE IF NOT EXISTS `project` (
   `budget_hours` int(5) unsigned NOT NULL COMMENT 'Бюджет часов',
   `planned_end_date` date NOT NULL COMMENT 'Запланированная дата выполнения',
   `actual_end_date` date DEFAULT NULL COMMENT 'Фактическая дата выполнения'
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
 
 --
 -- Дамп данных таблицы `project`
@@ -346,7 +374,7 @@ INSERT INTO `project` (`id`, `number`, `name`, `customer`, `status`, `responsibl
 (1, '001', 'Тяговая подстанция', 'Стокгольм', 0, 43, 200, '2017-01-27', '2017-01-31'),
 (2, '002', 'Оборудование постоянного тока', 'Баку', 1, 3, 300, '2017-01-31', '2017-02-16'),
 (3, '003', 'Реверсивный выпрямитель', 'IPH центр', 1, 23, 100, '2017-01-20', '2017-01-18'),
-(5, '005', 'Ретрофит', 'Киев метрополитен', 2, 16, 46, '2017-02-09', '2017-02-26'),
+(5, '005', 'Ретрофит', 'Киев метрополитен', 2, 16, 465, '2017-02-09', '2017-02-26'),
 (6, '006', 'Оборудование постоянного тока', 'Харьков-метро проект', 2, 3, 234, '2017-02-12', '2017-02-25'),
 (8, '008', 'Запорожье - метро проект', 'Zp', 0, 30, 99999, '2017-04-28', '2017-12-31'),
 (9, '1215', 'метро', 'Турция', 0, 44, 500, '2017-05-28', '2017-05-31');
@@ -360,7 +388,7 @@ INSERT INTO `project` (`id`, `number`, `name`, `customer`, `status`, `responsibl
 CREATE TABLE IF NOT EXISTS `project_category` (
   `id` int(11) unsigned NOT NULL,
   `responsible_for` varchar(55) NOT NULL COMMENT 'Категории по проектам'
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 --
 -- Дамп данных таблицы `project_category`
@@ -379,7 +407,7 @@ INSERT INTO `project_category` (`id`, `responsible_for`) VALUES
 CREATE TABLE IF NOT EXISTS `sector` (
   `id` int(10) unsigned NOT NULL,
   `sector` varchar(55) NOT NULL COMMENT 'Сектор'
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 
 --
 -- Дамп данных таблицы `sector`
@@ -391,7 +419,8 @@ INSERT INTO `sector` (`id`, `sector`) VALUES
 (3, 'Низковольтных комплектных устройств'),
 (4, 'Электронных устройств и телемеханики'),
 (5, 'Отправочной документации'),
-(6, 'Оборудования среднего напряжения');
+(6, 'Оборудования среднего напряжения'),
+(7, 'Архив');
 
 -- --------------------------------------------------------
 
@@ -410,7 +439,7 @@ CREATE TABLE IF NOT EXISTS `time_sheet` (
   `date` date NOT NULL COMMENT 'Дата',
   `hours` int(2) unsigned NOT NULL COMMENT 'Часы',
   `note` varchar(255) DEFAULT NULL COMMENT 'Примечание'
-) ENGINE=InnoDB AUTO_INCREMENT=45 DEFAULT CHARSET=utf8 COMMENT='Табель рабочего времени';
+) ENGINE=InnoDB AUTO_INCREMENT=49 DEFAULT CHARSET=utf8 COMMENT='Табель рабочего времени';
 
 --
 -- Дамп данных таблицы `time_sheet`
@@ -420,7 +449,7 @@ INSERT INTO `time_sheet` (`id`, `employee_id`, `sector_id`, `project_number_id`,
 (10, 34, 5, 1, 2, 8, 1, '2017-04-06', 8, ''),
 (11, 42, 3, 2, 6, 9, 2, '2017-04-07', 8, ''),
 (12, 44, 3, 2, 6, 8, 4, '2017-04-01', 8, ''),
-(13, 3, 1, 3, 3, 9, 3, '2017-04-23', 8, ''),
+(13, 3, 1, 1, 3, 8, 1, '2017-04-30', 7, 'Согласование конструкторской документации'),
 (17, 44, 44, 1, 2, 8, 1, '2017-04-29', 67, ''),
 (18, 44, 3, 1, 2, 8, 1, '2017-04-30', 8, ''),
 (19, 44, 44, 1, 2, 8, 1, '2017-04-16', 7, ''),
@@ -447,8 +476,11 @@ INSERT INTO `time_sheet` (`id`, `employee_id`, `sector_id`, `project_number_id`,
 (40, 34, 5, 1, 1, 8, 3, '2017-04-30', 8, 'rukrjku'),
 (41, 34, 5, 2, 2, 9, 4, '2017-04-28', 4, ''),
 (42, 44, 6, 1, 1, 8, 2, '2017-10-22', 5, 'vv'),
-(43, 3, 1, 6, 6, 10, 1, '2017-05-03', 7, ''),
-(44, 44, 6, 6, 6, 10, 4, '2017-05-27', 65, '');
+(43, 3, 1, 6, 6, 10, 7, '2017-05-03', 7, ''),
+(44, 44, 6, 6, 6, 10, 4, '2017-05-27', 65, ''),
+(45, 44, 6, 6, 6, 10, 13, '2017-05-06', 5, 'fffghjhj'),
+(46, 3, 1, 1, 1, 8, 3, '2017-05-31', 3, 'Согласование конструкторской документации'),
+(47, 3, 1, 2, 2, 9, 2, '2017-05-10', 2, 'совещание');
 
 -- --------------------------------------------------------
 
@@ -460,14 +492,14 @@ CREATE TABLE IF NOT EXISTS `work_days` (
   `id` int(10) unsigned NOT NULL,
   `date` date NOT NULL COMMENT 'Дата',
   `hours` int(10) NOT NULL COMMENT 'Кол-во рабочих часов'
-) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8 COMMENT='Ввод и корректировка рабочего времени в календаре';
+) ENGINE=InnoDB AUTO_INCREMENT=91 DEFAULT CHARSET=utf8 COMMENT='Ввод и корректировка рабочего времени в календаре';
 
 --
 -- Дамп данных таблицы `work_days`
 --
 
 INSERT INTO `work_days` (`id`, `date`, `hours`) VALUES
-(1, '2017-03-28', 8),
+(1, '2017-03-28', 6),
 (2, '2017-03-29', 8),
 (3, '2017-03-30', 8),
 (4, '2017-03-31', 8),
@@ -496,7 +528,67 @@ INSERT INTO `work_days` (`id`, `date`, `hours`) VALUES
 (27, '2017-04-23', 0),
 (28, '2017-04-24', 8),
 (29, '2017-04-25', 8),
-(30, '2017-04-26', 8);
+(30, '2017-04-26', 8),
+(31, '2017-04-27', 8),
+(32, '2017-04-28', 8),
+(33, '2017-04-29', 0),
+(34, '2017-04-30', 0),
+(35, '2017-05-01', 8),
+(36, '2017-05-02', 8),
+(37, '2017-05-03', 8),
+(38, '2017-05-04', 8),
+(39, '2017-05-05', 8),
+(40, '2017-05-06', 0),
+(41, '2017-05-07', 0),
+(42, '2017-05-08', 8),
+(43, '2017-05-09', 8),
+(44, '2017-05-10', 8),
+(45, '2017-05-11', 8),
+(46, '2017-05-12', 8),
+(47, '2017-05-13', 0),
+(48, '2017-05-14', 0),
+(49, '2017-05-15', 8),
+(50, '2017-05-16', 8),
+(51, '2017-05-17', 8),
+(52, '2017-05-18', 8),
+(53, '2017-05-19', 8),
+(54, '2017-05-20', 0),
+(55, '2017-05-21', 0),
+(56, '2017-05-22', 8),
+(57, '2017-05-23', 8),
+(58, '2017-05-24', 8),
+(59, '2017-05-25', 8),
+(60, '2017-05-26', 8),
+(61, '2017-05-27', 0),
+(62, '2017-05-28', 0),
+(63, '2017-05-29', 8),
+(64, '2017-05-30', 8),
+(65, '2017-05-31', 8),
+(66, '2017-06-01', 8),
+(67, '2017-06-02', 8),
+(68, '2017-06-03', 0),
+(69, '2017-06-04', 0),
+(70, '2017-06-05', 8),
+(71, '2017-06-06', 8),
+(72, '2017-06-07', 8),
+(73, '2017-06-08', 8),
+(74, '2017-06-09', 8),
+(75, '2017-06-10', 0),
+(76, '2017-06-11', 0),
+(77, '2017-06-12', 8),
+(78, '2017-06-13', 8),
+(79, '2017-06-14', 8),
+(80, '2017-06-15', 8),
+(81, '2017-06-16', 8),
+(82, '2017-06-17', 0),
+(83, '2017-06-18', 0),
+(84, '2017-06-19', 8),
+(85, '2017-06-20', 8),
+(86, '2017-06-21', 8),
+(87, '2017-06-22', 8),
+(88, '2017-06-23', 8),
+(89, '2017-06-24', 0),
+(90, '2017-06-25', 0);
 
 -- --------------------------------------------------------
 
@@ -507,7 +599,7 @@ INSERT INTO `work_days` (`id`, `date`, `hours`) VALUES
 CREATE TABLE IF NOT EXISTS `work_types` (
   `id` int(10) unsigned NOT NULL,
   `type` varchar(50) NOT NULL COMMENT 'Виды работ'
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COMMENT='Таблица видов работ';
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COMMENT='Таблица видов работ';
 
 --
 -- Дамп данных таблицы `work_types`
@@ -620,52 +712,52 @@ ALTER TABLE `work_types`
 -- AUTO_INCREMENT для таблицы `codes_work`
 --
 ALTER TABLE `codes_work`
-  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=19;
+  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=23;
 --
 -- AUTO_INCREMENT для таблицы `department_structure`
 --
 ALTER TABLE `department_structure`
-  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
+  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT для таблицы `employee`
 --
 ALTER TABLE `employee`
-  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=47;
+  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=46;
 --
 -- AUTO_INCREMENT для таблицы `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=11;
+  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=13;
 --
 -- AUTO_INCREMENT для таблицы `project`
 --
 ALTER TABLE `project`
-  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=10;
+  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=12;
 --
 -- AUTO_INCREMENT для таблицы `project_category`
 --
 ALTER TABLE `project_category`
-  MODIFY `id` int(11) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+  MODIFY `id` int(11) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT для таблицы `sector`
 --
 ALTER TABLE `sector`
-  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=7;
+  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=9;
 --
 -- AUTO_INCREMENT для таблицы `time_sheet`
 --
 ALTER TABLE `time_sheet`
-  MODIFY `id` int(25) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=45;
+  MODIFY `id` int(25) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=49;
 --
 -- AUTO_INCREMENT для таблицы `work_days`
 --
 ALTER TABLE `work_days`
-  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=31;
+  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=91;
 --
 -- AUTO_INCREMENT для таблицы `work_types`
 --
 ALTER TABLE `work_types`
-  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
+  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
 --
 -- Ограничения внешнего ключа сохраненных таблиц
 --

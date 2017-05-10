@@ -38,7 +38,7 @@ class DepartmentStructure extends \yii\db\ActiveRecord
     {
         return [
             'id' => Yii::t('app', 'ID'),
-            'structure_category' => Yii::t('app', 'Категории по структуре отдела'),
+            'structure_category' => Yii::t('app', 'Имя категории'),
         ];
     }
 }

@@ -24,7 +24,11 @@ $this->params['breadcrumbs'][] = $this->title;
 
             'type',
 
-            ['class' => 'yii\grid\ActionColumn'],
+            [
+                'class' => 'yii\grid\ActionColumn',
+                'template' => '{update}',// иконки удалить, обновить, просмотр....
+                'visible' => \Yii::$app->user->can('employee_create'),
+            ],
         ],
     ]); ?>
 </div>
