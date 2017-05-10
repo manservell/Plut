@@ -9,7 +9,7 @@ $this->title = Yii::t('app', 'Обновить {modelClass}: ', [
     'modelClass' => 'сектор',
 ]) . $model->sector;
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Сектора'), 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $model->sector, 'url' => ['view', 'id' => $model->id]];
+//$this->params['breadcrumbs'][] = ['label' => $model->sector, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = Yii::t('app', 'Обновить');
 ?>
 <div class="sector-update">

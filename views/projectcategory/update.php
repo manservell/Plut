@@ -9,7 +9,7 @@ $this->title = Yii::t('app', 'Обновить {modelClass}: ', [
     'modelClass' => 'категорию',
 ]) . $model->responsible_for;
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Категории по проектам'), 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $model->responsible_for, 'url' => ['view', 'id' => $model->id]];
+//$this->params['breadcrumbs'][] = ['label' => $model->responsible_for, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = Yii::t('app', 'Обновить');
 ?>
 <div class="project-category-update">

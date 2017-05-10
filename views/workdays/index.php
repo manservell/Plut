@@ -7,7 +7,7 @@ use yii\widgets\ActiveForm;
 /* @var $this yii\web\View */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = Yii::t('app', 'Work Days');
+$this->title = Yii::t('app', 'Рабочий календарь');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <script>
@@ -38,8 +38,6 @@ $(document).ready(function(){
         'dataProvider' => $dataProvider,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
-
-            'id',
             'date',
             // 'hours',
             [

@@ -7,7 +7,7 @@ use yii\helpers\Html;
 
 $this->title = 'Обновить категорию: ' . $model->structure_category;
 $this->params['breadcrumbs'][] = ['label' => 'Категории по структуре отдела', 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $model->structure_category, 'url' => ['view', 'id' => $model->id]];
+//$this->params['breadcrumbs'][] = ['label' => $model->structure_category, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = 'Обновить';
 ?>
 <div class="department-structure-update">

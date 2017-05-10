@@ -9,7 +9,7 @@ $this->title = Yii::t('app', 'Обновить {modelClass}: ', [
     'modelClass' => 'вид работ',
 ]) . $model->type;
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Виды работ'), 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $model->type, 'url' => ['view', 'id' => $model->id]];
+//$this->params['breadcrumbs'][] = ['label' => $model->type, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = Yii::t('app', 'обновить');
 ?>
 <div class="work-types-update">
