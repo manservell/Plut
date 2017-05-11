@@ -3,6 +3,7 @@
 use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\widgets\Pjax;
+use yii\jui\DatePicker;
 use yii\widgets\ActiveForm;
 /* @var $this yii\web\View */
 /* @var $dataProvider yii\data\ActiveDataProvider */
@@ -34,12 +35,33 @@ $(document).ready(function(){
             }
         ?>
     </p>
-<?php Pjax::begin(); ?>    <?= GridView::widget([
+    <?php Pjax::begin(); ?>
+    <?= GridView::widget([
         'dataProvider' => $dataProvider,
+        'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
-            'date',
-            // 'hours',
+            [
+                'attribute' => 'date',
+                'format' => 'raw',
+                'filter'=>
+                    DatePicker::widget([
+                        'model'=>$searchModel,
+                        'attribute'=>'date_from',
+                        'value'=>$value,
+                        'options' => ['placeholder' => 'Дата от: '],
+                        'dateFormat' => 'yyyy-MM-dd',
+                    ]).
+                    '<br/>'.
+                    '<br/>'.
+                    DatePicker::widget([
+                        'model'=>$searchModel,
+                        'attribute'=>'date_till',
+                        'value'=>$value,
+                        'options' => ['placeholder' => 'Дата до: '],
+                        'dateFormat' => 'yyyy-MM-dd',
+                    ])
+            ],
             [
                 'attribute' => 'hours',
                 'format' => 'raw',
@@ -60,4 +82,5 @@ $(document).ready(function(){
             ],
         ],
     ]); ?>
-<?php Pjax::end(); ?></div>
+    <?php Pjax::end(); ?>
+    </div>

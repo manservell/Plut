@@ -50,7 +50,6 @@ class WorkdaysSearch extends WorkDays
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
-
         $this->load($params);
 
         if (!$this->validate()) {
