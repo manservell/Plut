@@ -44,12 +44,21 @@ class TimesheetController extends ParentController
         $searchModel = new TimesheetSearch();
         //Запрашиваю ID текущего пользователя
         $person=Yii::$app->user->identity->id;
+        $emploee = Employee::find()->where(['id'=>$person])->one();
+       // header('Content-Type: text/html; charset=utf-8');
         //echo "<pre>";
-       // var_dump(Yii::$app->request->queryParams);
-        //echo "</pre>";
-        //exit(0);
+        //var_dump($emploee);
+       // echo "</pre>";
+       // exit(0);
         //вывожу в индексе записи только текущего пользователя
-        $searchModel->employee_id = $person;
+        if($emploee->department_id == 2)
+            $searchModel->sector_id = $emploee->sector_id;
+        elseif($emploee->department_id == 5 || $emploee->department_id == 1){
+            $ert = 1;
+        }
+        else
+            $searchModel->employee_id = $person;
+
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         //так было изначально

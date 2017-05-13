@@ -38,6 +38,8 @@ class TimeSheet extends \yii\db\ActiveRecord
             [['date'], 'safe'],
             [['hours', 'employee_id', 'sector_id', 'project_number_id', 'project_name_id', 'order_number_id', 'work_code_id'], 'integer'],
             [[ 'note'], 'string', 'max' => 255],
+            [[ 'note'], 'noteCheck', 'skipOnEmpty' => false, 'skipOnError' => false],
+
         ];
     }
     public function getProjects(){
@@ -107,5 +109,24 @@ class TimeSheet extends \yii\db\ActiveRecord
     public static function find()
     {
         return new TimeSheetQuery(get_called_class());
+    }
+    public function noteCheck($attribute){
+       // $this->addError($attribute, 'Заполните примечание!');
+        //return false;
+        header('Content-Type: text/html; charset=utf-8');
+       // echo "<pre>";
+        //var_dump($this->work_code_id);
+        //echo "</pre>";
+       // exit(0);
+        $work_code=CodesWork::find()->where(['id'=>$this->work_code_id])->one();
+       // echo "<pre>";
+       // var_dump($work_code->note);
+       // echo "</pre>";
+       // exit(0);
+        if(empty($this->note)&& $work_code->note=='1'){
+            $this->addError($attribute, 'Заполните примечание!');
+            return false;
+        }
+        return true;
     }
 }
