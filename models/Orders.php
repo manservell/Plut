@@ -13,6 +13,7 @@ use Yii;
  * @property string $name
  * @property string $responsible_id
  * @property string $budget_hours
+ * @property string $date_creation
  * @property string $planned_end_date
  * @property string $actual_end_date
  * @property string $status
@@ -69,6 +70,7 @@ class Orders extends \yii\db\ActiveRecord
             'name' => Yii::t('app', 'Наименование'),
             'responsible_id' => Yii::t('app', 'Ответственный'),
             'budget_hours' => Yii::t('app', 'Бюджет часов'),
+            'date_creation' => Yii::t('app', 'Дата создания заказа'),
             'planned_end_date' => Yii::t('app', 'Запланированная дата выполнения'),
             'actual_end_date' => Yii::t('app', 'Фактическая дата выполнения'),
             'status' => Yii::t('app', 'Статус'),

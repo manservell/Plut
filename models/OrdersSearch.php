@@ -18,6 +18,8 @@ class OrdersSearch extends Orders
     public $planned_end_date_till;
     public $actual_end_date_from;
     public $actual_end_date_till;
+    public $date_creation_from;
+    public $date_creation_till;
     /**
      * @inheritdoc
      */
@@ -25,7 +27,7 @@ class OrdersSearch extends Orders
     {
         return [
             [['id', 'project_id', 'responsible_id', 'budget_hours', 'status'], 'integer'],
-            [['number', 'name', 'planned_end_date', 'actual_end_date', 'planned_end_date_from', 'actual_end_date_from', 'actual_end_date_till', 'planned_end_date_till', 'fullName', 'projectNumber'], 'safe'],
+            [['number', 'name','date_creation', 'planned_end_date', 'actual_end_date','date_creation_from', 'date_creation_till', 'planned_end_date_from', 'actual_end_date_from', 'actual_end_date_till', 'planned_end_date_till', 'fullName', 'projectNumber'], 'safe'],
         ];
     }
 
@@ -83,17 +85,23 @@ class OrdersSearch extends Orders
             'orders.project_id' => $this->project_id,
             'orders.responsible_id' => $this->responsible_id,
             'orders.budget_hours' => $this->budget_hours,
+            //'orders.date_creation' => $this->date_creation,
             'orders.planned_end_date' => $this->planned_end_date,
             'orders.actual_end_date' => $this->actual_end_date,
             'orders.status' => $this->status,
             'orders.number' => $this->number,
         ]);
 
+       // $query->andFilterWhere(['like', 'orders.date_creation', $this->date_creation]);
+        $query->andFilterWhere(['>=', 'orders.date_creation', $this->date_creation_from])
+        ->andFilterWhere(['<=', 'orders.date_creation', $this->date_creation_till]);
+
         $query->andFilterWhere(['like', 'orders.name', $this->name])
             ->andFilterWhere(['>=', 'orders.planned_end_date', $this->planned_end_date_from])
             ->andFilterWhere(['<=', 'orders.planned_end_date', $this->planned_end_date_till])
             ->andFilterWhere(['>=', 'orders.actual_end_date', $this->actual_end_date_from])
             ->andFilterWhere(['<=', 'orders.actual_end_date', $this->actual_end_date_till]);
+
 
         $query->joinWith(['employees' => function ($q) {
             $q->where('employee.last_name LIKE "%' . $this->fullName . '%"' .

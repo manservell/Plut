@@ -37,6 +37,27 @@ $this->params['breadcrumbs'][] = $this->title;
             'fullName',
             'budget_hours',
             [
+                'attribute' => 'date_creation',
+                'format' => 'raw',
+                'filter'=>
+                    DatePicker::widget([
+                        'model'=>$searchModel,
+                        'attribute'=>'date_creation_from',
+                        'value'=>$value,
+                        'options' => ['placeholder' => 'Дата от: '],
+                        'dateFormat' => 'yyyy-MM-dd',
+                    ]).
+                    '<br/>'.
+                    '<br/>'.
+                    DatePicker::widget([
+                        'model'=>$searchModel,
+                        'attribute'=>'date_creation_till',
+                        'value'=>$value,
+                        'options' => ['placeholder' => 'Дата до: '],
+                        'dateFormat' => 'yyyy-MM-dd',
+                    ])
+            ],
+            [
                 'attribute' => 'planned_end_date',
                 'format' => 'raw',
                 'filter'=>
