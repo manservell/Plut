@@ -46,15 +46,13 @@ use kartik\select2\Select2;
     <?= $form->field($model, 'actual_end_date')->widget(DatePicker::className(), [
         'dateFormat' => 'yyyy-MM-dd',
     ]);?>
-    <?= $form->field($model, 'status')->checkbox([
-        'label' => 'Проект активен?',
-    ]); ?>
-    <?= $form->field($model, 'status')
+    <?/*= $form->field($model, 'status')
         ->radioList([
             '0' => 'Открытый',
             '1' => 'Закрытый',
             '2' => 'Не определён'
         ]);
+*/
     ?>
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? Yii::t('app', 'Создать') : Yii::t('app', 'Обновить'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>

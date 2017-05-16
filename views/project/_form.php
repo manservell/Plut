@@ -41,12 +41,15 @@ use kartik\select2\Select2;
         'dateFormat' => 'yyyy-MM-dd',
     ]);?>
 
-    <?= $form->field($model, 'status')
+    <?
+    /*echo $form->field($model, 'status')
         ->radioList([
             '0' => 'Открытый',
             '1' => 'Закрытый',
             '2' => 'Не определён'
-        ]);?>
+        ]);
+    */
+    ?>
 
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? Yii::t('app', 'Создать') : Yii::t('app', 'Обновить'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>

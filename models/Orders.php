@@ -49,12 +49,13 @@ class Orders extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['number', 'project_id', 'name', 'responsible_id', 'budget_hours', 'planned_end_date'], 'required'],
+            [['number', 'project_id', 'name',], 'required'],
             [['project_id', 'responsible_id', 'budget_hours', 'status'], 'integer'],
             [['planned_end_date', 'actual_end_date'], 'safe'],
             [['number'], 'string', 'max' => 15],
             [['name'], 'string', 'max' => 155],
             [['number'], 'unique'],
+            [[ 'status'], 'statusCheck', 'skipOnEmpty' => false, 'skipOnError' => false],
         ];
     }
 
@@ -86,5 +87,19 @@ class Orders extends \yii\db\ActiveRecord
     public static function find()
     {
         return new OrdersQuery(get_called_class());
+    }
+    public function statusCheck(){
+        if(!empty($this->responsible_id)&&!empty($this->budget_hours)&&!empty($this->planned_end_date)){
+            $this->status="0";
+            if(!empty($this->responsible_id)&&!empty($this->budget_hours)&&!empty($this->planned_end_date)&&!empty($this->actual_end_date)){
+                $this->status="1";
+                return true;
+            }
+        }
+        else{
+            $this->status="2";
+        }
+
+        return true;
     }
 }

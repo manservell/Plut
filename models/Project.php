@@ -33,12 +33,13 @@ class Project extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['number', 'name', 'customer', 'responsible_id', 'budget_hours', 'planned_end_date'], 'required'],
+            [['number', 'name', 'customer',], 'required'],
             [['status', 'responsible_id', 'budget_hours'], 'integer'],
             [['planned_end_date', 'actual_end_date'], 'safe'],
             [['number'], 'string', 'max' => 15],
             [['name', 'customer'], 'string', 'max' => 155],
             [['number'], 'unique'],
+            [[ 'status'], 'statusCheck', 'skipOnEmpty' => false, 'skipOnError' => false],
         ];
     }
     public function getEmployees(){
@@ -76,5 +77,20 @@ class Project extends \yii\db\ActiveRecord
     public static function find()
     {
         return new ProjectQuery(get_called_class());
+    }
+
+    public function statusCheck(){
+        if(!empty($this->responsible_id)&&!empty($this->budget_hours)&&!empty($this->planned_end_date)){
+            $this->status="0";
+            if(!empty($this->responsible_id)&&!empty($this->budget_hours)&&!empty($this->planned_end_date)&&!empty($this->actual_end_date)){
+                $this->status="1";
+                return true;
+            }
+        }
+        else{
+            $this->status="2";
+        }
+
+        return true;
     }
 }

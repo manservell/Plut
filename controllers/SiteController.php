@@ -70,18 +70,6 @@ class SiteController extends ParentController
      */
     public function actionIndex()
     {
-       /*
-        $emp=Employee::findBySql('
-                                  SELECT e.`id`,`first_name`,`middle_name`,`last_name`,`sector`, structure_category as department, `status`
-                                  FROM `employee` as e
-                                  JOIN
-                                    (SELECT * FROM departmentStructure) as d on d.id = `department_id`
-                                  JOIN
-                                    (SELECT id, sector FROM sector) as s on s.id = `sector_id`
-       where 1
-                                  order by e.id
-                                    ')->all();
-*/
         $emp=Employee::find()
             ->select('`employee`.`id`, `employee`.`sector_id`, `employee`.`department_id`, `first_name`,`middle_name`,`last_name`,`sector`.`sector`, `department_structure`.`structure_category`, `status`')
             ->leftJoin('sector', '`employee`.`sector_id` = `sector`.`id`')
@@ -90,12 +78,6 @@ class SiteController extends ParentController
             ->with('departments')
             ->all();
 
-        /*
-        echo "<pre>";
-        var_dump($emp);
-        echo "</pre>";
-        exit(0);
-*/
         return $this->render('employee',
             [
             'yui' => $emp

@@ -67,6 +67,7 @@ class OrdersController extends ParentController
     public function actionCreate()
     {
         $model = new Orders();
+        $model->status="2";
 
         $items_project = Project::find()
             ->select(['id as value', 'concat(number, " ", name) as label'])
