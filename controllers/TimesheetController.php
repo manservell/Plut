@@ -47,28 +47,9 @@ class TimesheetController extends ParentController
         //Запрашиваю id-сектора текущего пользователя
         $current_sector=Yii::$app->user->identity->sector_id;
         $emploee = Employee::find()->where(['id'=>$person])->one();
-       // header('Content-Type: text/html; charset=utf-8');
-        //echo "<pre>";
-        //var_dump($current_sector);
-        //echo "</pre>";
-        //exit(0);
-        //вывожу в индексе записи только текущего пользователя
+        //вывожу в индексе записи только текущего пользователя или пользователя и подчинённых
         if($emploee->department_id == 2) {
-            header('Content-Type: text/html; charset=utf-8');
-            echo "<pre>";
-            var_dump($searchModel);
-            echo "</pre>";
-            exit(0);
             $searchModel->sector_id = $current_sector;
-
-            //$searchModel->sector_id = Yii::$app->user->identity->sector;
-            //header('Content-Type: text/html; charset=utf-8');
-            //echo "<pre>";
-            //var_dump($searchModel);
-            //var_dump(Yii::$app->user->identity->sector);
-            //var_dump($searchModel->employee_id);
-            //echo "</pre>";
-            //exit(0);
         }
         elseif($emploee->department_id == 5 || $emploee->department_id == 1){
             $ert = 1;
@@ -77,9 +58,6 @@ class TimesheetController extends ParentController
             $searchModel->employee_id = $person;
 
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-
-        //так было изначально
-        //$dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
             'searchModel' => $searchModel,

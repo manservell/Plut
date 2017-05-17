@@ -110,7 +110,7 @@ class TimesheetSearch extends TimeSheet
             'date' => $this->date,
             'hours' => $this->hours,
             'employee_id' => $this->employee_id,
-            'sector_id' => $this->sector_id,
+            'time_sheet.sector_id' => $this->sector_id,
             'project_number_id' => $this->project_number_id,
             'project_name_id' => $this->project_name_id,
             'order_number_id' => $this->order_number_id,
@@ -119,7 +119,7 @@ class TimesheetSearch extends TimeSheet
         ]);
 
         $query->andFilterWhere(['like', 'employee_id', $this->employee_id])
-            ->andFilterWhere(['like', 'sector_id', $this->sector_id])
+            ->andFilterWhere(['like', 'time_sheet.sector_id', $this->sector_id])
             ->andFilterWhere(['like', 'note', $this->note]);
 
         $query->andFilterWhere(['like', 'date', $this->date])

@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Май 17 2017 г., 19:52
+-- Время создания: Май 17 2017 г., 20:54
 -- Версия сервера: 5.5.50-log
 -- Версия PHP: 5.5.37
 
@@ -69,9 +69,9 @@ INSERT INTO `auth_assignment` (`item_name`, `user_id`, `created_at`) VALUES
 ('User', '39', 1493751052),
 ('User', '40', 1493751030),
 ('User', '41', 1493750976),
-('User', '42', 1493827147),
+('User', '42', 1495043183),
 ('User', '43', 1494432474),
-('User', '44', 1493752445),
+('User', '44', 1495043205),
 ('User', '45', 1494520073),
 ('User', '46', 1493830274),
 ('User', '47', 1493830740),
@@ -443,7 +443,7 @@ CREATE TABLE IF NOT EXISTS `time_sheet` (
   `date` date NOT NULL COMMENT 'Дата',
   `hours` int(2) unsigned NOT NULL COMMENT 'Часы',
   `note` varchar(255) DEFAULT NULL COMMENT 'Примечание'
-) ENGINE=InnoDB AUTO_INCREMENT=97 DEFAULT CHARSET=utf8 COMMENT='Табель рабочего времени';
+) ENGINE=InnoDB AUTO_INCREMENT=98 DEFAULT CHARSET=utf8 COMMENT='Табель рабочего времени';
 
 --
 -- Дамп данных таблицы `time_sheet`
@@ -451,11 +451,7 @@ CREATE TABLE IF NOT EXISTS `time_sheet` (
 
 INSERT INTO `time_sheet` (`id`, `employee_id`, `sector_id`, `project_number_id`, `project_name_id`, `order_number_id`, `work_code_id`, `date`, `hours`, `note`) VALUES
 (10, 34, 5, 1, 2, 8, 1, '2017-04-06', 8, ''),
-(11, 42, 3, 2, 6, 9, 2, '2017-04-07', 8, ''),
-(12, 44, 3, 2, 6, 8, 4, '2017-04-01', 8, ''),
 (13, 3, 1, 1, 3, 8, 1, '2017-04-30', 7, 'Согласование конструкторской документации'),
-(18, 44, 3, 1, 2, 8, 1, '2017-04-30', 8, ''),
-(24, 44, 3, 1, 2, 8, 1, '2017-04-30', 7, ''),
 (28, 44, 6, 2, 6, 9, 4, '2017-04-23', 5, ''),
 (29, 44, 6, 2, 2, 9, 3, '2017-04-20', 8, ''),
 (30, 44, 6, 4, 4, 8, 1, '2017-04-23', 9, ''),
@@ -523,7 +519,8 @@ INSERT INTO `time_sheet` (`id`, `employee_id`, `sector_id`, `project_number_id`,
 (92, 3, 1, 1, 1, 8, 19, '2017-05-14', 7, ''),
 (93, 3, 1, 1, 1, 8, 13, '2017-05-27', 8, 'rdtj'),
 (95, 3, 1, 1, 1, 8, 1, '2017-05-20', 7, 'j'),
-(96, 3, 1, 2, 2, 9, 20, '2017-05-06', 7, 'h');
+(96, 3, 1, 2, 2, 9, 20, '2017-05-06', 7, 'h'),
+(97, 42, 6, 8, 8, 11, 21, '2017-05-18', 8, '8');
 
 -- --------------------------------------------------------
 
@@ -820,7 +817,7 @@ ALTER TABLE `sector`
 -- AUTO_INCREMENT для таблицы `time_sheet`
 --
 ALTER TABLE `time_sheet`
-  MODIFY `id` int(25) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=97;
+  MODIFY `id` int(25) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=98;
 --
 -- AUTO_INCREMENT для таблицы `work_days`
 --
