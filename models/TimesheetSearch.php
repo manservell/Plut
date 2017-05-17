@@ -20,7 +20,6 @@ class TimesheetSearch extends TimeSheet
     public $codeWork;
     public $date_from;
     public $date_till;
-    //public $sectorName; // это пропиши в рулы     , 'sectorNamet'
     /**
      * @inheritdoc
      */

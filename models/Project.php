@@ -64,6 +64,7 @@ class Project extends \yii\db\ActiveRecord
             'status' => Yii::t('app', 'Статус'),
             'responsible_id' => Yii::t('app', 'Ответственный'),
             'budget_hours' => Yii::t('app', 'Бюджет часов'),
+            'date_creation' => Yii::t('app', 'Дата создания заказа'),
             'planned_end_date' => Yii::t('app', 'Запланированная дата выполнения'),
             'actual_end_date' => Yii::t('app', 'Фактическая дата выполнения'),
             'fullName' => Yii::t('app', 'ФИО'),

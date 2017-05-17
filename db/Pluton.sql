@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Май 16 2017 г., 22:26
+-- Время создания: Май 17 2017 г., 19:52
 -- Версия сервера: 5.5.50-log
 -- Версия PHP: 5.5.37
 
@@ -339,7 +339,7 @@ CREATE TABLE IF NOT EXISTS `orders` (
   `planned_end_date` date DEFAULT NULL COMMENT 'Запланированная дата выполнения',
   `actual_end_date` date DEFAULT NULL COMMENT 'Фактическая дата выполнения',
   `status` int(1) unsigned NOT NULL COMMENT 'Статус'
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
 
 --
 -- Дамп данных таблицы `orders`
@@ -364,22 +364,24 @@ CREATE TABLE IF NOT EXISTS `project` (
   `customer` varchar(155) NOT NULL COMMENT 'Заказчик',
   `status` int(1) unsigned NOT NULL COMMENT 'Статус',
   `responsible_id` int(10) unsigned DEFAULT NULL COMMENT 'Ответственный',
+  `date_creation` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'Дата создания проекта',
   `budget_hours` int(5) unsigned DEFAULT NULL COMMENT 'Бюджет часов',
   `planned_end_date` date DEFAULT NULL COMMENT 'Запланированная дата выполнения',
   `actual_end_date` date DEFAULT NULL COMMENT 'Фактическая дата выполнения'
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8;
 
 --
 -- Дамп данных таблицы `project`
 --
 
-INSERT INTO `project` (`id`, `number`, `name`, `customer`, `status`, `responsible_id`, `budget_hours`, `planned_end_date`, `actual_end_date`) VALUES
-(1, '001', 'Тяговая подстанция', 'Стокгольм', 0, 43, 200, '2017-01-27', NULL),
-(2, '002', 'Оборудование постоянного тока', 'Баку', 0, 3, 300, '2017-01-31', NULL),
-(3, '003', 'Реверсивный выпрямитель', 'IPH центр', 0, 23, 100, '2017-01-20', NULL),
-(5, '005', 'Ретрофит', 'Киев метрополитен', 0, 16, 465, '2017-02-09', NULL),
-(6, '006', 'Оборудование постоянного тока', 'Харьков-метро проект', 0, 3, 234, '2017-02-12', NULL),
-(8, '008', 'Запорожье - метро проект', 'Zp', 0, 30, 99999, '2017-04-28', NULL);
+INSERT INTO `project` (`id`, `number`, `name`, `customer`, `status`, `responsible_id`, `date_creation`, `budget_hours`, `planned_end_date`, `actual_end_date`) VALUES
+(1, '001', 'Тяговая подстанция', 'Стокгольм', 0, 43, '0000-00-00 00:00:00', 200, '2017-01-27', NULL),
+(2, '002', 'Оборудование постоянного тока', 'Баку', 0, 3, '0000-00-00 00:00:00', 300, '2017-01-31', NULL),
+(3, '003', 'Реверсивный выпрямитель', 'IPH центр', 0, 23, '0000-00-00 00:00:00', 100, '2017-01-20', NULL),
+(5, '005', 'Ретрофит', 'Киев метрополитен', 0, 16, '0000-00-00 00:00:00', 465, '2017-02-09', NULL),
+(6, '006', 'Оборудование постоянного тока', 'Харьков-метро проект', 0, 3, '0000-00-00 00:00:00', 234, '2017-02-12', NULL),
+(8, '008', 'Запорожье - метро проект', 'Zp', 0, 30, '0000-00-00 00:00:00', 99999, '2017-04-28', NULL),
+(21, '009', 'тестовый', 'PLUTON', 1, 18, '2017-05-17 15:59:07', 500, '2017-05-25', '2017-05-31');
 
 -- --------------------------------------------------------
 
@@ -798,12 +800,12 @@ ALTER TABLE `employee`
 -- AUTO_INCREMENT для таблицы `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=15;
+  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=12;
 --
 -- AUTO_INCREMENT для таблицы `project`
 --
 ALTER TABLE `project`
-  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=20;
+  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=22;
 --
 -- AUTO_INCREMENT для таблицы `project_category`
 --

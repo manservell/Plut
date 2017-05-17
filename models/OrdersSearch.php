@@ -85,14 +85,12 @@ class OrdersSearch extends Orders
             'orders.project_id' => $this->project_id,
             'orders.responsible_id' => $this->responsible_id,
             'orders.budget_hours' => $this->budget_hours,
-            //'orders.date_creation' => $this->date_creation,
             'orders.planned_end_date' => $this->planned_end_date,
             'orders.actual_end_date' => $this->actual_end_date,
             'orders.status' => $this->status,
             'orders.number' => $this->number,
         ]);
 
-       // $query->andFilterWhere(['like', 'orders.date_creation', $this->date_creation]);
         $query->andFilterWhere(['>=', 'orders.date_creation', $this->date_creation_from])
         ->andFilterWhere(['<=', 'orders.date_creation', $this->date_creation_till]);
 

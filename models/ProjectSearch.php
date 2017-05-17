@@ -17,6 +17,8 @@ class ProjectSearch extends Project
     public $planned_end_date_till;
     public $actual_end_date_from;
     public $actual_end_date_till;
+    public $date_creation_from;
+    public $date_creation_till;
 
 
     /**
@@ -26,7 +28,7 @@ class ProjectSearch extends Project
     {
         return [
             [['id', 'status', 'responsible_id', 'budget_hours'], 'integer'],
-            [['number', 'name', 'customer', 'planned_end_date', 'actual_end_date', 'planned_end_date_from', 'actual_end_date_from', 'actual_end_date_till', 'planned_end_date_till', 'fullName'], 'safe'],
+            [['number', 'name', 'date_creation', 'customer', 'date_creation_from', 'date_creation_till', 'planned_end_date', 'actual_end_date', 'planned_end_date_from', 'actual_end_date_from', 'actual_end_date_till', 'planned_end_date_till', 'fullName'], 'safe'],
         ];
     }
 
@@ -85,6 +87,8 @@ class ProjectSearch extends Project
             'planned_end_date' => $this->planned_end_date,
             'actual_end_date' => $this->actual_end_date,
         ]);
+        $query->andFilterWhere(['>=', 'project.date_creation', $this->date_creation_from])
+            ->andFilterWhere(['<=', 'project.date_creation', $this->date_creation_till]);
 
         $query->andFilterWhere(['>=', 'planned_end_date', $this->planned_end_date_from ? $this->planned_end_date_from : null])
             ->andFilterWhere(['<=', 'planned_end_date', $this->planned_end_date_till ? $this->planned_end_date_till : null])

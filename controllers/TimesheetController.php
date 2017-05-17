@@ -44,15 +44,32 @@ class TimesheetController extends ParentController
         $searchModel = new TimesheetSearch();
         //Запрашиваю ID текущего пользователя
         $person=Yii::$app->user->identity->id;
+        //Запрашиваю id-сектора текущего пользователя
+        $current_sector=Yii::$app->user->identity->sector_id;
         $emploee = Employee::find()->where(['id'=>$person])->one();
        // header('Content-Type: text/html; charset=utf-8');
         //echo "<pre>";
-        //var_dump($emploee);
-       // echo "</pre>";
-       // exit(0);
+        //var_dump($current_sector);
+        //echo "</pre>";
+        //exit(0);
         //вывожу в индексе записи только текущего пользователя
-        if($emploee->department_id == 2)
-            $searchModel->sector_id = $emploee->sector_id;
+        if($emploee->department_id == 2) {
+            header('Content-Type: text/html; charset=utf-8');
+            echo "<pre>";
+            var_dump($searchModel);
+            echo "</pre>";
+            exit(0);
+            $searchModel->sector_id = $current_sector;
+
+            //$searchModel->sector_id = Yii::$app->user->identity->sector;
+            //header('Content-Type: text/html; charset=utf-8');
+            //echo "<pre>";
+            //var_dump($searchModel);
+            //var_dump(Yii::$app->user->identity->sector);
+            //var_dump($searchModel->employee_id);
+            //echo "</pre>";
+            //exit(0);
+        }
         elseif($emploee->department_id == 5 || $emploee->department_id == 1){
             $ert = 1;
         }
