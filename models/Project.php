@@ -95,7 +95,7 @@ class Project extends \yii\db\ActiveRecord
 
         return true;
     }
-    public function checkDate(){
+    public function checkDate($attribute){
         //получаю id текущего проекта
         $project=$this->id;   //работает
         $projectEndDate=$this->actual_end_date;   //работает
@@ -106,18 +106,17 @@ class Project extends \yii\db\ActiveRecord
         $orders=Orders::find()
             ->where(['project_id' => $project])
             ->all();//получаю объект заказов, соответствующих текущему проекту
-        header('Content-Type: text/html; charset=utf-8');
+        //с помошью цикла перебираю actual_end_date в объекте $orders, если эти даты существуют и они меньше чем дата закрытия текущего проекта, то проект принимает статут ЗАКРЫТ
         foreach($orders as $order){
-
-
-            echo "<pre>";
-            var_dump($order->actual_end_date);
-            echo "</pre>";
-
+            if($order->actual_end_date>$projectEndDate){
+                $this->addError($attribute, 'Проект не может быть закрыт! Дата закрытия проекта раньше, чем дата закрытия последнего заказа.');
+                return false;
+            }
+            if(empty($order->actual_end_date)){
+                $this->addError($attribute, 'Проект не может быть закрыт! У текущего проекта есть не закрытые заказы.');
+                return false;
+            }
+            continue;
         }
-        exit(0);
-
-
-        //с помошью цикла перебираю actual_end_date в объекте $orders, если эти даты существуют и они меньше чем
     }
 }

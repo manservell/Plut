@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Май 17 2017 г., 20:54
+-- Время создания: Май 18 2017 г., 23:31
 -- Версия сервера: 5.5.50-log
 -- Версия PHP: 5.5.37
 
@@ -339,17 +339,18 @@ CREATE TABLE IF NOT EXISTS `orders` (
   `planned_end_date` date DEFAULT NULL COMMENT 'Запланированная дата выполнения',
   `actual_end_date` date DEFAULT NULL COMMENT 'Фактическая дата выполнения',
   `status` int(1) unsigned NOT NULL COMMENT 'Статус'
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
 
 --
 -- Дамп данных таблицы `orders`
 --
 
 INSERT INTO `orders` (`id`, `number`, `project_id`, `name`, `responsible_id`, `budget_hours`, `date_creation`, `planned_end_date`, `actual_end_date`, `status`) VALUES
-(8, '1910-1', 1, 'Отсек вторичных цепей КРУ-35 кВ (комплект 4 ячейки)', 19, 200, '0000-00-00 00:00:00', NULL, NULL, 2),
+(8, '1910-1', 1, 'Отсек вторичных цепей КРУ-35 кВ (комплект 4 ячейки)', 19, 200, '0000-00-00 00:00:00', '2017-05-23', NULL, 0),
 (9, '1911', 2, 'РУ-825 (комплект 10 ячеек)', 15, 355, '0000-00-00 00:00:00', '2017-02-24', '2017-02-10', 1),
-(10, '1912-1', 6, 'РУ-825ОШ-Д-П', 30, 500, '0000-00-00 00:00:00', '2017-07-22', NULL, 0),
-(11, '2305', 8, '15 РУОШ', 16, 700, '2017-05-14 11:40:21', '2017-07-28', NULL, 0);
+(10, '1912-1', 6, 'РУ-825ОШ-Д-П', 30, 500, '0000-00-00 00:00:00', '2017-07-22', '2017-05-28', 1),
+(11, '2305', 8, '15 РУОШ', 16, 700, '2017-05-14 11:40:21', '2017-07-28', '2017-05-26', 1),
+(12, '098', 1, 'Новый заказ', 39, 5, '2017-05-18 17:30:15', '2017-05-19', '2017-05-19', 1);
 
 -- --------------------------------------------------------
 
@@ -368,20 +369,21 @@ CREATE TABLE IF NOT EXISTS `project` (
   `budget_hours` int(5) unsigned DEFAULT NULL COMMENT 'Бюджет часов',
   `planned_end_date` date DEFAULT NULL COMMENT 'Запланированная дата выполнения',
   `actual_end_date` date DEFAULT NULL COMMENT 'Фактическая дата выполнения'
-) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8;
 
 --
 -- Дамп данных таблицы `project`
 --
 
 INSERT INTO `project` (`id`, `number`, `name`, `customer`, `status`, `responsible_id`, `date_creation`, `budget_hours`, `planned_end_date`, `actual_end_date`) VALUES
-(1, '001', 'Тяговая подстанция', 'Стокгольм', 0, 43, '0000-00-00 00:00:00', 200, '2017-01-27', NULL),
+(1, '001', 'Тяговая подстанция', 'Стокгольм', 1, 43, '0000-00-00 00:00:00', 200, '2017-01-27', '2017-05-19'),
 (2, '002', 'Оборудование постоянного тока', 'Баку', 0, 3, '0000-00-00 00:00:00', 300, '2017-01-31', NULL),
 (3, '003', 'Реверсивный выпрямитель', 'IPH центр', 0, 23, '0000-00-00 00:00:00', 100, '2017-01-20', NULL),
 (5, '005', 'Ретрофит', 'Киев метрополитен', 0, 16, '0000-00-00 00:00:00', 465, '2017-02-09', NULL),
 (6, '006', 'Оборудование постоянного тока', 'Харьков-метро проект', 0, 3, '0000-00-00 00:00:00', 234, '2017-02-12', NULL),
 (8, '008', 'Запорожье - метро проект', 'Zp', 0, 30, '0000-00-00 00:00:00', 99999, '2017-04-28', NULL),
-(21, '009', 'тестовый', 'PLUTON', 1, 18, '2017-05-17 15:59:07', 500, '2017-05-25', '2017-05-31');
+(21, '009', 'тестовый', 'PLUTON', 1, 18, '2017-05-17 15:59:07', 500, '2017-05-25', '2017-05-31'),
+(22, '78', 'hgh', 'nhgh', 0, 25, '2017-05-18 20:19:32', 8, '2017-05-26', NULL);
 
 -- --------------------------------------------------------
 
@@ -797,12 +799,12 @@ ALTER TABLE `employee`
 -- AUTO_INCREMENT для таблицы `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=12;
+  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=13;
 --
 -- AUTO_INCREMENT для таблицы `project`
 --
 ALTER TABLE `project`
-  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=22;
+  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=23;
 --
 -- AUTO_INCREMENT для таблицы `project_category`
 --
