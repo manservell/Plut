@@ -40,6 +40,7 @@ class Project extends \yii\db\ActiveRecord
             [['name', 'customer'], 'string', 'max' => 155],
             [['number'], 'unique'],
             [[ 'status'], 'statusCheck', 'skipOnEmpty' => false, 'skipOnError' => false],
+            [[ 'actual_end_date'], 'checkDate', 'skipOnEmpty' => false, 'skipOnError' => false],
         ];
     }
     public function getEmployees(){
@@ -93,5 +94,30 @@ class Project extends \yii\db\ActiveRecord
         }
 
         return true;
+    }
+    public function checkDate(){
+        //получаю id текущего проекта
+        $project=$this->id;   //работает
+        $projectEndDate=$this->actual_end_date;   //работает
+        //echo "<pre>";
+        //var_dump($projectEndDate);
+        //echo "</pre>";
+        //exit(0);
+        $orders=Orders::find()
+            ->where(['project_id' => $project])
+            ->all();//получаю объект заказов, соответствующих текущему проекту
+        header('Content-Type: text/html; charset=utf-8');
+        foreach($orders as $order){
+
+
+            echo "<pre>";
+            var_dump($order->actual_end_date);
+            echo "</pre>";
+
+        }
+        exit(0);
+
+
+        //с помошью цикла перебираю actual_end_date в объекте $orders, если эти даты существуют и они меньше чем
     }
 }
