@@ -112,7 +112,7 @@ class Project extends \yii\db\ActiveRecord
                 $this->addError($attribute, 'Проект не может быть закрыт! Дата закрытия проекта раньше, чем дата закрытия последнего заказа.');
                 return false;
             }
-            if(empty($order->actual_end_date)){
+            if(empty($order->actual_end_date)&&!empty($projectEndDate)){
                 $this->addError($attribute, 'Проект не может быть закрыт! У текущего проекта есть не закрытые заказы.');
                 return false;
             }

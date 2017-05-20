@@ -56,6 +56,8 @@ class Orders extends \yii\db\ActiveRecord
             [['name'], 'string', 'max' => 155],
             [['number'], 'unique'],
             [[ 'status'], 'statusCheck', 'skipOnEmpty' => false, 'skipOnError' => false],
+            [['planned_end_date'], 'checkPlDate', 'skipOnEmpty' => false, 'skipOnError' => false],
+            [['project_id'], 'checkProject', 'skipOnEmpty' => false, 'skipOnError' => false],
         ];
     }
 
@@ -101,5 +103,68 @@ class Orders extends \yii\db\ActiveRecord
         }
 
         return true;
+    }
+
+
+
+
+
+
+
+
+
+
+    public function checkProject($attribute){
+        $projectId=$this->project_id;
+        $project=Project::find()
+            ->where(['id' => $projectId])
+            ->all();
+        foreach($project as $prj) {
+            $projectStatus = $prj->status;
+        }
+        if($projectStatus=='1'){
+            $this->addError($attribute, "Этот проект имеет статус 'ЗАКРЫТ'! Вы не можете создавть заказы к закрытим проектам! ");
+            return false;
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    public function checkPlDate($attribute){
+        //получаю id текущего проекта
+        $projectId=$this->project_id;
+        $plDate=$this->planned_end_date;
+
+        $project=Project::find()
+            ->where(['id' => $projectId])
+            ->all();
+        $projectPlDate='';
+        foreach($project as $prj) {
+            $projectPlDate = $prj->planned_end_date;
+        }
+        //echo "<pre>";
+        //var_dump($projectPlDate);
+        //echo "</pre>";
+        //exit(0);
+
+        if(empty($projectPlDate)){
+            $this->addError($attribute, 'Сначала установите запланированную дату выполнения у проекта, соответствующего данному заказу!ь');
+            return false;
+        }
+            if(!empty($plDate)&&($plDate>$projectPlDate)){
+                $this->addError($attribute, 'Запланированная дата выполнения заказа позже запланированной даты выполнения проекта!');
+                return false;
+            }
     }
 }
