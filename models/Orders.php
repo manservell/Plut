@@ -107,13 +107,6 @@ class Orders extends \yii\db\ActiveRecord
 
 
 
-
-
-
-
-
-
-
     public function checkProject($attribute){
         $projectId=$this->project_id;
         $project=Project::find()
@@ -127,17 +120,6 @@ class Orders extends \yii\db\ActiveRecord
             return false;
         }
     }
-
-
-
-
-
-
-
-
-
-
-
 
 
 

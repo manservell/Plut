@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Май 20 2017 г., 22:26
+-- Время создания: Июн 06 2017 г., 22:49
 -- Версия сервера: 5.5.50-log
 -- Версия PHP: 5.5.37
 
@@ -38,7 +38,7 @@ CREATE TABLE IF NOT EXISTS `auth_assignment` (
 
 INSERT INTO `auth_assignment` (`item_name`, `user_id`, `created_at`) VALUES
 ('Admin', '2', NULL),
-('Admin', '3', 1493925433),
+('Admin', '3', 1496777677),
 ('Admin', '7', 1493752247),
 ('Admin', '8', 1493752077),
 ('Admin', '9', 1487842668),
@@ -73,8 +73,8 @@ INSERT INTO `auth_assignment` (`item_name`, `user_id`, `created_at`) VALUES
 ('User', '43', 1494432474),
 ('User', '44', 1495043205),
 ('User', '45', 1494520073),
-('User', '46', 1493830274),
-('User', '47', 1493830740),
+('User', '46', 1496778208),
+('User', '47', 1496778381),
 ('User', '5', NULL),
 ('User', '6', NULL);
 
@@ -278,49 +278,52 @@ CREATE TABLE IF NOT EXISTS `employee` (
   `first_name` varchar(55) NOT NULL COMMENT 'Имя',
   `middle_name` varchar(55) NOT NULL COMMENT 'Отчество',
   `last_name` varchar(55) NOT NULL COMMENT 'Фамилия',
+  `photo` varchar(100) NOT NULL COMMENT 'Фото',
   `department_id` int(10) unsigned NOT NULL COMMENT 'Категория по структуре отдела',
   `sector_id` int(10) unsigned NOT NULL COMMENT 'Сектор',
   `status` int(1) unsigned NOT NULL DEFAULT '1' COMMENT 'Статус',
   `username` varchar(30) NOT NULL COMMENT 'Логин',
   `password` varchar(50) NOT NULL COMMENT 'Пароль'
-) ENGINE=InnoDB AUTO_INCREMENT=46 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=48 DEFAULT CHARSET=utf8;
 
 --
 -- Дамп данных таблицы `employee`
 --
 
-INSERT INTO `employee` (`id`, `first_name`, `middle_name`, `last_name`, `department_id`, `sector_id`, `status`, `username`, `password`) VALUES
-(3, 'Дмитрий', 'Анатольевич', 'Марченко', 1, 1, 1, 'Marchenko', 'f34ff7e5316e90070cf30035803c1c04'),
-(7, 'Виктор', 'Давидович', 'Оденбах', 4, 1, 1, 'Odenbach', 'fabfd49b9710348c0ab9a536ace34e31'),
-(8, 'Владимир', 'Владимирович', 'Лабуткин', 4, 1, 1, 'Labutkin', '1343e0bc68d5bc3d64c236946367b029'),
-(14, 'Андрей', 'Викторович', 'Крутько', 2, 2, 1, 'Krutko', 'fdaa236b87e9e759d8a95b4b1e513f10'),
-(15, 'Виктор', 'Иванович', 'Романчук', 3, 2, 1, 'Romanchuk', '6c29e0ca0dd98b73b7e50ab4fdf3a3b3'),
-(16, 'Валентина', 'Николаевна', 'Панфилова', 3, 2, 1, 'Panfilova', '61a0d34c77f63c51960c7dd0ca43ce73'),
-(17, 'Денис', 'Александрович', 'Савинов', 3, 2, 1, 'Savinov', '46426bffbde4652f3c5462bda1ff37b7'),
-(18, 'Андрей', 'Александрович', 'Бондаренко', 3, 2, 1, 'Bondarenko', '1cb871ec32d5a8da35de537c995fad7a'),
-(19, 'Александр', 'Викторович', 'Шрамко', 3, 2, 1, 'Shramko', '849e90a92a972c418e9362f424b4fc2f'),
-(20, 'Валентина', 'Михайловна', 'Чирва', 3, 2, 1, 'ChirvaValentina', 'd5c6c663531817b738863c3032fac1b9'),
-(23, 'Евгений', 'Александрович', 'Бурцев', 2, 3, 1, 'Burtsev', '3f48780500d408cc6b42ac681af2488d'),
-(24, 'Сергей', 'Николаевич', 'Щедрицкий', 3, 3, 1, 'Schedrovitsky', '95d539f07c87a4bebb4edb0f88bc6c1f'),
-(25, 'Александр', 'Павлович', 'Завгородний', 3, 3, 1, 'Zavgorodny', '00c74d5f629728ecd908cf91822ff216'),
-(26, 'Светлана', 'Витальевна', 'Павленко', 3, 3, 1, 'Pavlenko', 'aea3f8e8559ad2b77803e4c7d3d61bdb'),
-(27, 'Людмила', 'Григорьевна', 'Касьян', 3, 3, 1, 'KasyanLyudmila', 'f411cc8144eba8706c1e11b4b25b0af7'),
-(28, 'Юлия', 'Николаевна', 'Гулько', 3, 3, 1, 'Gulko', '0a740c411ace917c91c975fba30abb04'),
-(29, 'Ирина', 'Дмитриевна', 'Кравчина', 3, 3, 1, 'Kravchina', 'f9f2c89909f7e321749d9e19e9222502'),
-(30, 'Олег', 'Георгиевич', 'Товарчий', 3, 3, 1, 'TovarchiiOleg', 'd792380b9f0b02ddd8e9eeff071401c2'),
-(31, 'Линда', 'Сергеевна', 'Колодяжная', 2, 4, 1, 'Kolodyazhnaya', '224513f79949143a9a602c18b69901f4'),
-(32, 'Надежда', 'Николаевна', 'Касьян', 3, 4, 1, 'Kasyan', '74dbe29dffa65264d77003ff32ec91bc'),
-(34, 'Наталья', 'Николаевна', 'Постовит', 2, 5, 1, 'Postovit', 'd08f4440a92c90bf4250670acce1cb7f'),
-(35, 'Татьяна', 'Григорьевна', 'Палько', 3, 5, 1, 'Palco', '86d559a94ccbd83d7d83433d2f5da2ef'),
-(37, 'Инна', 'Валентиновна', 'Толочная', 3, 5, 1, 'Tolochnaya', '3cb9eb9253532bdfd50d72bbab9190fc'),
-(38, 'Наталья', 'Павловна', 'Павкина', 3, 5, 1, 'Pavkina', '4f98db8f19545fc2545773d4eb7eadc8'),
-(39, 'Инна', 'Николаевна', 'Хруслова', 3, 5, 1, 'Khruslova', '907ecbb878e27f2f4b976f997b083dcb'),
-(40, 'Татьяна', 'Владимировна', 'Товарчий', 3, 5, 1, 'Tovarchii', '5f8df0d562e7f268044cbef71bc95c24'),
-(41, 'Юлия', 'Александровна', 'Чирва', 3, 5, 1, 'Chirva', '671f065f8addf9c55d325fb4f21351aa'),
-(42, 'Алексей', 'Валентинович', 'Бедовский', 2, 6, 1, 'Bedovsky', '100aaf00c5fa3d032c647e5b4a4288b1'),
-(43, 'Александр', 'Леонидович', 'Воронин', 3, 6, 1, 'Voronin', '3a44f0aa88ca1162c1333d5dd8f21787'),
-(44, 'Алексей', 'Константинович', 'Резниченко', 3, 6, 1, 'Reznichenko', '277649bdd39a0a0de1d31da47d3d0175'),
-(45, 'Оксана', 'Станиславовна', 'Котяжко', 5, 7, 1, 'Kotyazhko', '40ff86c4e9421b3dcd7336efcd36e566');
+INSERT INTO `employee` (`id`, `first_name`, `middle_name`, `last_name`, `photo`, `department_id`, `sector_id`, `status`, `username`, `password`) VALUES
+(3, 'Дмитрий', 'Анатольевич', 'Марченко', '593703cd8a528.jpg', 1, 1, 1, 'Marchenko', 'f34ff7e5316e90070cf30035803c1c04'),
+(7, 'Виктор', 'Давидович', 'Оденбах', '', 4, 1, 1, 'Odenbach', 'fabfd49b9710348c0ab9a536ace34e31'),
+(8, 'Владимир', 'Владимирович', 'Лабуткин', '', 4, 1, 1, 'Labutkin', '1343e0bc68d5bc3d64c236946367b029'),
+(14, 'Андрей', 'Викторович', 'Крутько', '', 2, 2, 1, 'Krutko', 'fdaa236b87e9e759d8a95b4b1e513f10'),
+(15, 'Виктор', 'Иванович', 'Романчук', '', 3, 2, 1, 'Romanchuk', '6c29e0ca0dd98b73b7e50ab4fdf3a3b3'),
+(16, 'Валентина', 'Николаевна', 'Панфилова', '', 3, 2, 1, 'Panfilova', '61a0d34c77f63c51960c7dd0ca43ce73'),
+(17, 'Денис', 'Александрович', 'Савинов', '', 3, 2, 1, 'Savinov', '46426bffbde4652f3c5462bda1ff37b7'),
+(18, 'Андрей', 'Александрович', 'Бондаренко', '', 3, 2, 1, 'Bondarenko', '1cb871ec32d5a8da35de537c995fad7a'),
+(19, 'Александр', 'Викторович', 'Шрамко', '', 3, 2, 1, 'Shramko', '849e90a92a972c418e9362f424b4fc2f'),
+(20, 'Валентина', 'Михайловна', 'Чирва', '', 3, 2, 1, 'ChirvaValentina', 'd5c6c663531817b738863c3032fac1b9'),
+(23, 'Евгений', 'Александрович', 'Бурцев', '', 2, 3, 1, 'Burtsev', '3f48780500d408cc6b42ac681af2488d'),
+(24, 'Сергей', 'Николаевич', 'Щедрицкий', '', 3, 3, 1, 'Schedrovitsky', '95d539f07c87a4bebb4edb0f88bc6c1f'),
+(25, 'Александр', 'Павлович', 'Завгородний', '', 3, 3, 1, 'Zavgorodny', '00c74d5f629728ecd908cf91822ff216'),
+(26, 'Светлана', 'Витальевна', 'Павленко', '', 3, 3, 1, 'Pavlenko', 'aea3f8e8559ad2b77803e4c7d3d61bdb'),
+(27, 'Людмила', 'Григорьевна', 'Касьян', '', 3, 3, 1, 'KasyanLyudmila', 'f411cc8144eba8706c1e11b4b25b0af7'),
+(28, 'Юлия', 'Николаевна', 'Гулько', '', 3, 3, 1, 'Gulko', '0a740c411ace917c91c975fba30abb04'),
+(29, 'Ирина', 'Дмитриевна', 'Кравчина', '', 3, 3, 1, 'Kravchina', 'f9f2c89909f7e321749d9e19e9222502'),
+(30, 'Олег', 'Георгиевич', 'Товарчий', '', 3, 3, 1, 'TovarchiiOleg', 'd792380b9f0b02ddd8e9eeff071401c2'),
+(31, 'Линда', 'Сергеевна', 'Колодяжная', '', 2, 4, 1, 'Kolodyazhnaya', '224513f79949143a9a602c18b69901f4'),
+(32, 'Надежда', 'Николаевна', 'Касьян', '', 3, 4, 1, 'Kasyan', '74dbe29dffa65264d77003ff32ec91bc'),
+(34, 'Наталья', 'Николаевна', 'Постовит', '', 2, 5, 1, 'Postovit', 'd08f4440a92c90bf4250670acce1cb7f'),
+(35, 'Татьяна', 'Григорьевна', 'Палько', '', 3, 5, 1, 'Palco', '86d559a94ccbd83d7d83433d2f5da2ef'),
+(37, 'Инна', 'Валентиновна', 'Толочная', '', 3, 5, 1, 'Tolochnaya', '3cb9eb9253532bdfd50d72bbab9190fc'),
+(38, 'Наталья', 'Павловна', 'Павкина', '', 3, 5, 1, 'Pavkina', '4f98db8f19545fc2545773d4eb7eadc8'),
+(39, 'Инна', 'Николаевна', 'Хруслова', '', 3, 5, 1, 'Khruslova', '907ecbb878e27f2f4b976f997b083dcb'),
+(40, 'Татьяна', 'Владимировна', 'Товарчий', '', 3, 5, 1, 'Tovarchii', '5f8df0d562e7f268044cbef71bc95c24'),
+(41, 'Юлия', 'Александровна', 'Чирва', '', 3, 5, 1, 'Chirva', '671f065f8addf9c55d325fb4f21351aa'),
+(42, 'Алексей', 'Валентинович', 'Бедовский', '', 2, 6, 1, 'Bedovsky', '100aaf00c5fa3d032c647e5b4a4288b1'),
+(43, 'Александр', 'Леонидович', 'Воронин', '', 3, 6, 1, 'Voronin', '3a44f0aa88ca1162c1333d5dd8f21787'),
+(44, 'Алексей', 'Константинович', 'Резниченко', '', 3, 6, 1, 'Reznichenko', '277649bdd39a0a0de1d31da47d3d0175'),
+(45, 'Оксана', 'Станиславовна', 'Котяжко', '', 5, 7, 1, 'Kotyazhko', '40ff86c4e9421b3dcd7336efcd36e566'),
+(46, 'yyy', 'ryy', 'hhhh', '593705e05b4a8.jpg', 4, 2, 1, 'mmm', '1379fdf5ecb57ee8d4549f479d66f2f7'),
+(47, 'v', 'gh', 'nn', '5937068d49ee3.jpg', 3, 4, 1, 'hh', '40ad491c1c6403330a6d7695e6fa3723');
 
 -- --------------------------------------------------------
 
@@ -339,7 +342,7 @@ CREATE TABLE IF NOT EXISTS `orders` (
   `planned_end_date` date DEFAULT NULL COMMENT 'Запланированная дата выполнения',
   `actual_end_date` date DEFAULT NULL COMMENT 'Фактическая дата выполнения',
   `status` int(1) unsigned NOT NULL COMMENT 'Статус'
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8;
 
 --
 -- Дамп данных таблицы `orders`
@@ -376,7 +379,7 @@ CREATE TABLE IF NOT EXISTS `project` (
 --
 
 INSERT INTO `project` (`id`, `number`, `name`, `customer`, `status`, `responsible_id`, `date_creation`, `budget_hours`, `planned_end_date`, `actual_end_date`) VALUES
-(23, '0001', 'Тяговая подстанция', 'Стокгольм', 1, 43, '2017-05-20 17:40:38', 67, '2017-05-11', '2017-05-27'),
+(23, '0001', 'Тяговая подстанция', 'Стокгольм', 0, 43, '2017-05-20 17:40:38', 67, '2017-05-11', NULL),
 (24, '0002', 'Оборудование постоянного тока', 'Баку', 2, NULL, '2017-05-20 17:41:30', NULL, '2017-05-26', NULL),
 (25, '0003', 'Реверсивный выпрямитель', 'IPH центр', 2, NULL, '2017-05-20 17:42:27', NULL, NULL, NULL);
 
@@ -789,12 +792,12 @@ ALTER TABLE `department_structure`
 -- AUTO_INCREMENT для таблицы `employee`
 --
 ALTER TABLE `employee`
-  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=46;
+  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=48;
 --
 -- AUTO_INCREMENT для таблицы `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=20;
+  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=19;
 --
 -- AUTO_INCREMENT для таблицы `project`
 --

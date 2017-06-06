@@ -2,6 +2,7 @@
 
 namespace app\models;
 
+use mongosoft\file\UploadImageBehavior;
 use Yii;
 
 /**
@@ -23,6 +24,7 @@ class Employee extends \yii\db\ActiveRecord
 
     public $new_pass;
     private $_role;
+    public $photo_del;
     /**
      * @inheritdoc
      */
@@ -40,6 +42,8 @@ class Employee extends \yii\db\ActiveRecord
             [['first_name', 'middle_name', 'last_name', 'department_id', 'sector_id', 'username'], 'required'],
             [['department_id', 'sector_id', 'status'], 'integer'],
             [['first_name', 'middle_name', 'last_name'], 'string', 'max' => 55],
+            [['photo'], 'image', 'extensions' => 'jpg, jpeg, gif, png', 'on' => ['insert', 'update']],
+            [['photo_del'], 'boolean'],
             [['username'], 'string', 'max' => 30],
             [['username'], 'unique'],
             [['new_pass'], 'string', 'max' => 16],
@@ -124,6 +128,8 @@ class Employee extends \yii\db\ActiveRecord
             'sector_id' => Yii::t('app', 'Сектор'),
             'sectorName' => Yii::t('app', 'Сектор'),
             'fullName' => Yii::t('app', 'ФИО'),
+            'photo' => Yii::t('app', 'Фото сотрудника'),
+            'photo_del' => Yii::t('app', 'Удалить фото'),
             'role' => Yii::t('app', 'Роль'),
             'new_pass' => Yii::t('app', 'Новый пароль'),
         ];
@@ -159,5 +165,25 @@ class Employee extends \yii\db\ActiveRecord
             return false;
         }
         return true;
+    }
+    public function behaviors()
+    {
+        return [
+            [
+                'class' => UploadImageBehavior::className(),
+                'attribute' => 'photo',
+                'scenarios' => ['insert', 'update'],
+                'placeholder' => '@webroot/uploads/default-placeholder.png',
+                'path' => '@webroot/uploads/',
+                'url' => '@web/uploads/',
+                'unlinkOnSave' => true,
+                'unlinkOnDelete' => true,
+                'thumbs' => [
+                    'thumb' => ['width' => 400, 'quality' => 90],
+                    'preview' => ['width' => 200, 'height' => 200],
+                    'news_thumb' => ['width' => 200, 'height' => 200, 'bg_color' => '000'],
+                ],
+            ],
+        ];
     }
 }

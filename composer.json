@@ -23,7 +23,8 @@
         "dektrium/yii2-user": "^0.9.12",
         "githubjeka/yii2-gui-rbac": "1.0.2",
         "kartik-v/yii2-widget-datepicker": "*",
-        "kartik-v/yii2-field-range": "*"
+        "kartik-v/yii2-field-range": "*",
+        "mongosoft/yii2-upload-behavior": "*"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.0.0",

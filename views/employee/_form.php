@@ -25,6 +25,23 @@ use yii\helpers\ArrayHelper;
 
     <?= $form->field($model, 'middle_name')->textInput(['maxlength' => true]) ?>
 
+    <div class="form-group">
+        <div class="row">
+            <div class="col-lg-4">
+                <!-- Original image -->
+                <?= $form->field($model, 'photo')->fileInput(['accept' => 'image/*']) ?>
+            </div>
+            <div class="col-lg-4">
+                <?//= Html::img($model->getThumbUploadUrl('photo', 'preview'), ['class' => 'img-thumbnail']) ?>
+            </div>
+            <div class="col-lg-4">
+                <!-- Thumb 2 (preview profile) -->
+                <?= $form->field($model,'photo_del')->checkBox(['class'=>'span-1']); ?>
+
+            </div>
+        </div>
+    </div>
+
     <?= $form->field($model, 'sector_id')->dropDownList($items_sector,$params_sector);?>
 
     <?= $form->field($model, 'department_id')->dropDownList($items_department,$params_department);?>

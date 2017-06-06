@@ -81,6 +81,7 @@ class EmployeeController extends ParentController
     public function actionCreate()
     {
         $model = new Employee();
+        $model->scenario = 'insert';
 
     $departments = DepartmentStructure::find()->all();
     $items_department = ArrayHelper::map($departments,'id','structure_category');
@@ -117,6 +118,7 @@ class EmployeeController extends ParentController
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+        $model->scenario = 'update';
 
         $departments = DepartmentStructure::find()->all();
         $items_department = ArrayHelper::map($departments,'id','structure_category');
@@ -129,10 +131,17 @@ class EmployeeController extends ParentController
         $params_sector = [
             'prompt' => 'Выберите сектор...'
         ];
+        if ($model->load(Yii::$app->request->post()) ) {
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['index']);//переводит на страницу index
-        } else {
+            if($model->photo_del){
+                $model->delete('photo', true);            }
+            if($model->save()){
+                return $this->redirect(['index']);//переводит на страницу index
+            }
+        }
+        else {
+            //var_dump('frr');
+            //exit(0);
             return $this->render('update', [
                 'model' => $model,
                 'items_department' => $items_department,
