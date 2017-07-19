@@ -40,6 +40,7 @@ class EmployeeController extends ParentController
      */
     public function actionIndex()
     {
+
         if(empty(Yii::$app->request->queryParams))           // вывожу работающих сотрудников по умолчанию, если не заданны другие фильтры
             Yii::$app->request->queryParams=['EmployeeSearch'=>['status'=>1]];
 
@@ -53,12 +54,14 @@ class EmployeeController extends ParentController
         */
         $roles = AuthItem::find()->where('type = 1')->all();
         $roles = ArrayHelper::map($roles, 'name', 'name');
-
+       // var_dump(Yii::getAlias('@photoemployees'));
+       // exit(0);
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
             'roles' => $roles,
         ]);
+
     }
 
     /**
@@ -140,8 +143,6 @@ class EmployeeController extends ParentController
             }
         }
         else {
-            //var_dump('frr');
-            //exit(0);
             return $this->render('update', [
                 'model' => $model,
                 'items_department' => $items_department,

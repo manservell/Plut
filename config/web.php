@@ -67,6 +67,10 @@ $config = [
             ],
         ],
     ],
+    //'aliases' => [
+       // '@photoemployees' => '/web',
+       // '@photopass' => realpath(__DIR__.'\..\web'),
+    //],
     'params' => $params,
 ];
 

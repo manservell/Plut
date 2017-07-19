@@ -14,7 +14,10 @@ use yii\helpers\ArrayHelper;
 
 <div class="employee-form">
 
-    <?php $form = ActiveForm::begin(); ?>
+    <?php $form = ActiveForm::begin([
+        'options' => ['enctype' => 'multipart/form-data'],
+        'enableClientValidation'=>false
+    ]); ?>
     <?php
         if(!empty($model->errors))
             var_dump($model->errors);
@@ -32,7 +35,7 @@ use yii\helpers\ArrayHelper;
                 <?= $form->field($model, 'photo')->fileInput(['accept' => 'image/*']) ?>
             </div>
             <div class="col-lg-4">
-                <?//= Html::img($model->getThumbUploadUrl('photo', 'preview'), ['class' => 'img-thumbnail']) ?>
+                <?=Html::img($model->getThumbUploadUrl('photo', 'preview'), ['class' => 'img-thumbnail']) ?>
             </div>
             <div class="col-lg-4">
                 <!-- Thumb 2 (preview profile) -->
@@ -44,7 +47,7 @@ use yii\helpers\ArrayHelper;
 
     <?= $form->field($model, 'sector_id')->dropDownList($items_sector,$params_sector);?>
 
-    <?= $form->field($model, 'department_id')->dropDownList($items_department,$params_department);?>
+    <?=$form->field($model, 'department_id')->dropDownList($items_department,$params_department);?>
 
     <?php
     $roles = AuthItem::find()->where('type = 1')->all();

@@ -70,15 +70,7 @@ class SiteController extends ParentController
      */
     public function actionIndex()
     {
-        $emp=Employee::find()
-            ->select('`employee`.`id`, `employee`.`sector_id`, `employee`.`department_id`, `first_name`,`middle_name`,`last_name`,`sector`.`sector`, `department_structure`.`structure_category`, `status`')
-            ->leftJoin('sector', '`employee`.`sector_id` = `sector`.`id`')
-            ->leftJoin('department_structure', '`employee`.`department_id` = `department_structure`.`id`')
-            ->with('sectors')
-            ->with('departments')
-            ->all();
-
-        return $this->render('employee',
+        return $this->render('index',
             [
             'yui' => $emp
             ]
@@ -90,89 +82,6 @@ class SiteController extends ParentController
      *
      * @return string
      */
-
-    public function actionCode()
-    {
-        $codes=CodesWork::find()->all();
-        /*
-        echo "<pre>";
-        var_dump($kodes);
-        echo "</pre>";
-        exit(0);
-        */
-        return $this->render('code',
-            [
-                'cod' => $codes
-            ]
-        );
-    }
-
-    public function actionOrder()
-    {
-        $orders=Orders::find()->all();
-        return $this->render('order',
-            [
-                'order' => $orders
-            ]
-        );
-    }
-
-    public function actionProject()
-    {
-        $projects=Project::find()
-        /*    ->select('`number`, `name`, `customer`, `project`.`status`, `project`.`responsible_id`, `budget_hours`, `planned_end_date`, `actual_end_date`')
-            ->leftJoin('employee', '`project`.`responsible_id` = `employee`.`id`')
-            ->with('employees')
-        */
-            ->all();
-        return $this->render('project',
-            [
-                'project' => $projects
-            ]
-        );
-    }
-
-    public function actionCategory()
-    {
-        $categoryes=ProjectCategory::find()->all();
-        return $this->render('category',
-            [
-                'category' => $categoryes
-            ]
-        );
-    }
-
-    public function actionType()
-    {
-        $tps=WorkTypes::find()->all();
-        return $this->render('workTypes',
-            [
-                'tp' => $tps
-            ]
-        );
-    }
-
-    public function actionSector()
-    {
-        $sec=Sector::find()->all();
-        return $this->render('sector',
-            [
-                'sec' => $sec
-            ]
-        );
-    }
-
-
-    public function actionStructure()
-    {
-        $ds=DepartmentStructure::find()->all();
-        return $this->render('departmentStructure',
-            [
-                'ds' => $ds
-            ]
-        );
-    }
-
 
     public function actionLogin()
     {

@@ -3,6 +3,7 @@
 namespace app\models;
 
 use mongosoft\file\UploadImageBehavior;
+
 use Yii;
 
 /**
@@ -20,6 +21,7 @@ use Yii;
  * @property string $status
  */
 class Employee extends \yii\db\ActiveRecord
+
 {
 
     public $new_pass;
@@ -40,6 +42,7 @@ class Employee extends \yii\db\ActiveRecord
     {
         return [
             [['first_name', 'middle_name', 'last_name', 'department_id', 'sector_id', 'username'], 'required'],
+            [['photo'], 'required', 'on' => 'insert'],
             [['department_id', 'sector_id', 'status'], 'integer'],
             [['first_name', 'middle_name', 'last_name'], 'string', 'max' => 55],
             [['photo'], 'image', 'extensions' => 'jpg, jpeg, gif, png', 'on' => ['insert', 'update']],
@@ -132,6 +135,7 @@ class Employee extends \yii\db\ActiveRecord
             'photo_del' => Yii::t('app', 'Удалить фото'),
             'role' => Yii::t('app', 'Роль'),
             'new_pass' => Yii::t('app', 'Новый пароль'),
+            'photo_del' => Yii::t('app', 'Удалить фото'),
         ];
     }
 
@@ -175,12 +179,14 @@ class Employee extends \yii\db\ActiveRecord
                 'scenarios' => ['insert', 'update'],
                 'placeholder' => '@webroot/uploads/default-placeholder.png',
                 'path' => '@webroot/uploads/',
+                //'path' => '@photopass/uploads/',
                 'url' => '@web/uploads/',
+                //'url' => '@photoemployees/uploads/',
                 'unlinkOnSave' => true,
                 'unlinkOnDelete' => true,
                 'thumbs' => [
                     'thumb' => ['width' => 400, 'quality' => 90],
-                    'preview' => ['width' => 200, 'height' => 200],
+                    'preview' => ['width' => 200, 'height' => 200],// меняет размер фотографии в update
                     'news_thumb' => ['width' => 200, 'height' => 200, 'bg_color' => '000'],
                 ],
             ],
